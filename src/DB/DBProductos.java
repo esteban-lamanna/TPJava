@@ -76,50 +76,6 @@ public class DBProductos extends DBAdapter
 		
 	}
 	
-	public ArrayList<Producto> buscaDuplicado(String nombre,String modelo)
-	{
-		ArrayList<Producto> prods=new ArrayList<Producto>();
-		Producto prod;
-		System.out.println("Nombre de entrada: "+nombre);
-		System.out.println("Modelo de entrada: " +modelo);
-		try
-		{
-		Statement st=conex.createStatement();
-		ResultSet rs=st.executeQuery("SELECT * FROM Productos");
-		while(rs.next())
-		{
-			System.out.println(rs.getString("nombre"));
-			System.out.println(rs.getString("modelo"));
-		if(rs.getString("nombre").equals(nombre) && rs.getString("modelo").equals(modelo))
-			{
-			System.out.println("Hay coincidencia");
-			prod=new Producto();
-			prod.setCodigo(rs.getInt("codigo"));
-			prod.setFoto(rs.getString("foto"));
-			prod.setModelo(rs.getString("modelo"));
-			prod.setNombre(rs.getString("nombre"));
-			prod.setPrecio(rs.getFloat("precio"));
-			prod.setTipo(rs.getString("tipo"));
-			prod.setDescripcion(rs.getString("Descripcion"));
-			prods.add(prod);
-			}
-		else
-		{
-			System.out.println("No Hay coincidencia");
-			
-		}
-		}
-		
-		return prods;
-	} catch (SQLException t) 
-	{
-		
-	t.printStackTrace();
-	return prods;
-	}
-		
-	}
-	
 	public ArrayList<Producto> buscaProductos(String nombre)
 	{
 		ArrayList<Producto> prods=new ArrayList<Producto>();
@@ -260,7 +216,9 @@ PreparedStatement preparedStatement = conex.prepareStatement("INSERT INTO Produc
 		}	
 		
 	}
-    public void añadeProducto(Hd prod)
+		
+	
+	public void añadeProducto(Hd prod)
 	{
 		try
 		{
@@ -307,7 +265,7 @@ PreparedStatement preparedStatement = conex.prepareStatement("INSERT INTO Produc
 		
 		Statement st=conex.createStatement();
 		st.execute("INSERT INTO Productos(nombre,modelo,descripcion,precio,foto,tipo," +
-		"cacheM,frecM,socketM) VALUES('"+prod.getNombre()+
+		"cacheM,frecM,socket) VALUES('"+prod.getNombre()+
 		"','"+prod.getModelo()+"','"+prod.getDescripcion()+"','"+prod.getPrecio()+"','"+prod.getFoto()+"'," +
 		"'"+prod.getTipo()+"','"+prod.getCaché()+"','"+prod.getFrecuencia()+"','"+prod.getSocket()+"')");
 	
@@ -437,36 +395,13 @@ PreparedStatement preparedStatement = conex.prepareStatement("INSERT INTO Produc
 	}
 	public void modificaProducto(Fuente prod)
 	{
-				
-			String sSQL = "UPDATE Productos " +
-             "SET nombre = ?," +
-             "modelo = ?," +
-             "descripcion = ?," +
-             "precio = ?," +
-             "foto = ?," +
-             "wattsF = ?," +
-             "amperajeF = ?" +
-             "WHERE codigo = '"+prod.getCodigo()+"'";
-
-
-
-try
- {
-	System.out.println("El codigo es: "+prod.getCodigo());
-     PreparedStatement pst = conex.prepareStatement(sSQL);
-     pst.setString(1, prod.getNombre());
-     pst.setString(2, prod.getModelo());
-     pst.setString(3, prod.getDescripcion());
-     pst.setFloat(4, prod.getPrecio());
-     pst.setString(5, prod.getFoto());
-     pst.setInt(6, prod.getWatts());
-     pst.setFloat(7, prod.getAmperaje());
-     int n = pst.executeUpdate();
-			
-     if(n > 0)
-     {
-         System.out.println("Modificado");
-     }
+		try
+		{
+		
+Statement st=conex.createStatement();
+st.execute("UPDATE Productos set (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'"
++",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"',wattsF='"+prod.getWatts()+"'" +
+",amperajeF='"+prod.getAmperaje()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
 
 	} catch (SQLException t) 
 		{
@@ -478,37 +413,11 @@ try
 	}
 	public void modificaProducto(Gabinete prod)
 	{
-		String sSQL = "UPDATE Productos " +
-        "SET nombre = ?," +
-        "modelo = ?," +
-        "descripcion = ?," +
-        "precio = ?," +
-        "foto = ?," +
-        "tamañoG = ?" +
-        "WHERE codigo = '"+prod.getCodigo()+"'";
-
-
-
-try
-{
-
-PreparedStatement pst = conex.prepareStatement(sSQL);
-pst.setString(1, prod.getNombre());
-pst.setString(2, prod.getModelo());
-pst.setString(3, prod.getDescripcion());
-pst.setFloat(4, prod.getPrecio());
-pst.setString(5, prod.getFoto());
-pst.setString(6, prod.getTamaño());
-
-int n = pst.executeUpdate();
-		
-if(n > 0)
-{
-    System.out.println("Modificado");
-}
-
-
-												
+		try
+		{
+Statement st=conex.createStatement();
+st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+		",precio="+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"',tamañoG='"+prod.getTamaño()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
 	
 	} catch (SQLException t) 
 		{
@@ -520,98 +429,51 @@ if(n > 0)
 	}
 	public void modificaProducto(RCable prod)
 	{
+		try
+		{
 		
-			String sSQL = "UPDATE Productos " +
-	        "SET nombre = ?," +
-	        "modelo = ?," +
-	        "descripcion = ?," +
-	        "precio = ?," +
-	        "foto = ?," +
-	        "velocidadPR = ?" +
-	        "WHERE codigo = '"+prod.getCodigo()+"'";
-
-
-
-	try
-	{
-
-	PreparedStatement pst = conex.prepareStatement(sSQL);
-	pst.setString(1, prod.getNombre());
-	pst.setString(2, prod.getModelo());
-	pst.setString(3, prod.getDescripcion());
-	pst.setFloat(4, prod.getPrecio());
-	pst.setString(5, prod.getFoto());
-	pst.setString(6, prod.getVelocidad());
-
-	int n = pst.executeUpdate();
-			
-	if(n > 0)
-	{
-	    System.out.println("Modificado");
-	}
-
-
-													
-		
-		}
-		 catch (SQLException t) 
+		Statement st=conex.createStatement();
+		st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+
+				"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"',precio='"+prod.getPrecio()+"'" +
+",foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"',velocidadPR='"+prod.getVelocidad()+"'" +
+		" where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
+	
+	} catch (SQLException t) 
 		{
 		
 		t.printStackTrace();
 	
 		}	
 		
+	}
+	public void modificaProducto(PWireless prod)
+	{
+		try
+		{
+		
+Statement st=conex.createStatement();
+st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"',seguridad='"+prod.getSeguridad()+"'," +
+		"velocidadPR='"+prod.getVelocidad()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
 	
-}
+	} catch (SQLException t) 
+		{
+		
+		t.printStackTrace();
+	
+		}	
+		
+	}
 	public void modificaProducto(PVideo prod)
 	{
-		System.out.println("Nombre: "+prod.getNombre());
-		System.out.println("Modelo: "+prod.getModelo());
-		System.out.println("Descripcion: "+prod.getDescripcion());
-		System.out.println("Precio: "+prod.getPrecio());
-		System.out.println("Foto: "+prod.getFoto());
-		System.out.println("Bus: "+prod.getAnchobus());
-		System.out.println("Cant: "+prod.getCantmem());
-		System.out.println("Frec: "+prod.getFrecuencia());
-		System.out.println("Pip: "+prod.getPipelines());
-		System.out.println("Shad: "+prod.getShaders());
-		System.out.println("Cod: "+prod.getCodigo());
-		 
+		try
+		{
 		
-		String sSQL = "UPDATE Productos " +
-        "SET nombre = ?," +
-        "modelo = ?," +
-        "descripcion = ?," +
-        "precio = ?," +
-        "foto = ?," +
-        "abusVGA  = ?," +
-        "cantmemVGA = ?," +
-        "frecVGA = ?," +
-        "pipelsVGA = ?," +
-        "shadersVGA = ? " +
-        "WHERE codigo = '"+prod.getCodigo()+"'";
-try
-{
-
-PreparedStatement pst = conex.prepareStatement(sSQL);
-pst.setString(1, prod.getNombre());
-pst.setString(2, prod.getModelo());
-pst.setString(3, prod.getDescripcion());
-pst.setFloat(4, prod.getPrecio());
-pst.setString(5, prod.getFoto());
-pst.setInt(6, prod.getAnchobus());
-pst.setInt(7, prod.getCantmem());
-pst.setFloat(8, prod.getFrecuencia());
-pst.setInt(9, prod.getPipelines());
-pst.setInt(10, prod.getShaders());
-
-int n = pst.executeUpdate();
-		
-if(n > 0)
-{
-    System.out.println("Modificado");
-}
-		
+Statement st=conex.createStatement();
+st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"'" +
+",abusvga='"+prod.getAnchobus()+"',cantmemVGA='"+prod.getCantmem()+"',frecVGA='"+prod.getFrecuencia()+"'" +
+",pipelsvga='"+prod.getPipelines()+"',shadersvga='"+prod.getShaders()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
 	
 	} catch (SQLException t) 
 		{
@@ -623,35 +485,13 @@ if(n > 0)
 	}
 	public void modificaProducto(PSonido prod)
 	{
-		String sSQL = "UPDATE Productos " +
-        "SET nombre = ?," +
-        "modelo = ?," +
-        "descripcion = ?," +
-        "precio = ?," +
-        "foto = ?," +
-        "jacksS = ?" +
-        "WHERE codigo = '"+prod.getCodigo()+"'";
-
-try
-{
-
-PreparedStatement pst = conex.prepareStatement(sSQL);
-pst.setString(1, prod.getNombre());
-pst.setString(2, prod.getModelo());
-pst.setString(3, prod.getDescripcion());
-pst.setFloat(4, prod.getPrecio());
-pst.setString(5, prod.getFoto());
-pst.setFloat(6, prod.getJacks());
-
-
-int n = pst.executeUpdate();
+		try
+		{
 		
-if(n > 0)
-{
-    System.out.println("Modificado");
-}
-		
-		
+		Statement st=conex.createStatement();
+st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"'," +
+		"jacksS='"+prod.getJacks()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
 	
 	} catch (SQLException t) 
 		{
@@ -662,38 +502,16 @@ if(n > 0)
 		
 	}
 	public void modificaProducto(PRed prod)
-	{String sSQL = "UPDATE Productos " +
-        "SET nombre = ?," +
-        "modelo = ?," +
-        "descripcion = ?," +
-        "precio = ?," +
-        "foto = ?," +
-        "velocidadPR = ?" +
-        
-        "WHERE codigo = '"+prod.getCodigo()+"'";
-
-
-
-try
-{
-
-PreparedStatement pst = conex.prepareStatement(sSQL);
-pst.setString(1, prod.getNombre());
-pst.setString(2, prod.getModelo());
-pst.setString(3, prod.getDescripcion());
-pst.setFloat(4, prod.getPrecio());
-pst.setString(5, prod.getFoto());
-pst.setString(6, prod.getVelocidad());
-int n = pst.executeUpdate();
+	{
+		try
+		{
 		
-if(n > 0)
-{
-    System.out.println("Modificado");
-}
-		
+		Statement st=conex.createStatement();
+st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"'" +
+				",velocidadPR='"+prod.getVelocidad()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
 	
-	} 
-		 catch (SQLException t) 
+	} catch (SQLException t) 
 		{
 		
 		t.printStackTrace();
@@ -703,53 +521,15 @@ if(n > 0)
 	}
 	public void modificaProducto(PlacaMadre prod)
 	{
-		String sSQL = "UPDATE Productos " +
-        "SET nombre = ?," +
-        "modelo = ?," +
-        "descripcion = ?," +
-        "precio = ?," +
-        "foto = ?," +
-        "socket = ?," +
-        "cantusbMO = ?," +
-        "usb30MO = ?," +
-        "cantPCIEMO = ?," +
-        "vOnboardMO = ?," +
-        "sOnboardMO = ?," +
-        "ChipsetMO = ?," +
-        "cantmaxmemMO = ? " +
-        "WHERE codigo = '"+prod.getCodigo()+"'";
+		try
+		{
 		
-
-
-
-try
-{
-
-PreparedStatement pst = conex.prepareStatement(sSQL);
-pst.setString(1, prod.getNombre());
-pst.setString(2, prod.getModelo());
-pst.setString(3, prod.getDescripcion());
-pst.setFloat(4, prod.getPrecio());
-pst.setString(5, prod.getFoto());
-pst.setString(6, prod.getSocket());
-pst.setInt(7, prod.getCantusb());
-pst.setInt(8, prod.getCantusb30());
-pst.setInt(9, prod.getCantPCIE());
-pst.setString(10, prod.getvOnboard());
-pst.setString(11, prod.getsOnboard());
-pst.setString(12, prod.getChipset());
-pst.setInt(13, prod.getCantmaxmem());
-
-int n = pst.executeUpdate();
-		
-if(n > 0)
-{
-    System.out.println("Modificado");
-}
-		
+		Statement st=conex.createStatement();
+		st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"',socket='"+prod.getSocket()+"',cantusbMO='"+prod.getCantusb()+"',usb30MO='"+prod.getCantusb30()+"',cantPCIEMO='"+prod.getCantPCIE()+"',vOnboardMO='"+prod.getvOnboard()+"',sOnboardMO='"+prod.getsOnboard()+"',ChipsetMO='"+prod.getChipset()+"',cantmaxmemMO='"+prod.getCantmaxmem()+"'   " +
+		" where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
 	
-	}
-		catch (SQLException t) 
+	} catch (SQLException t) 
 		{
 		
 		t.printStackTrace();
@@ -759,44 +539,13 @@ if(n > 0)
 	}
 	public void modificaProducto(Micro prod)
 	{
-
-		String sSQL = "UPDATE Productos " +
-        "SET nombre = ?," +
-        "modelo = ?," +
-        "descripcion = ?," +
-        "precio = ?," +
-        "foto = ?," +
-        "cacheM = ?," +
-        "frecM = ?," +
-        "socketM = ?" +
-        "WHERE codigo = '"+prod.getCodigo()+"'";
-
-
-
-try
-{
-
-PreparedStatement pst = conex.prepareStatement(sSQL);
-pst.setString(1, prod.getNombre());
-pst.setString(2, prod.getModelo());
-pst.setString(3, prod.getDescripcion());
-pst.setFloat(4, prod.getPrecio());
-pst.setString(5, prod.getFoto());
-pst.setInt(6, prod.getCaché());
-pst.setFloat(7, prod.getFrecuencia());
-pst.setString(8, prod.getSocket());
-
-
-int n = pst.executeUpdate();
+		try
+		{
 		
-if(n > 0)
-{
-    System.out.println("Modificado");
-}
-		
-	
-	
-
+		Statement st=conex.createStatement();
+st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"'" +
+		",cacheM='"+prod.getCaché()+"',frecM='"+prod.getFrecuencia()+"',socket='"+prod.getSocket()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
 	
 	} catch (SQLException t) 
 		{
@@ -809,43 +558,15 @@ if(n > 0)
 	}
 	public void modificaProducto(Memoria prod)
 	{
-		String sSQL = "UPDATE Productos " +
-        "SET nombre = ?," +
-        "modelo = ?," +
-        "descripcion = ?," +
-        "precio = ?," +
-        "foto = ?," +
-        "cantmemMEM = ?," +
-        "frecMEM = ?," +
-        "latenciaMEM = ?" +
-        "WHERE codigo = '"+prod.getCodigo()+"'";
-
-
-
-try
-{
-
-PreparedStatement pst = conex.prepareStatement(sSQL);
-pst.setString(1, prod.getNombre());
-pst.setString(2, prod.getModelo());
-pst.setString(3, prod.getDescripcion());
-pst.setFloat(4, prod.getPrecio());
-pst.setString(5, prod.getFoto());
-pst.setInt(6, prod.getCantmen());
-pst.setFloat(7, prod.getFrecuencia());
-pst.setString(8, prod.getLatencia());
-
-
-int n = pst.executeUpdate();
+		try
+		{
 		
-if(n > 0)
-{
-    System.out.println("Modificado");
-}
-		
+Statement st=conex.createStatement();
+st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"'" +
+"cantmemMEM='"+prod.getCantmen()+"',frecMEM='"+prod.getFrecuencia()+"',latenciaMEM='"+prod.getLatencia()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
 	
-	}
-		catch (SQLException t) 
+	} catch (SQLException t) 
 		{
 		
 		t.printStackTrace();
@@ -854,48 +575,16 @@ if(n > 0)
 		
 	}
 	public void modificaProducto(Hd prod)
-	{String sSQL = "UPDATE Productos " +
-        "SET nombre = ?," +
-        "modelo = ?," +
-        "descripcion = ?," +
-        "precio = ?," +
-        "foto = ?," +
-        "buffeHD = ?," +
-        "capHD = ?," +
-        "interfazHD = ?," +
-        "rpmHD = ?" +
-        "WHERE codigo = '"+prod.getCodigo()+"'";
-
-
-
-try
-{
-
-PreparedStatement pst = conex.prepareStatement(sSQL);
-pst.setString(1, prod.getNombre());
-pst.setString(2, prod.getModelo());
-pst.setString(3, prod.getDescripcion());
-pst.setFloat(4, prod.getPrecio());
-pst.setString(5, prod.getFoto());
-pst.setInt(6, prod.getBuffer());
-pst.setString(7, prod.getCapacidad());
-pst.setString(8, prod.getInterfaz());
-pst.setString(9, prod.getRpm());
-
-
-int n = pst.executeUpdate();
+	{
+		try
+		{
 		
-if(n > 0)
-{
-    System.out.println("Modificado");
-}
-		
+		Statement st=conex.createStatement();
+st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"'" +
+"buffeHD='"+prod.getBuffer()+"',capHD='"+prod.getCapacidad()+"',interfazHD='"+prod.getInterfaz()+"',rpmHD='"+prod.getRpm()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
 	
-	}
-		
-		
-		
- catch (SQLException t) 
+	} catch (SQLException t) 
 		{
 		
 		t.printStackTrace();

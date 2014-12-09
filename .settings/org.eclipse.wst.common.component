@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="Version 4.7">
+    <wb-module deploy-name="TP 3.9">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="Version_4.7"/>
-        <property name="java-output-path" value="/Version 4.7/build/classes"/>
+        <property name="context-root" value="TP_3.8"/>
+        <property name="java-output-path" value="/TP 3.9/build/classes"/>
     </wb-module>
 </project-modules>

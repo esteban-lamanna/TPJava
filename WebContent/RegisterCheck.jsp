@@ -12,7 +12,6 @@
 <body>
 <%
 			String dni = request.getParameter("dni");
-			
 	        String password = request.getParameter("password");
 	        String confirm_password = request.getParameter("passwordconfirm");
 	        String nombre = request.getParameter("nombre");
@@ -38,13 +37,12 @@
 	         * sin espacios y/o caracteres especiales.
 	         */
 	        
-	        String Errores = "";
 	        
 	        if(dni.isEmpty() || password.isEmpty() ||  confirm_password.isEmpty() ||  nombre.isEmpty() || apellido.isEmpty() || localidad.isEmpty() || direccion.isEmpty() || direnvios.isEmpty() || edad.isEmpty() || emailUsuario.isEmpty())
 	        {
 	        	//campos vacios
-	        	Errores += " No puede haber campos vacíos";
-	        	
+	        	System.out.println("error por campo vacio");
+	        	response.sendRedirect("Error.jsp");
 	            
 	        } else 
 	        	{
@@ -52,9 +50,8 @@
 		            if(!m.find())
 		            {
 		            	//direccion de email invalida.
-		            	Errores += "Direccion de email invalida";
-		            	
-		            	
+		            	System.out.println("error direccion de email invalida");
+		            	response.sendRedirect("Error.jsp");
 		                
 		            } else 
 		            	{
@@ -73,8 +70,7 @@
 			                                if(false)
 			                                {
 			                                	//error, direccion y/o dni ya registrado
-			                                	Errores+=" DNI ya registrado";
-			                                	
+			                                	response.sendRedirect("Error.jsp");
 			                                } else 
 			                                {
 			                                    
@@ -87,16 +83,16 @@
 			                            
 			                            
 			                             
-			                        } catch (Exception e) { out.println(" Ocurrio la sig exception: " +e); }
+			                        } catch (Exception e) { out.println("Ocurrio la sig exception: " +e); }
 			                        
 			                        
 			                        
 			                    } 
 			                    else 
 			                    {
-			                    	Errores+=" Error por Contraseñas distintas";
+			                    	System.out.println("Error por Contraseñas distintas");
 			                    	// error las contraseñas son =
-			                    	
+			                    	response.sendRedirect("Error.jsp");
 			                        
 			                    }
 		                    
@@ -105,22 +101,16 @@
 			                
 			                {
 			                	//contraseña invalida
-			                	Errores += " Error por Contraseñas invalidas";
-			                	
+			                	System.out.println("Error por Contraseñas invalida");
+			                	response.sendRedirect("Error.jsp");
 			                   
 			                }
 	                
 	                
 	            }
 	        }
-
-	       // request.setAttribute("Errores", Errores);
-	       // response.sendRedirect("Error.jsp");
-	        %>
-	        <%if(Errores!=""){%>
-	        	  <%= "Los siguientes errores fueron encontrados "+Errores%>
-	        	  <%}%>
-	        	 
 	        
+	        
+	        %>
 </body>
 </html>

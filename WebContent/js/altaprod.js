@@ -1,6 +1,6 @@
 function validar()
 { 
-	   	
+	   	 
     var bien = true;
    	var errores = "";
    	

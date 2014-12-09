@@ -288,33 +288,17 @@ public String nuevoProducto(String nombre,String modelo,String descripcion,float
 			
 		}
 
-public String modificaProducto(String nombre,String modelo,String descripcion,float precio,String capHD,String interfazHD,String rpmHD,String bufferHD,
-		String wattsF,String amperajeF,String frecM,String cacheM,String SocketM,String jacksS,String tamañoG,String velocidadPR,String cantUSBMO,
-		String cantpcieMO,String vonboardMO,String sonboardMO,String chipsetMO,String USB30MO,String cantmaxmemMO,String frecMem,String latenciaMem,String cantmemMem,String frecvga,
-		String abusvga,String cantmemVGA,String pipelsvga,String shadersvga,String socket,String foto,String tipo,String codigo)
+public void modificaProducto(String codigo,String nombre,String modelo,String descripcion,float precio,String capHD,String interfazHD,String rpmHD,int bufferHD,
+		String wattsF,String amperajeF,int frecM,int cacheM,String SocketM,float jacksS,String tamañoG,String velocidadPR,String tecnologiaPR,int cantUSBMO,
+		int cantpcieMO,String vonboardMO,String sonboardMO,String chipsetMO,int USB30MO,int cantmaxmemMO,int frecMem,String latenciaMem,int cantmemMem,int frecvga,
+		int abusvga,int cantmemVGA,int pipelsvga,int shadersvga,String socket,String foto,String tipo,boolean antena,String seguridad)
 {
-	ArrayList<Producto> prods=ProductosDB.buscaDuplicado(nombre, modelo);
-	String error=null;
-
-	for(int i=0;i<prods.size();i++)
-	{
-		System.out.println("Nombre en ctrl: "+prods.get(i).getNombre());
-		System.out.println("Modelo en ctrl: "+prods.get(i).getModelo());
-		if(nombre.equals(prods.get(i).getNombre()) && modelo.equals(prods.get(i).getModelo()) && Integer.parseInt(codigo)!=prods.get(i).getCodigo())
-		{
-			System.out.println("Entre a coincidencias");
-			error="El nombre y modelo de ese producto ya existe en otro producto el sistema";
-			return error;
-		}
-		
-		
-	}
-	
-	Prods enumval = Prods.valueOf(tipo.toUpperCase());
+	productoActual=ProductosDB.buscaProducto(nombre,modelo);
+	Prods enumval = Prods.valueOf(productoActual.getTipo());
 	switch(enumval)
 	{
 	case FUENTE:
-	Fuente fu=new Fuente();
+	Fuente fu=(Fuente)productoActual;
 	fu.setDescripcion(descripcion);
 	fu.setFoto(foto);
 	fu.setModelo(modelo);
@@ -323,12 +307,11 @@ public String modificaProducto(String nombre,String modelo,String descripcion,fl
 	fu.setTipo(tipo);
 	fu.setAmperaje(Float.parseFloat(amperajeF));
 	fu.setWatts(Integer.parseInt(wattsF));
-	fu.setCodigo(Integer.parseInt(codigo));
 	ProductosDB.modificaProducto(fu);
 	break;
 	
     case GABINETE:
-    	 Gabinete gab=new Gabinete();
+    	 Gabinete gab=(Gabinete)productoActual;
     	 gab.setDescripcion(descripcion);
     	 gab.setFoto(foto);
     	 gab.setModelo(modelo);
@@ -336,82 +319,77 @@ public String modificaProducto(String nombre,String modelo,String descripcion,fl
     	 gab.setPrecio(precio);
     	 gab.setTipo(tipo);
     	 gab.setTamaño(tamañoG);
-    	 gab.setCodigo(Integer.parseInt(codigo));
     	 ProductosDB.modificaProducto(gab);
     	  break;
     	  
     	  
       case HD:
-    	  Hd hard=new Hd();
+    	  Hd hard=(Hd)productoActual;
     	  hard.setDescripcion(descripcion);
     	  hard.setFoto(foto);
     	  hard.setModelo(modelo);
     	  hard.setNombre(nombre);
     	  hard.setPrecio(precio);
     	  hard.setTipo(tipo);
-    	  hard.setBuffer(Integer.parseInt(bufferHD));
+    	  hard.setBuffer(bufferHD);
     	  hard.setCapacidad(capHD);
     	  hard.setInterfaz(interfazHD);
     	  hard.setRpm(rpmHD);
-    	  hard.setCodigo(Integer.parseInt(codigo));
     	  ProductosDB.modificaProducto(hard);
     	  break;
     	  
     	  
       case MEMORIA:
-    	  Memoria mem=new Memoria();
+    	  Memoria mem=(Memoria)productoActual;
     	  mem.setDescripcion(descripcion);
     	  mem.setFoto(foto);
     	  mem.setModelo(modelo);
     	  mem.setNombre(nombre);
     	  mem.setPrecio(precio);
     	  mem.setTipo(tipo);
-    	  mem.setCantmen(Integer.parseInt(cantmemMem));
-    	  mem.setFrecuencia(Float.parseFloat(frecMem));
+    	  mem.setCantmen(cantmemMem);
+    	  mem.setFrecuencia(frecMem);
     	  mem.setLatencia(latenciaMem);
-    	  mem.setCodigo(Integer.parseInt(codigo));
     	  ProductosDB.modificaProducto(mem);
     	  break;
     	  
       case MICRO:
-    	  Micro micro=new Micro();
+    	  Micro micro=(Micro)productoActual;
     	  micro.setDescripcion(descripcion);
     	  micro.setFoto(foto);
     	  micro.setModelo(modelo);
     	  micro.setNombre(nombre);
     	  micro.setPrecio(precio);
     	  micro.setTipo(tipo);
-    	  micro.setCaché(Integer.parseInt(cacheM));
-    	  micro.setFrecuencia(Float.parseFloat(frecM));
+    	  micro.setCaché(cacheM);
+    	  micro.setFrecuencia(frecM);
     	  micro.setSocket(SocketM);
-    	  micro.setCodigo(Integer.parseInt(codigo));
     	  ProductosDB.modificaProducto(micro);
     	  break;
     	  
     	  
       case PLACAMADRE:
-    	  PlacaMadre plat=new PlacaMadre();
+    	  PlacaMadre plat=(PlacaMadre)productoActual;
     	  plat.setDescripcion(descripcion);
     	  plat.setFoto(foto);
     	  plat.setModelo(modelo);
     	  plat.setNombre(nombre);
     	  plat.setPrecio(precio);
     	  plat.setTipo(tipo);
-    	  plat.setCantusb(Integer.parseInt(cantUSBMO));
-    	  plat.setCantPCIE(Integer.parseInt(cantpcieMO));
-    	  plat.setCantmaxmem(Integer.parseInt(cantmaxmemMO));
-    	  plat.setCantusb30(Integer.parseInt(USB30MO));
+    	  plat.setCantusb(cantUSBMO);
+    	  plat.setCantPCIE(cantpcieMO);
+    	  plat.setCantmaxmem(cantmaxmemMO);
+    	  plat.setCantusb30(USB30MO);
     	  plat.setChipset(chipsetMO);
     	  plat.setSocket(socket);
     	  plat.setvOnboard(vonboardMO);
     	  plat.setsOnboard(sonboardMO);
-    	  plat.setCodigo(Integer.parseInt(codigo));
     	  ProductosDB.modificaProducto(plat);
     	  break;
     	  
     	  
       case PRED:
-    	  PRed pr=new PRed();
+    	  PRed pr=(PRed)productoActual;
     	  pr.setDescripcion(descripcion);
     	  pr.setFoto(foto);
     	  pr.setModelo(modelo);
@@ -419,54 +397,51 @@ public String modificaProducto(String nombre,String modelo,String descripcion,fl
     	  pr.setPrecio(precio);
     	  pr.setTipo(tipo);
     	  pr.setVelocidad(velocidadPR);
-    	  pr.setCodigo(Integer.parseInt(codigo));
     	  ProductosDB.modificaProducto(pr);
     	  break;
     	  
     	  
       case PSONIDO:
-    	  PSonido ps=new PSonido();
+    	  PSonido ps=(PSonido)productoActual;
     	  ps.setDescripcion(descripcion);
     	  ps.setFoto(foto);
     	  ps.setModelo(modelo);
     	  ps.setNombre(nombre);
     	  ps.setPrecio(precio);
     	  ps.setTipo(tipo);
-    	  ps.setJacks(Float.parseFloat(jacksS));
-    	  ps.setCodigo(Integer.parseInt(codigo));
+    	  ps.setJacks(jacksS);
     	  ProductosDB.modificaProducto(ps);
     	  break;
     	  
       case PVIDEO:
-    	  PVideo pv=new PVideo();
+    	  PVideo pv=(PVideo)productoActual;
     	  pv.setDescripcion(descripcion);
     	  pv.setFoto(foto);
     	  pv.setModelo(modelo);
     	  pv.setNombre(nombre);
     	  pv.setPrecio(precio);
     	  pv.setTipo(tipo);
-    	  pv.setAnchobus(Integer.parseInt(abusvga));
-    	  pv.setCantmem(Integer.parseInt(cantmemVGA));
-    	  pv.setFrecuencia(Float.parseFloat(frecvga));
-    	  pv.setPipelines(Integer.parseInt(pipelsvga));
-    	  pv.setShaders(Integer.parseInt(shadersvga));
-    	  pv.setCodigo(Integer.parseInt(codigo));
+    	  pv.setAnchobus(abusvga);
+    	  pv.setCantmem(cantmemVGA);
+    	  pv.setFrecuencia(frecvga);
+    	  pv.setPipelines(pipelsvga);
+    	  pv.setShaders(shadersvga);
     	  ProductosDB.modificaProducto(pv);
     	  break;
       case PWIRELESS:
-    	  PWireless PW=new PWireless();
+    	  PWireless PW=(PWireless)productoActual;
     	  PW.setDescripcion(descripcion);
     	  PW.setFoto(foto);
     	  PW.setModelo(modelo);
     	  PW.setNombre(nombre);
     	  PW.setPrecio(precio);
     	  PW.setTipo(tipo);
+    	  PW.setSeguridad(seguridad);
     	  PW.setVelocidad(velocidadPR);
-    	  PW.setCodigo(Integer.parseInt(codigo));
     	  ProductosDB.modificaProducto(PW);
     	  break;
       	case RCABLE:
-    	  RCable cab=new RCable();
+    	  RCable cab=(RCable)productoActual;
     	  cab.setDescripcion(descripcion);
     	  cab.setFoto(foto);
     	  cab.setModelo(modelo);
@@ -474,12 +449,10 @@ public String modificaProducto(String nombre,String modelo,String descripcion,fl
     	  cab.setPrecio(precio);
     	  cab.setTipo(tipo);
     	  cab.setVelocidad(velocidadPR);
-    	  cab.setCodigo(Integer.parseInt(codigo));
     	  ProductosDB.modificaProducto(cab);
     	  break;
 	
 	}
-	return error;
 	
 }
 
@@ -670,72 +643,6 @@ public ArrayList<Producto>BusquedaExhaustiva(String parametro)
 		return(ProductosDB.borraProducto(codigo));
 	}
 
-	public Producto buscaProducto(String codi, String tipo)
-	{
-		int cod=Integer.parseInt(codi);
-		Prods enumval = Prods.valueOf(tipo.toUpperCase());
-		ArrayList<Producto> prodss=new ArrayList();
-		switch(enumval)
-		{
-		case FUENTE:
-		prodss=ProductosDB.buscaFuentes();
-		break;
-		
-	    case GABINETE:
-	    	prodss=ProductosDB.buscaGabinetes();
-	    	  break;
-	    	  	    	  
-	      case HD:
-	    	  prodss=ProductosDB.buscaHds();
-	    	  break;
-	    	  
-	    	  
-	      case MEMORIA:
-	    	  prodss=ProductosDB.buscaMemorias();
-	    	  break;
-	    	  
-	      case MICRO:
-	    	  prodss=ProductosDB.buscaMicros();
-	    	  break;
-	    	  
-	    	  
-	      case PLACAMADRE:
-	    	  prodss=ProductosDB.buscaPlacasMadres();
-	    	  break;
-	    	  
-	    	  
-	      case PRED:
-	    	  prodss=ProductosDB.buscaPredss();
-	    	  break;
-	    	  
-	    	  
-	      case PSONIDO:
-	    	  prodss=ProductosDB.buscaPsonidos();
-	    	  break;
-	    	  
-	      case PVIDEO:
-	    	  prodss=ProductosDB.buscaPlacaVideos();
-	    	  break;
-	      
-	      	case RCABLE:
-	      		prodss=ProductosDB.buscaRcables();
-	    	  break;
-		
-		}
-		for (int i=0; i<prodss.size();i++)
-		{
-			if(prodss.get(i).getCodigo()==cod)
-			{
-				return prodss.get(i);
-				
-			}
-			
-		}
-		
-		return null;
-		
-		
-	}
 }
 
 		

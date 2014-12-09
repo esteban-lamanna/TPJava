@@ -7,10 +7,6 @@
 <title>Error en LOGIN</title>
 </head>
 <body>
-<%
-String errores = request.getParameter("Errores");
-%>
-<%=errores %>
 
 </body>
 </html>
