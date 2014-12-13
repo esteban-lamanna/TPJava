@@ -232,8 +232,7 @@ function validarEnvio(){
        <div class="options"></div>
        	<div id="content">
 		        
-<form id="Registro" class="dark-matter texto-form" action="Usuarios" method="post" > 
-		        <!--Comentario en HTML	        <form id="Registro" class="dark-matter texto-form" action="RegisterCheck.jsp" method="post" >-->
+				<form id="Registro" class="dark-matter texto-form" action="Usuarios" method="post" > 
 		        	<h1>Registro</h1>
 		        	<p>
 						<label>

@@ -12,9 +12,6 @@ public class CarritoCompra
 		productosCarro.add(p);
 	}
 	
-	
-	
-
 	public int getDni() {
 		return dni;
 	}
@@ -25,9 +22,6 @@ public class CarritoCompra
 	public void setDni(int dni) {
 		this.dni = dni;
 	}
-
-
-
 
 	public ArrayList<Producto> getProductosCarro() 
 	{
