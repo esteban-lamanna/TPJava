@@ -33,6 +33,7 @@
 			<h1 id="logo"><a href="#"></a></h1>
 			<div id="navigation">
 				<ul id="sddm">
+<<<<<<< HEAD
 				<%if(session.getAttribute("username")!= null)
 					{%>
 				<li><a href="EdicionUsuario.jsp"> Hola <%=session.getAttribute("username")%></a>
@@ -46,25 +47,25 @@
 					
 					 <li>
 				    <a href="#" 
+=======
+				    <li><a href="#" 
+>>>>>>> origin/master
 				        onmouseover="mopen('m2')" 
-				        onmouseout="mclosetime()">Ingresar</a></li>
-				        <div id="m2" style="z-index: 3;" onmouseover="mcancelclosetime()" 
+				        onmouseout="mclosetime()">Ingresar</a>
+				        <div id="m2" 
+				            onmouseover="mcancelclosetime()" 
 				            onmouseout="mclosetime()" align="center">
-							  <form action="LoginCheck.jsp" method="get" class="login">
-							    <input type="text" name="dni" class="input-login" placeholder="Dni" style="margin-bottom: 10px;">
+							  <form action="LoginCheck.jsp" method="get" class="login" style="margin-top: 0px;">
+							    <input type="text" name="dni" class="input-login" placeholder="Documento" style="margin-bottom: 10px;">
 							    <br>
 							    <input type="password" name="password" class="input-login" placeholder="Password" style="margin-bottom: 15px;">
 							    <br>
 							    <input type="submit" value="Login" class="login-submit">
 							  </form>
 				        </div>
-				   <li><a href="Registro.jsp">Registrarme</a></li>
-				        	<%} %>
-				   
-				    <li class="last"><a href="#">Home</a></li>
+				    </li>
+				    <li class="last"><a href="Registro.jsp">Registrarse</a></li>
 				</ul>
-						
-			
 				<div style="clear:both"></div>
 			</div>
 		</div>
@@ -175,9 +176,7 @@
 							closetimer = null;
 						}
 					}
-					
-					// close layer when click-out
-				//m2.onclick = mclose; 
+
 				
 				$(document).ready(function() {
 					$('#submit').click(function(event) {
@@ -196,7 +195,10 @@
 					});
 				});
 
+<<<<<<< HEAD
 				
+=======
+>>>>>>> origin/master
 				
 			      $.ajax({
 					    type: "POST",
@@ -369,10 +371,10 @@
 					
 					function agregar(cod)
 				      {
-					
+						
 						      $.ajax({
-						    	type: "POST",
-						        url: "AgregaCarros",
+							    type: "POST",
+							    url: "AgregaCarros",
 							    data: {'cod':cod},
 							    success: function(a) {
 						                $('#results').html(a);
