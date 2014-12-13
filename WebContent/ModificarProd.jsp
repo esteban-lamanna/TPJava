@@ -59,7 +59,7 @@ String jacks=request.getParameter("jacks");
 String velocidadr=request.getParameter("velocidadr");
 
 String error;
-error=contr.modificaProducto(nombreprod,modelo,descripcion,precio,capHD,interfaz,rpm,buffer,watts,amperaje,frecuenciamicro,cachemicro,socketmicro,jacks,taman,velocidadr,cantusb,cantpcie,videoonboard,sonidoonboard,chipset,cantusb3,cantmaxmemmo,frecuenciamem,latencia,capacidadmem,frecuenciavideo,anchobus,cantmemvideo,pipelines,shaders,socketmo,foto,tipo,codigo);
+error=contr.modificaProducto(nombreprod,modelo,descripcion,precio,Float.parseFloat(capHD),interfaz,rpm,buffer,watts,amperaje,frecuenciamicro,cachemicro,socketmicro,jacks,taman,velocidadr,cantusb,cantpcie,videoonboard,sonidoonboard,chipset,cantusb3,cantmaxmemmo,frecuenciamem,latencia,capacidadmem,frecuenciavideo,anchobus,cantmemvideo,pipelines,shaders,socketmo,foto,tipo,codigo);
 
 if(error!=null)
 { 

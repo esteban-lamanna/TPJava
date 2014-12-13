@@ -17,6 +17,68 @@
 <title>Registro</title>
 
 
+
+</head>
+    <body>
+    <!-- Top -->
+		
+				<!-- Header -->
+				<div id="header" style="color: #ff0000">
+					<h1 id="logo"><a href="#"></a></h1>
+			    </div>
+       <div id="main" >
+       <div class="shell">
+       <div class="options"></div>
+       	<div id="content">
+		        
+<form id="Registro" class="dark-matter texto-form" action="Usuarios" method="post" > 
+		        <!--Comentario en HTML	        <form id="Registro" class="dark-matter texto-form" action="RegisterCheck.jsp" method="post" >-->
+		        	<h1>Registro</h1>
+		        	<p>
+						<label>
+				        	<span>Dni: </span> <input type="text" id="dni" >
+						</label>
+						<label>
+				        	<span>Contraseña: </span> <input type="password" id="password">
+						</label>
+						<label>
+				            <span>Confirma contraseña: </span> <input type="password" id="passwordconfirm">
+						</label>
+						<label>
+				            <span>Nombre: </span> <input type="text" id="nombre">
+						</label>
+						<label>
+				            <span>Apellido: </span> <input type="text" id="apellido">
+						</label>
+						<label>
+				            <span>Dirección: </span> <input type="text" id="direccion">
+						</label>
+						<label>
+				            <span>Dirección de Envios: </span> <input type="text" id="direnvios">
+						</label>
+						<label>
+				            <span>Localidad: </span> <input type="text" id="localidad">
+						</label>
+						<label>
+				            <span>Edad: </span> <input type="text" id="edad">
+						</label>
+						<label>
+				            <span>Mail: </span> <input type="text" id="email">
+				        </label>
+				        <label>
+				        	<span>&nbsp</span>
+				        	<input type="button" value="Volver" onclick="location.href = 'Index.jsp' "> 
+				        	<input type="submit" value="Registrarse" >
+				        	
+				        </label>
+				       </p> 
+			     </form>
+	        </div>
+	    </div>
+ 	 </div>
+ 	 
+</body>
+</html>
 <script type="text/javascript">
 
 //Funcion para validar DNI
@@ -198,65 +260,3 @@ function validarEnvio(){
 }
 
 </script>
-
-</head>
-    <body>
-    <!-- Top -->
-		
-				<!-- Header -->
-				<div id="header" style="color: #ff0000">
-					<h1 id="logo"><a href="#"></a></h1>
-			    </div>
-       <div id="main" >
-       <div class="shell">
-       <div class="options"></div>
-       	<div id="content">
-		        
-<form id="Registro" class="dark-matter texto-form" action="Usuarios" method="post" > 
-		        <!--Comentario en HTML	        <form id="Registro" class="dark-matter texto-form" action="RegisterCheck.jsp" method="post" >-->
-		        	<h1>Registro</h1>
-		        	<p>
-						<label>
-				        	<span>Dni: </span> <input type="text" id="dni" >
-						</label>
-						<label>
-				        	<span>Contraseña: </span> <input type="password" id="password">
-						</label>
-						<label>
-				            <span>Confirma contraseña: </span> <input type="password" id="passwordconfirm">
-						</label>
-						<label>
-				            <span>Nombre: </span> <input type="text" id="nombre">
-						</label>
-						<label>
-				            <span>Apellido: </span> <input type="text" id="apellido">
-						</label>
-						<label>
-				            <span>Dirección: </span> <input type="text" id="direccion">
-						</label>
-						<label>
-				            <span>Dirección de Envios: </span> <input type="text" id="direnvios">
-						</label>
-						<label>
-				            <span>Localidad: </span> <input type="text" id="localidad">
-						</label>
-						<label>
-				            <span>Edad: </span> <input type="text" id="edad">
-						</label>
-						<label>
-				            <span>Mail: </span> <input type="text" id="email">
-				        </label>
-				        <label>
-				        	<span>&nbsp</span>
-				        	<input type="button" value="Volver" onclick="location.href = 'Index.jsp' "> 
-				        	<input type="submit" value="Registrarse" >
-				        	
-				        </label>
-				       </p> 
-			     </form>
-	        </div>
-	    </div>
- 	 </div>
- 	 
-</body>
-</html>
