@@ -49,6 +49,7 @@ public class Usuarios extends HttpServlet {
         String emailUsuario = request.getParameter("email");
         Controlador_encar contr=new Controlador_encar();
        
+        System.out.print(emailUsuario);
         
         
         Pattern p = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"

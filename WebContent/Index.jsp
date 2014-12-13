@@ -108,9 +108,7 @@
 					<a href="#" class="cart-ico">&nbsp;</a>
 					<strong>$0.00</strong>
 				</span>
-				<span class="left more-links">
-					<a id="MiCuenta" href="#"></a>
-				</span>
+				
 			</div>
 		</div>
 		<!-- End Search, etc -->
@@ -131,7 +129,6 @@
 				    <li><a id="tab8"><span>Placa Red</span></a></li>
 				    <li><a id="tab9"><span>Placa Sonido</span></a></li>
 				    <li><a id="tab10"><span>Cable Red</span></a></li>
-				    <li><a id="tab11"><span>Busqueda</span></a></li>
 				</ul>
 			</div>
 				<script type="text/javascript">
@@ -180,10 +177,8 @@
 				
 				$(document).ready(function() {
 					$('#submit').click(function(event) {
-						deselecionar();
+						actualizarTabs();
 						var buscarVar = $('#buscar').val();
-						var nodo = document.getElementById("tab11");
-						nodo.className = "active";
 					      $.ajax({
 							    type: "POST",
 							    url: "Busqueda",
@@ -196,9 +191,22 @@
 				});
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 				
 =======
 >>>>>>> origin/master
+=======
+				function actualizarTabs()
+				{			
+					$.ajax({
+					    type: "POST",
+					    url: "tabs",
+					    success: function(a) {
+				                $('#tabs').html(a);
+					    }
+				       });
+				}
+>>>>>>> parent of 9f76646... mergeado correctamente
 				
 			      $.ajax({
 					    type: "POST",
@@ -230,8 +238,6 @@
 						nodo9.classList.remove("active");
 						var nodo10 = document.getElementById("tab10");
 						nodo10.classList.remove("active");
-						var nodo11 = document.getElementById("tab11");
-						nodo11.classList.remove("active");
 			      };
 			      
 					$(document).ready(function() {
@@ -338,6 +344,21 @@
 						       });
 						   });
 						});		
+					
+					$(document).ready(function() {
+						   $('#tab9').click(function(){
+							   deselecionar();
+								var nodo = document.getElementById("tab8");
+								nodo.className = "active";
+						      $.ajax({
+							    type: "POST",
+							    url: "PlacaRed",
+							    success: function(a) {
+						                $('#results').html(a);
+							    }
+						       });
+						   });
+						});	
 					
 					$(document).ready(function() {
 						   $('#tab9').click(function(){
