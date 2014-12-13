@@ -15,70 +15,6 @@
     <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
 <title>Registro</title>
-
-
-
-</head>
-    <body>
-    <!-- Top -->
-		
-				<!-- Header -->
-				<div id="header" style="color: #ff0000">
-					<h1 id="logo"><a href="#"></a></h1>
-			    </div>
-       <div id="main" >
-       <div class="shell">
-       <div class="options"></div>
-       	<div id="content">
-		        
-<form id="Registro" class="dark-matter texto-form" action="Usuarios" method="post" > 
-		        <!--Comentario en HTML	        <form id="Registro" class="dark-matter texto-form" action="RegisterCheck.jsp" method="post" >-->
-		        	<h1>Registro</h1>
-		        	<p>
-						<label>
-				        	<span>Dni: </span> <input type="text" id="dni" >
-						</label>
-						<label>
-				        	<span>Contraseña: </span> <input type="password" id="password">
-						</label>
-						<label>
-				            <span>Confirma contraseña: </span> <input type="password" id="passwordconfirm">
-						</label>
-						<label>
-				            <span>Nombre: </span> <input type="text" id="nombre">
-						</label>
-						<label>
-				            <span>Apellido: </span> <input type="text" id="apellido">
-						</label>
-						<label>
-				            <span>Dirección: </span> <input type="text" id="direccion">
-						</label>
-						<label>
-				            <span>Dirección de Envios: </span> <input type="text" id="direnvios">
-						</label>
-						<label>
-				            <span>Localidad: </span> <input type="text" id="localidad">
-						</label>
-						<label>
-				            <span>Edad: </span> <input type="text" id="edad">
-						</label>
-						<label>
-				            <span>Mail: </span> <input type="text" id="email">
-				        </label>
-				        <label>
-				        	<span>&nbsp</span>
-				        	<input type="button" value="Volver" onclick="location.href = 'Index.jsp' "> 
-				        	<input type="submit" value="Registrarse" >
-				        	
-				        </label>
-				       </p> 
-			     </form>
-	        </div>
-	    </div>
- 	 </div>
- 	 
-</body>
-</html>
 <script type="text/javascript">
 
 //Funcion para validar DNI
@@ -96,9 +32,10 @@ function validarExistenciaDNI(dni)
 function validarEmail( email ) 
 {
 expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-if ($(email).val().match(expr))
 
-//if (expr.test(email))
+if (expr.test(email))
+
+
 	{
 	return true;
 	}
@@ -128,6 +65,15 @@ debugger;
      		} 
 }
 
+function validarPass(pass)
+{
+	debugger;
+	 $.ajax({
+		    type: "POST",
+		    url: "Validador/isUsernameOrPasswordValid",
+		    data: {'$cadena':pass},
+		    success: function (result){ return result;},
+ });}
 
 function validarEnvio(){ 
 	debugger;
@@ -164,6 +110,16 @@ function validarEnvio(){
       	 return false; 
    	} 
   	
+  	if(!validarPass($("#password").val()))
+  		{
+  		
+  	 alert("Debe ingresar una contraseña sin caracteres especiales y de más de 6 caracteres");
+  	 $('#password').focus(); 
+  	 return false;
+  		}
+
+  	
+ 
   	if($("#password").val()!=$("#passwordconfirm").val())
 {
   		alert("La contraseña y su confirmación deben ser iguales");
@@ -243,8 +199,9 @@ function validarEnvio(){
       	 $('#email').focus(); 
       	 return false; 
    	}
+
 	
-	
+	debugger;
 	//Valido el EMAIL
 	if(!validarEmail(email))
 		{
@@ -260,3 +217,68 @@ function validarEnvio(){
 }
 
 </script>
+
+
+</head>
+    <body>
+    <!-- Top -->
+		
+				<!-- Header -->
+				<div id="header" style="color: #ff0000">
+					<h1 id="logo"><a href="#"></a></h1>
+			    </div>
+       <div id="main" >
+       <div class="shell">
+       <div class="options"></div>
+       	<div id="content">
+		        
+<form id="Registro" class="dark-matter texto-form" action="Usuarios" method="post" > 
+		        <!--Comentario en HTML	        <form id="Registro" class="dark-matter texto-form" action="RegisterCheck.jsp" method="post" >-->
+		        	<h1>Registro</h1>
+		        	<p>
+						<label>
+				        	<span>Dni: </span> <input type="text" id="dni" name="dni" >
+						</label>
+						<label>
+				        	<span>Contraseña: </span> <input type="password" id="password" name="password">
+						</label>
+						<label>
+				            <span>Confirma contraseña: </span> <input type="password" name="passwordconfirm" id="passwordconfirm">
+						</label>
+						<label>
+				            <span>Nombre: </span> <input type="text" name="nombre" id="nombre">
+						</label>
+						<label>
+				            <span>Apellido: </span> <input type="text" name="apellido" id="apellido">
+						</label>
+						<label>
+				            <span>Dirección: </span> <input type="text" name="direccion" id="direccion">
+						</label>
+						<label>
+				            <span>Dirección de Envios: </span> <input name="direnvios" type="text" id="direnvios">
+						</label>
+						<label>
+				            <span>Localidad: </span> <input type="text" name="localidad" id="localidad">
+						</label>
+						<label>
+				            <span>Edad: </span> <input type="text" name="edad" id="edad">
+						</label>
+						<label>
+				            <span>Mail: </span> <input type="text" id="email"  name="email">
+				        </label>
+				        <label>
+				        	<span>&nbsp</span>
+				        	<input type="button" value="Volver" onclick="location.href = 'Index.jsp' "> 
+				        	<input type="submit" onclick="return validarEnvio()"value="Registrarse" >
+				        	
+				        </label>
+				       </p> 
+			     </form>
+	        </div>
+	    </div>
+ 	 </div>
+ 	 
+</body>
+
+
+</html>

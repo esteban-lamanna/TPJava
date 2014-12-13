@@ -288,10 +288,14 @@ public String nuevoProducto(String nombre,String modelo,String descripcion,float
 			
 		}
 
-public void modificaProducto(String codigo,String nombre,String modelo,String descripcion,float precio,String capHD,String interfazHD,String rpmHD,int bufferHD,
-		String wattsF,String amperajeF,int frecM,int cacheM,String SocketM,float jacksS,String tamañoG,String velocidadPR,String tecnologiaPR,int cantUSBMO,
-		int cantpcieMO,String vonboardMO,String sonboardMO,String chipsetMO,int USB30MO,int cantmaxmemMO,int frecMem,String latenciaMem,int cantmemMem,int frecvga,
-		int abusvga,int cantmemVGA,int pipelsvga,int shadersvga,String socket,String foto,String tipo,boolean antena,String seguridad)
+public void modificaProducto(String codigo,String nombre,String modelo,String descripcion,
+		float precio,String capHD,String interfazHD,String rpmHD,int bufferHD,
+		String wattsF,String amperajeF,int frecM,int cacheM,String SocketM,float jacksS,
+		String tamañoG,String velocidadPR,String tecnologiaPR,int cantUSBMO,
+		int cantpcieMO,String vonboardMO,String sonboardMO,String chipsetMO,int USB30MO,
+		int cantmaxmemMO,int frecMem,String latenciaMem,int cantmemMem,int frecvga,
+		int abusvga,int cantmemVGA,int pipelsvga,int shadersvga,String socket,String foto,
+		String tipo,boolean antena,String seguridad)
 {
 	productoActual=ProductosDB.buscaProducto(nombre,modelo);
 	Prods enumval = Prods.valueOf(productoActual.getTipo());

@@ -59,8 +59,23 @@ String jacks=request.getParameter("jacks");
 String velocidadr=request.getParameter("velocidadr");
 
 String error;
-error=contr.modificaProducto(nombreprod,modelo,descripcion,precio,Float.parseFloat(capHD),interfaz,rpm,buffer,watts,amperaje,frecuenciamicro,cachemicro,socketmicro,jacks,taman,velocidadr,cantusb,cantpcie,videoonboard,sonidoonboard,chipset,cantusb3,cantmaxmemmo,frecuenciamem,latencia,capacidadmem,frecuenciavideo,anchobus,cantmemvideo,pipelines,shaders,socketmo,foto,tipo,codigo);
-
+error=contr.modificaProducto(/*codigo falta*/nombreprod,modelo,descripcion,precio,capHD,interfaz,rpm,Integer.parseInt(buffer),
+		watts,amperaje,Integer.parseInt(frecuenciamicro),Integer.parseInt(cachemicro),socketmicro,Float.parseFloat(jacks),
+		taman,velocidadr,/*falta tecnologia PR*/Integer.parseInt(cantusb),
+		Integer.parseInt(cantpcie),videoonboard,sonidoonboard,chipset,Integer.parseInt(cantusb3),
+		Integer.parseInt(cantmaxmemmo),Integer.parseInt(frecuenciamem),latencia,Integer.parseInt(capacidadmem),Integer.parseInt(frecuenciavideo),
+		Integer.parseInt(anchobus),Integer.parseInt(cantmemvideo),Integer.parseInt(pipelines),Integer.parseInt(shaders),socketmo,foto,
+		tipo,/*antena */codigo);
+/*
+(String codigo,String nombre,String modelo,String descripcion,
+		float precio,String capHD,String interfazHD,String rpmHD,int bufferHD,
+		
+		String wattsF,String amperajeF,int frecM,int cacheM,String SocketM,float jacksS,
+		String tamañoG,String velocidadPR,String tecnologiaPR,int cantUSBMO,
+		int cantpcieMO,String vonboardMO,String sonboardMO,String chipsetMO,int USB30MO,
+		int cantmaxmemMO,int frecMem,String latenciaMem,int cantmemMem,int frecvga,
+		int abusvga,int cantmemVGA,int pipelsvga,int shadersvga,String socket,String foto,
+		String tipo,boolean antena,String seguridad)*/
 if(error!=null)
 { 
 	session.setAttribute("confirm","mal");
