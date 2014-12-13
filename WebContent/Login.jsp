@@ -10,7 +10,7 @@
 </head>
 <body>
   <div align="center">
-  <form action="index.html" class="login">
+  <form action="index.jsp" class="login">
     <input type="text" name="email" class="input-login" placeholder="Documento" autofocus style="margin-bottom: 10px;">
     <input type="password" name="password" class="input-login" placeholder="Password" style="margin-bottom: 15px;">
     <input type="submit" value="Login" class="login-submit">

@@ -26,6 +26,7 @@ public class DBUsuarios extends DBAdapter
 		String mail=user.getMail();
 		String localidad=user.getLocalidad();
 		Statement st=conex.createStatement();
+		System.out.println("Llego a crea usuarios con: "+dni);
 		st.execute("INSERT INTO Usuarios VALUES('"+dni+"','"+pass+"','"+nombre+"','"+ape+"','"+direccion+"','"+direnvios+"','"+edad+"','"+mail+"','"+localidad+"')");
 	
 	} catch (SQLException t) 

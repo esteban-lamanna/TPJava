@@ -1,8 +1,10 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="Controlador.Controlador_encar"%>
 <%@page import="java.util.regex.*"%>
 <%@page import="Servlets.Validador"%>
+<%@page import="java.util.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,6 +13,12 @@
 </head>
 <body>
 <%
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+{
+Enumeration e = request.getParameterNames();
+while (e.hasMoreElements()) {
+out.println(e.nextElement());
+}
 			String dni = request.getParameter("dni");
 	        String password = request.getParameter("password");
 	        String confirm_password = request.getParameter("passwordconfirm");
@@ -23,11 +31,20 @@
 	        String emailUsuario = request.getParameter("email");
 	        Controlador_encar contr=new Controlador_encar();
 	       
+	        System.out.print(emailUsuario);
+	        
 	        
 	        Pattern p = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 	                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-	       
 	        Matcher m = p.matcher(emailUsuario);
+//boolean coincide = m.matches();
+
+/*Pattern p = Pattern.compile(requestpattern);
+    Matcher matcher = p.matcher(requeststring);
+    System.out.println(matcher.find());
+    System.out.println(matcher.group(1));
+    */
+			
 	        Validador v = new Validador();
 	        //Dao d = new Dao();
 	        //Comienzo con las validaciones
@@ -42,18 +59,20 @@
 	        {
 	        	//campos vacios
 	        	System.out.println("error por campo vacio");
-	        	response.sendRedirect("Error.jsp");
+	        	//response.sendRedirect("Error.jsp");
 	            
 	        } else 
 	        	{
 	            //No hay campos vacios, veo que la direccion de email sea válida
-		            if(!m.find())
-		            {
-		            	//direccion de email invalida.
-		            	System.out.println("error direccion de email invalida");
-		            	response.sendRedirect("Error.jsp");
+		           if(!m.find())
+			{
+				System.out.println("error direccion de email invalida");
+
+			}
+			
+		            			            //	response.sendRedirect("Error.jsp");
 		                
-		            } else 
+		            else 
 		            	{
 		                //La direccion de email si es correcta, verifico que la contraseña tambien lo sea
 			                if(v.isUsernameOrPasswordValid(password))
@@ -69,21 +88,21 @@
 			                        	//falta verificar email o dni registrado
 			                                if(false)
 			                                {
-			                                	//error, direccion y/o dni ya registrado
-			                                	response.sendRedirect("Error.jsp");
+			                                	System.out.println("error, direccion y/o dni ya registrado");
+			                               // 	response.sendRedirect("Error.jsp");
 			                                } else 
 			                                {
 			                                    
 			                                    //Legado a este punto significa que todo esta correcto, por lo tanto ingreso a la DB
 			                                	contr.nuevoUsuario(dni,password , confirm_password, nombre, apellido, direccion, direnvios, edad, emailUsuario,localidad);
-			                                	response.sendRedirect("Index.jsp");
+			                               //	response.sendRedirect("Index.jsp");
 			                                    
 			                                    //respuesta.setAttribute("error", null);
 			                                }
 			                            
 			                            
 			                             
-			                        } catch (Exception e) { out.println("Ocurrio la sig exception: " +e); }
+			                        } catch (Exception ex) { out.println("Ocurrio la sig exception: " +ex); }
 			                        
 			                        
 			                        
@@ -92,7 +111,7 @@
 			                    {
 			                    	System.out.println("Error por Contraseñas distintas");
 			                    	// error las contraseñas son =
-			                    	response.sendRedirect("Error.jsp");
+			                 //   	response.sendRedirect("Error.jsp");
 			                        
 			                    }
 		                    
@@ -101,8 +120,8 @@
 			                
 			                {
 			                	//contraseña invalida
-			                	System.out.println("Error por Contraseñas invalida");
-			                	response.sendRedirect("Error.jsp");
+			                	System.out.println("Error por Contraseña invalida");
+			                	//response.sendRedirect("Error.jsp");
 			                   
 			                }
 	                
@@ -110,7 +129,7 @@
 	            }
 	        }
 	        
-	        
+}
 	        %>
 </body>
 </html>

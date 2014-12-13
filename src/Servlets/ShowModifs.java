@@ -59,8 +59,11 @@ public class ShowModifs extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
     	Controlador_encar contr=new Controlador_encar();
-    	Producto prod=contr.buscaProducto(request.getParameter("codi"),request.getParameter("categ"));
-		// TODO Auto-generated method stub
+    	//Producto prod=contr.buscaProducto(request.getParameter("codi"),request.getParameter("categ"));
+		
+    	//modificar esto
+    	Producto prod = null;
+    	// TODO Auto-generated method stub
 		String valori=request.getParameter("categ");
 		
 		Prods valor = Prods.valueOf(valori.toUpperCase());

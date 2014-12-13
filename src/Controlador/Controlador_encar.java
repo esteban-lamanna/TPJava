@@ -533,7 +533,8 @@ public void nuevoUsuario(String dni,String pass,String valpass,String nombre,Str
 	{
 	UsuariosDB=new DBUsuarios();
 	usuarioActual=UsuariosDB.validaUsuario(dni,pass);
-		if(usuarioActual!=null)
+	System.out.println("Llego al controlador nuevo usuario");	
+	if(usuarioActual!=null)
 		{
 			System.out.print("Ya existe");
 		}

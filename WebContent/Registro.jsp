@@ -34,7 +34,9 @@ function validarExistenciaDNI(dni)
 function validarEmail( email ) 
 {
 expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-if (expr.test(email))
+if ($(email).val().match(expr))
+
+//if (expr.test(email))
 	{
 	return true;
 	}
@@ -45,13 +47,13 @@ else
 	}
 }
 
-//Funcion para validar EDAD
+//Funcion para validar EDA
 function validarEntero(valor)
 { 
      //intento convertir a entero. 
      //si era un entero no le afecta, si no lo era lo intenta convertir 
      valor = parseInt(valor); 
-
+debugger;
      	//Compruebo si es un valor numérico 
      	if (isNaN(valor)) 
 		{ 
@@ -60,13 +62,13 @@ function validarEntero(valor)
      	}
 		else{ 
            	 //En caso contrario (Si era un número) devuelvo el valor 
-           	 return valor; 
+           	 return true; 
      		} 
 }
 
 
 function validarEnvio(){ 
-	
+	debugger;
    	//valido longitud DNI 
    	var dni=$('#dni').val().trim();
    	var respuesta=validarExistenciaDNI(dni);
@@ -100,6 +102,11 @@ function validarEnvio(){
       	 return false; 
    	} 
   	
+  	if($("#password").val()!=$("#passwordconfirm").val())
+{
+  		alert("La contraseña y su confirmación deben ser iguales");
+  		return false;
+  		}
 	//valido longitud NOMBRE
 	if ($('#nombre').val().trim().length<1)
    	{ 
@@ -141,8 +148,9 @@ function validarEnvio(){
    	} 
 	
 	//valido longitud EDAD
-	var edad = $('#edad').val().trim();
-	if (edad.length<1)
+	var edad = $('#edad').val();
+	debugger;
+	if (edad<1)
    	{ 
       	 alert("Tiene que escribir su Edad"); 
       	 $('#edad').focus(); 
@@ -150,8 +158,8 @@ function validarEnvio(){
    	} 
 	
     //valido EDAD entero mayor de 18
-   	edad = validarEntero(edad);
-   	if (edad!=false)
+   	res = validarEntero(edad);
+   	if (!res)
    	{ 
        alert("Tiene que introducir un número entero en su edad."); 
        $('#edad').focus();
@@ -174,21 +182,19 @@ function validarEnvio(){
       	 return false; 
    	}
 	
+	
 	//Valido el EMAIL
-	if(validarEmail(email))
+	if(!validarEmail(email))
 		{
-			return true;
-		}
-	else
-		{
+		
 			return false;
 		}
-    
 
-   	//el formulario se envia 
+  
+   	
    	alert("Muchas gracias por Registrarse"); 
-  //Envio el fomrulario
-   	return $('#Registro').submit();
+
+   	return true;
 }
 
 </script>
@@ -205,7 +211,9 @@ function validarEnvio(){
        <div class="shell">
        <div class="options"></div>
        	<div id="content">
-		        <form id="Registro" class="dark-matter texto-form" action="RegisterCheck.jsp" method="post" >
+		        
+<form id="Registro" class="dark-matter texto-form" action="Usuarios" method="post" > 
+		        <!--Comentario en HTML	        <form id="Registro" class="dark-matter texto-form" action="RegisterCheck.jsp" method="post" >-->
 		        	<h1>Registro</h1>
 		        	<p>
 						<label>
@@ -241,7 +249,7 @@ function validarEnvio(){
 				        <label>
 				        	<span>&nbsp</span>
 				        	<input type="button" value="Volver" onclick="location.href = 'Index.jsp' "> 
-				        	<input type="button" value="Registrarse" onclick="validarEnvio()">
+				        	<input type="submit" value="Registrarse" >
 				        	
 				        </label>
 				       </p> 
