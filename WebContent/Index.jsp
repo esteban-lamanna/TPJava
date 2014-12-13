@@ -35,7 +35,7 @@
 				<ul id="sddm">
 				<%if(session.getAttribute("username")!= null)
 					{%>
-				<li>Hola <%=session.getAttribute("username")%>
+				<li><a href="EdicionUsuario.jsp"> Hola <%=session.getAttribute("username")%></a>
 				</li>
 				<li><a href="CerrarSesion.jsp">Cerrar Sesion</a>
 				</li>

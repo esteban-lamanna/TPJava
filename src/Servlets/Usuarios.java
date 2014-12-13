@@ -1,11 +1,15 @@
 package Servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import Controlador.Controlador_encar;
 import java.util.regex.*;
 import Servlets.Validador;
@@ -56,13 +60,7 @@ public class Usuarios extends HttpServlet {
         Pattern p = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
         Matcher m = p.matcher(emailUsuario);
-//boolean coincide = m.matches();
 
-/*Pattern p = Pattern.compile(requestpattern);
-Matcher matcher = p.matcher(requeststring);
-System.out.println(matcher.find());
-System.out.println(matcher.group(1));
-*/
 		
         Validador v = new Validador();
         //Dao d = new Dao();
@@ -80,72 +78,38 @@ System.out.println(matcher.group(1));
         	System.out.println("error por campo vacio");
         	//response.sendRedirect("Error.jsp");
             
-        } else 
-        	{
-            //No hay campos vacios, veo que la direccion de email sea válida
-	           if(!m.find())
-		{
-			System.out.println("error direccion de email invalida");
-
-		}
-		
-	            			            //	response.sendRedirect("Error.jsp");
-	                
-	            else 
-	            	{
-	                //La direccion de email si es correcta, verifico que la contraseña tambien lo sea
-		                if(v.isUsernameOrPasswordValid(password))
-		                {
-		                	
-		                    //Ahora verifico si la contraseña 1 y la contraseña 2 son iguales
-		                    if(password.equals(confirm_password))
-		                    {
-		                    	
-		                        try 
-		                        {
-		                            //d.conectar();
-		                        	//falta verificar email o dni registrado
-		                                if(false)
-		                                {
-		                                	System.out.println("error, direccion y/o dni ya registrado");
-		                               // 	response.sendRedirect("Error.jsp");
-		                                } else 
-		                                {
-		                                    
-		                                    //Legado a este punto significa que todo esta correcto, por lo tanto ingreso a la DB
-		                                	contr.nuevoUsuario(dni,password , confirm_password, nombre, apellido, direccion, direnvios, edad, emailUsuario,localidad);
-		                               //	response.sendRedirect("Index.jsp");
-		                                    
-		                                    //respuesta.setAttribute("error", null);
-		                                }
-		                            
-		                            
-		                             
-		                        } catch (Exception ex) { System.out.println("Ocurrio la sig exception: " +ex); }
-		                        
-		                        
-		                        
-		                    } 
-		                    else 
-		                    {
-		                    	System.out.println("Error por Contraseñas distintas");
-		                    	// error las contraseñas son =
-		                 //   	response.sendRedirect("Error.jsp");
-		                        
-		                    }
-	                    
-	                } 
-		                else
-		                
-		                {
-		                	//contraseña invalida
-		                	System.out.println("Error por Contraseña invalida");
-		                	//response.sendRedirect("Error.jsp");
-		                   
-		                }
-                
-                
-            }
+        }else{
+	        //No hay campos vacios, veo que la direccion de email sea válida
+		    if(!m.find())
+			{
+		     System.out.println("error direccion de email invalida");
+			}
+		    else{
+	
+			    //La direccion de email si es correcta, verifico que la contraseña tambien lo sea
+			    if(v.isUsernameOrPasswordValid(password))
+				{
+			    	System.out.println("error contraseña invalida");
+				}
+				    else
+				    {
+						//Ahora verifico si la contraseña 1 y la contraseña 2 son iguales
+						if(!password.equals(confirm_password))
+						{
+							System.out.println("error contraseñas distintas");              	
+						}
+							else
+							{
+								//Legado a este punto significa que todo esta correcto, por lo tanto ingreso a la DB
+							    contr.nuevoUsuario(dni,password , confirm_password, nombre, apellido, direccion, direnvios, edad, emailUsuario,localidad);
+							    HttpSession session = request.getSession();
+							    session.setAttribute("dni",dni);
+							    session.setAttribute("username", nombre);
+							    response.sendRedirect("Index.jsp");
+					            
+							}
+				    }
+		    }
         }
 	}
 

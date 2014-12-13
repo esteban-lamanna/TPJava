@@ -17,6 +17,7 @@
         if(cont.Login(dni,pass))
             {
         	Usuario usu=cont.buscaUsuario(dni);
+        	session.setAttribute("dni",usu.getDni());
             session.setAttribute("username",usu.getNombre());
             response.sendRedirect("Index.jsp");
             }

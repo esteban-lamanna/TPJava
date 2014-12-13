@@ -7,7 +7,7 @@ public class Validador {
         //Compruebo la longitud
         if (cadena.length <= 6)
         {
-            return false;
+            return true;
         }
         for (int i = 0; i < cadena.length; i++) 
         {
@@ -28,11 +28,11 @@ public class Validador {
                     || cadena[i] == '>'
                     || cadena[i] == ':') 
             {
-                return false;
+                return true;
             }
  
         }
-        return true;
+        return false;
     }
 
 }
