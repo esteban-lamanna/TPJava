@@ -369,6 +369,7 @@
 					
 					function agregar(cod)
 				      {
+						debugger;
 					
 						      $.ajax({
 						    	type: "POST",

@@ -49,7 +49,8 @@ public class AgregaCarros extends HttpServlet {
 	{
 		String tipo;
 		Controlador_encar contr=new Controlador_encar();
-		System.out.println("funciona, agrega el prod al 'agrega carros'");
+		System.out.println(request.getParameter("cod"));
+		
 		String codigo= request.getParameter("cod");
 		int codi=Integer.parseInt(codigo);
 
