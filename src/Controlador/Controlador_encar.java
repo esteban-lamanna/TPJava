@@ -2,6 +2,8 @@ package Controlador;
 
 import java.util.*;
 
+import org.apache.catalina.Session;
+
 import DB.DBUsuarios;
 import DB.DBProductos;
 import Modelo.CarritoCompra;
@@ -466,6 +468,13 @@ public ArrayList<Producto> buscaProductosNombre(String nombre)
 	return productosActuales;
 }
 
+public Float buscaPrecioProductoCodigo(int codigo)
+{
+	Producto prod = ProductosDB.buscaProducto(codigo);
+	 return prod.getPrecio();
+	
+}
+
 public ArrayList<Producto> buscaProductos(String tipo)
 {
 	Prods enumval = Prods.valueOf(tipo.toUpperCase());
@@ -598,6 +607,7 @@ public String añadeAlCarro(int codigo)
 { 
 		String tipo;
 		productoActual=ProductosDB.buscaProducto(codigo);
+		carroNew.setDni(usuarioActual.getDni());
 		carroNew.añadeProducto(productoActual);
 		tipo=productoActual.getTipo();
 		return tipo;

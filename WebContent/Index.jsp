@@ -105,7 +105,7 @@
 			<div class="right">
 				<span class="cart">
 					<a href="#" class="cart-ico">&nbsp;</a>
-					<strong>$0.00</strong>
+					<strong>$<input type="text" id="AcumuladorCosto"></input></strong>
 				</span>
 				<span class="left more-links">
 					<a id="MiCuenta" href="#"></a>
@@ -375,10 +375,29 @@
 						        url: "AgregaCarros",
 							    data: {'cod':cod},
 							    success: function(a) {
-						                $('#results').html(a);
+						                //$('#results').html(a);
+						                sumarCostoAcumulado(cod);
+						               // alert("Agregado Exitosamente");
 							    }
 						       });
 				      }
+					
+					function sumarCostoAcumulado(prod)
+					{
+						debugger;
+					      $.ajax({
+					    	type: "POST",
+					        url: "Controlador_encar/buscaPrecioProductoCodigo",
+						    data: {'codigo':prod},
+						    success: function(a) {
+					                //$('#results').html(a);
+					                debugger;
+					                alert(a);
+					                var costoActual=$("#AcumuladorCosto").val();
+					                $("#AcumuladorCosto").val(costoActual+a);
+						    }
+					       });
+					}
 				</script> 
 			<!-- Tabs -->
 			

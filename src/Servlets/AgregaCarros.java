@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import Controlador.Controlador_encar;
 import Controlador.Controlador_encar.Prods;
 /**
@@ -47,14 +49,20 @@ public class AgregaCarros extends HttpServlet {
 	{
 		String tipo;
 		Controlador_encar contr=new Controlador_encar();
-		System.out.println("funciona");
+		System.out.println("funciona, agrega el prod al 'agrega carros'");
 		String codigo= request.getParameter("cod");
 		int codi=Integer.parseInt(codigo);
-		
-		tipo=contr.añadeAlCarro(codi);
-		Prods valor = Prods.valueOf(tipo.toUpperCase());
-		
-		switch(valor)
+
+		tipo=contr.añadeAlCarro(codi );
+		//response.sendRedirect("MiCarrito.jsp");	
+		//request.getRequestDispatcher("MiCarrito.jsp").forward(request, response);
+		//return;
+		//Prods valor = Prods.valueOf(tipo.toUpperCase());
+	
+		//request.getRequestDispatcher("MiCarrito.jsp").forward(request, response);
+		//response.sendRedirect("MiCarrito.jsp");	
+		//return;
+		/*switch(valor)
 		{
 		case FUENTE:
 			response.sendRedirect("Fuentes");
@@ -83,7 +91,7 @@ public class AgregaCarros extends HttpServlet {
 		case RCABLE:
 			response.sendRedirect("RedCable");
 			break;
-		}
+		}*/
 	}
 
 	/**
