@@ -194,3 +194,4 @@ INSERT INTO `lineaprod` (`dni`, `fecha`, `subtotlinea`, `cantidad`, `codigo`) VA
 
 COMMIT;
 
+asdfaf
