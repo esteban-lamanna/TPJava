@@ -1,3 +1,4 @@
+<%@page import="Controlador.Controlador_encar"%>
 <%@page import="Modelo.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -103,13 +104,19 @@
 			<span class="left"><a href="#">Busqueda Avanzada</a></span>
 			
 			<div class="right">
+			<%if (session.getAttribute("dni")!=null &&session.getAttribute("dni")!=""){ %>
 				<span class="cart">
-					<a href="#" class="cart-ico">&nbsp;</a>
-					<strong>$<input type="text" id="AcumuladorCosto"></input></strong>
+					<a href="MiCarrito.jsp" class="cart-ico">&nbsp;</a>
+					
+					<strong><%Controlador_encar con = new Controlador_encar();
+							int cantidad=con.getCarroCompleto().getProductosCarro().size();%>
+							<%=cantidad %></strong>
+					<strong>$<label id="AcumuladorCosto"></label></strong>
 				</span>
 				<span class="left more-links">
-					<a id="MiCuenta" href="#"></a>
+					<a id="Comprar" href="#">Comprar</a>
 				</span>
+				<%} %>
 			</div>
 		</div>
 		<!-- End Search, etc -->
@@ -376,27 +383,65 @@
 						        url: "AgregaCarros",
 							    data: {'cod':cod},
 							    success: function(a) {
-						                //$('#results').html(a);
-						                sumarCostoAcumulado(cod);
+							    	 debugger;
+						                $('#results').html(a);
+						                //mostrarEstadoProductoAgregado(cod);
+						                sumarCostoAcumulado();
+						               	
+						                //alert(a);
 						               // alert("Agregado Exitosamente");
-							    }
-						       });
+							    },
+							    error: function (xhr, ajaxOptions, thrownError) {
+							       
+							        alert(thrownError);
+							        }
+				      });
+				      }
+					function quitar(cod)
+				      {
+						debugger;
+					
+						      $.ajax({
+						    	type: "POST",
+						        url: "QuitarDelCarrito",
+							    data: {'cod':cod},
+							    success: function(a) {
+							    	 debugger;
+						                $('#results').html(a);
+						                //mostrarEstadoProductoAgregado(cod);
+						                sumarCostoAcumulado();
+						               
+						                //alert(a);
+						               // alert("Agregado Exitosamente");
+							    },
+							    error: function (xhr, ajaxOptions, thrownError) {
+							       
+							        alert(thrownError);
+							        }
+				      });
 				      }
 					
-					function sumarCostoAcumulado(prod)
+					function mostrarEstadoProductoAgregado(cod)
+					{
+					//	$("#")
+					}
+					function sumarCostoAcumulado()
 					{
 						debugger;
 					      $.ajax({
 					    	type: "POST",
-					        url: "Controlador_encar/buscaPrecioProductoCodigo",
-						    data: {'codigo':prod},
+					        url: "CalculaSumaParcial",
+						    
 						    success: function(a) {
-					                //$('#results').html(a);
-					                debugger;
-					                alert(a);
-					                var costoActual=$("#AcumuladorCosto").val();
-					                $("#AcumuladorCosto").val(costoActual+a);
-						    }
+						    	debugger;
+					                $('#AcumuladorCosto').html(a);
+					                
+					                
+						    },
+						    error: function (xhr, ajaxOptions, thrownError) {
+							       
+						        alert(thrownError);
+						        }
 					       });
 					}
 				</script> 

@@ -47,6 +47,11 @@ static ArrayList<LineaProducto> LineaProductos;
 static ArrayList<Compra> comprasActuales;
 static ArrayList<Producto> productosActuales;
 
+public CarritoCompra getCarroCompleto()
+{
+	return carroNew;
+}
+
 public enum Prods {
 
     FUENTE,
@@ -471,7 +476,7 @@ public ArrayList<Producto> buscaProductosNombre(String nombre)
 public Float buscaPrecioProductoCodigo(int codigo)
 {
 	Producto prod = ProductosDB.buscaProducto(codigo);
-	 return prod.getPrecio();
+	return prod.getPrecio();
 	
 }
 
@@ -645,6 +650,24 @@ public static void eliminaDelCarro(Vector<String> prods,String dni)
 	}
 }
 
+public static String eliminaDelCarroMemoria(int codigo)
+{
+	String tipo;
+	productoActual=ProductosDB.buscaProducto(codigo);
+	tipo=productoActual.getTipo();
+	
+		for(int j=0;j<carroNew.getProductosCarro().size();j++)
+		{
+			if(codigo== carroNew.getProductosCarro().get(j).getCodigo())
+			{
+				carroNew.getProductosCarro().remove(j);
+				
+			}
+		
+		
+	}
+		return tipo;
+}
 
 public ArrayList<Producto>BusquedaExhaustiva(String parametro)
 {

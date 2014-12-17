@@ -55,7 +55,7 @@ $(document).ready(function(){
    		pro = controler.levantaCarro().get(i);}
    		%>
    		
-		</table>
+		
 		<div id="contenido">
 		</div>
 	        </div>

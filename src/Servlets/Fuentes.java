@@ -37,8 +37,28 @@ public class Fuentes extends HttpServlet {
 		PrintWriter out=response.getWriter();
         Controlador_encar contr=new Controlador_encar();
         ArrayList<Producto> prod=contr.buscaProductos("fuente");
+        ArrayList<Producto>prodsCarroActual = new ArrayList<>();
+        if(contr.getCarroCompleto()!=null){
+        if(contr.getCarroCompleto().getProductosCarro()!=null)
+        {
+        	
+        
+        prodsCarroActual = contr.getCarroCompleto().getProductosCarro();
+        }
+        }
+        Boolean agregado;
         for(int i=0;i<prod.size();i++)
         {
+        	agregado=false;
+        	
+        	for (int j=0;j< prodsCarroActual.size();j++)
+        	{
+				
+				if(prod.get(i).getCodigo()==prodsCarroActual.get(j).getCodigo())
+				{
+					agregado=true;
+				}
+        	}
         Fuente pro=(Fuente)prod.get(i);
         out.println("<li>");
         out.println("<input name=\"Codigos\" id=\"Codigos\" value=\""+pro.getCodigo()+"\" type=\"hidden\" />");
@@ -55,7 +75,15 @@ public class Fuentes extends HttpServlet {
         out.println("Amperaje: <span>"+pro.getAmperaje()+" A</span><br />");
         out.println(" </p>");   
         out.println("<p class=\"price\">Precio: <strong> $"+pro.getPrecio()+"</strong></p>");
+        if(!agregado)
+        {
         out.println("<input type=\"button\" id=\"btnAgregar\" title=\"Agregar\" value=\"Agregar\" onclick=\"agregar("+pro.getCodigo()+")\" />");
+        }
+        else
+        {
+        out.println("<input type=\"button\" id=\"btnQuitar\" title=\"Quitar\" value=\"Quitar\" onclick=\"quitar("+pro.getCodigo()+")\" />");
+             
+        }
         out.println("</li>");
         }
 	}

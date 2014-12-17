@@ -1,5 +1,7 @@
 package Servlets;
 
+import Modelo.Producto;
+
 public enum Products {
 	    FUENTE,
 	    GABINETE,

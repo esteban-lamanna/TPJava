@@ -58,12 +58,12 @@ public class AgregaCarros extends HttpServlet {
 		//response.sendRedirect("MiCarrito.jsp");	
 		//request.getRequestDispatcher("MiCarrito.jsp").forward(request, response);
 		//return;
-		//Prods valor = Prods.valueOf(tipo.toUpperCase());
+		Prods valor = Prods.valueOf(tipo.toUpperCase());
 	
 		//request.getRequestDispatcher("MiCarrito.jsp").forward(request, response);
 		//response.sendRedirect("MiCarrito.jsp");	
 		//return;
-		/*switch(valor)
+		switch(valor)
 		{
 		case FUENTE:
 			response.sendRedirect("Fuentes");
@@ -92,7 +92,7 @@ public class AgregaCarros extends HttpServlet {
 		case RCABLE:
 			response.sendRedirect("RedCable");
 			break;
-		}*/
+		}
 	}
 
 	/**
