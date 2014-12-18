@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Controlador.Controlador_encar;
 import Modelo.Fuente;
@@ -18,7 +19,7 @@ import Modelo.Producto;
  * Servlet implementation class Fuentes
  */
 @WebServlet("/Fuentes")
-public class Fuentes extends HttpServlet {
+public class Fuentes extends Padre {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -35,7 +36,7 @@ public class Fuentes extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		PrintWriter out=response.getWriter();
-        Controlador_encar contr=new Controlador_encar();
+        Controlador_encar contr = getControlador();
         ArrayList<Producto> prod=contr.buscaProductos("fuente");
         ArrayList<Producto>prodsCarroActual = new ArrayList<>();
         if(contr.getCarroCompleto()!=null){
@@ -75,6 +76,17 @@ public class Fuentes extends HttpServlet {
         out.println("Amperaje: <span>"+pro.getAmperaje()+" A</span><br />");
         out.println(" </p>");   
         out.println("<p class=\"price\">Precio: <strong> $"+pro.getPrecio()+"</strong></p>");
+        HttpSession sesion = request.getSession(false);
+        if(sesion == null)
+        {
+        	sesion = request.getSession(true);
+        }
+        System.out.print(sesion.getAttribute("dni"));
+        
+       
+     
+        if(sesion.getAttribute("dni")!=null && sesion.getAttribute("dni")!="")
+        {
         if(!agregado)
         {
         out.println("<input type=\"button\" id=\"btnAgregar\" title=\"Agregar\" value=\"Agregar\" onclick=\"agregar("+pro.getCodigo()+")\" />");
@@ -85,6 +97,7 @@ public class Fuentes extends HttpServlet {
              
         }
         out.println("</li>");
+        }
         }
 	}
 

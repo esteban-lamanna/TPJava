@@ -51,7 +51,7 @@
 				        onmouseout="mclosetime()">Ingresar</a></li>
 				        <div id="m2" style="z-index: 3;" onmouseover="mcancelclosetime()" 
 				            onmouseout="mclosetime()" align="center">
-							  <form action="LoginCheck.jsp" method="get" class="login">
+							  <form action="LoginCheck" method="post" class="login">
 							    <input type="text" name="dni" class="input-login" placeholder="Dni" style="margin-bottom: 10px;">
 							    <br>
 							    <input type="password" name="password" class="input-login" placeholder="Password" style="margin-bottom: 15px;">
@@ -108,9 +108,7 @@
 				<span class="cart">
 					<a href="MiCarrito.jsp" class="cart-ico">&nbsp;</a>
 					
-					<strong><%Controlador_encar con = new Controlador_encar();
-							int cantidad=con.getCarroCompleto().getProductosCarro().size();%>
-							<%=cantidad %></strong>
+					<strong><label id="ContadorProductosEnCarrito"></label></strong>
 					<strong>$<label id="AcumuladorCosto"></label></strong>
 				</span>
 				<span class="left more-links">
@@ -385,11 +383,10 @@
 							    success: function(a) {
 							    	 debugger;
 						                $('#results').html(a);
-						                //mostrarEstadoProductoAgregado(cod);
+						                
 						                sumarCostoAcumulado();
-						               	
-						                //alert(a);
-						               // alert("Agregado Exitosamente");
+						                contarProductosEnCarro();
+						              
 							    },
 							    error: function (xhr, ajaxOptions, thrownError) {
 							       
@@ -408,11 +405,10 @@
 							    success: function(a) {
 							    	 debugger;
 						                $('#results').html(a);
-						                //mostrarEstadoProductoAgregado(cod);
+						              
 						                sumarCostoAcumulado();
-						               
-						                //alert(a);
-						               // alert("Agregado Exitosamente");
+						               contarProductosEnCarro();
+						       
 							    },
 							    error: function (xhr, ajaxOptions, thrownError) {
 							       
@@ -421,9 +417,25 @@
 				      });
 				      }
 					
-					function mostrarEstadoProductoAgregado(cod)
+					
+					function contarProductosEnCarro()
 					{
-					//	$("#")
+						debugger;
+					      $.ajax({
+					    	type: "POST",
+					        url: "ContarProductosEnCarro",
+						    
+						    success: function(a) {
+						    	debugger;
+					                $('#ContadorProductosEnCarrito').html(a);
+					                
+					                
+						    },
+						    error: function (xhr, ajaxOptions, thrownError) {
+							       
+						        alert(thrownError);
+						        }
+					       });
 					}
 					function sumarCostoAcumulado()
 					{

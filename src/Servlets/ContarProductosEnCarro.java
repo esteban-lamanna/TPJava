@@ -10,19 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Controlador.Controlador_encar;
-import Modelo.Producto;
 
 /**
- * Servlet implementation class CalculaSumaParcial
+ * Servlet implementation class ContarProductosEnCarro
  */
-@WebServlet("/CalculaSumaParcial")
-public class CalculaSumaParcial extends Padre {
+@WebServlet("/ContarProductosEnCarro")
+public class ContarProductosEnCarro extends Padre {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CalculaSumaParcial() {
+    public ContarProductosEnCarro() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,15 +39,9 @@ public class CalculaSumaParcial extends Padre {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		PrintWriter out=response.getWriter();
 		Controlador_encar contr = getControlador();
-		float sumaParcial = 0;
-		for (Producto pro : contr.getCarroCompleto().getProductosCarro()) {
-			sumaParcial += pro.getPrecio();
-		}
-			PrintWriter out=response.getWriter();
-			out.print(sumaParcial);
-			
-		}
+		out.print(contr.getCarroCompleto().getProductosCarro().size());
 	}
 
-
+}

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Controlador.Controlador_encar;
 import Modelo.Gabinete;
@@ -18,7 +19,7 @@ import Modelo.Producto;
  * Servlet implementation class Gabinetes
  */
 @WebServlet("/Gabinetes")
-public class Gabinetes extends HttpServlet {
+public class Gabinetes extends Padre {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -34,10 +35,35 @@ public class Gabinetes extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out=response.getWriter();
-		Controlador_encar contr=new Controlador_encar();
-		ArrayList<Producto> prod=contr.buscaProductos("gabinete");    
+        Controlador_encar contr = getControlador();
+        ArrayList<Producto> prod=contr.buscaProductos("gabinete");
+        ArrayList<Producto>prodsCarroActual = new ArrayList<>();
+        if(contr.getCarroCompleto()!=null){
+        if(contr.getCarroCompleto().getProductosCarro()!=null)
+        {
+        	
+        
+        prodsCarroActual = contr.getCarroCompleto().getProductosCarro();
+        }
+        }
+        HttpSession sesion = request.getSession(false);
+        if(sesion == null)
+        {
+        	sesion = request.getSession(true);
+        }
+        Boolean agregado;
         for(int i=0;i<prod.size();i++)
         {
+        	agregado=false;
+        	
+        	for (int j=0;j< prodsCarroActual.size();j++)
+        	{
+				
+				if(prod.get(i).getCodigo()==prodsCarroActual.get(j).getCodigo())
+				{
+					agregado=true;
+				}
+        	}
         	Gabinete pro=(Gabinete)prod.get(i);
         	  out.println("<li>");
               out.println("<input name=\"Codigos\" value=\""+pro.getCodigo()+"\" type=\"hidden\" />");
@@ -53,12 +79,31 @@ public class Gabinetes extends HttpServlet {
               out.println("Tamaño: <span>"+pro.getTamaño()+" Watts</span><br />");
               out.println(" </p>");   
               out.println("<p class=\"price\">Precio: <strong> $"+pro.getPrecio()+"</strong></p>");
+              
+             
+             
+              
+             
+           
+              if(sesion.getAttribute("dni")!=null && sesion.getAttribute("dni")!="")
+              {
+              if(!agregado)
+              {
               out.println("<input type=\"button\" id=\"btnAgregar\" title=\"Agregar\" value=\"Agregar\" onclick=\"agregar("+pro.getCodigo()+")\" />");
-              out.println("</li>");            
+              }
+              else
+              {
+              out.println("<input type=\"button\" id=\"btnQuitar\" title=\"Quitar\" value=\"Quitar\" onclick=\"quitar("+pro.getCodigo()+")\" />");
+                   
+              }
+              out.println("</li>");
+              }
+              
+      }
         }
 
        
-	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

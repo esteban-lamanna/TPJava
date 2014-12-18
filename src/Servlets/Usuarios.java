@@ -15,7 +15,7 @@ import java.util.*;
  * Servlet implementation class Usuarios
  */
 @WebServlet("/Usuarios")
-public class Usuarios extends HttpServlet {
+public class Usuarios extends Padre {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -49,7 +49,7 @@ public class Usuarios extends HttpServlet {
         String direnvios = request.getParameter("direnvios");
         String edad = request.getParameter("edad");
         String emailUsuario = request.getParameter("email");
-        Controlador_encar contr=new Controlador_encar();
+        Controlador_encar contr = getControlador();
        
         
         

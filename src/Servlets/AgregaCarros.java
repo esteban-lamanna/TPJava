@@ -16,7 +16,7 @@ import Controlador.Controlador_encar.Prods;
  * Servlet implementation class AgregaCarros
  */
 @WebServlet("/AgregaCarros")
-public class AgregaCarros extends HttpServlet {
+public class AgregaCarros extends Padre {
 	
 	public enum Prods {
 
@@ -48,7 +48,7 @@ public class AgregaCarros extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		String tipo;
-		Controlador_encar contr=new Controlador_encar();
+		Controlador_encar contr= getControlador();
 		System.out.println(request.getParameter("cod"));
 		
 		String codigo= request.getParameter("cod");

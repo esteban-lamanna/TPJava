@@ -19,7 +19,7 @@ import Controlador.Controlador_encar;
  * Servlet implementation class QuitarDelCarrito
  */
 @WebServlet("/QuitarDelCarrito")
-public class QuitarDelCarrito extends HttpServlet {
+public class QuitarDelCarrito extends Padre {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -43,7 +43,8 @@ public class QuitarDelCarrito extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Controlador_encar contr = new Controlador_encar();
+		
+		Controlador_encar contr = getControlador();
 		String codigo= request.getParameter("cod");
 		int codi=Integer.parseInt(codigo);
 
