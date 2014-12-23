@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Controlador.Controlador_encar;
+import DB.DBCarros;
+import Modelo.CarritoCompra;
 import Modelo.Usuario;
 
 /**
@@ -43,6 +45,7 @@ public class LoginCheck extends Padre {
         String dni=request.getParameter("dni");
         String pass=request.getParameter("password");
        
+        
         if(cont.Login(dni,pass))
             {
         	HttpSession sesion = request.getSession(false);
@@ -50,10 +53,17 @@ public class LoginCheck extends Padre {
         	{
         		sesion = request.getSession(true);
         	}
-        		        	
         	
-        	Usuario usu=cont.buscaUsuario(dni);
-            sesion.setAttribute("username",usu.getNombre());
+        	//le creo el carrito
+        	DBCarros carro = new DBCarros();
+        	CarritoCompra carrito=	carro.BuscaCarro(dni);
+        	
+        	Usuario usu = cont.getUsuarioActual();
+        
+            usu.setCarcomp(carrito);
+            cont.SetCarroComprasAUsuario(carrito);
+            
+        	sesion.setAttribute("username",usu.getNombre());
             sesion.setAttribute("dni",usu.getDni());
             sesion.setAttribute("EsAdmin",usu.getEsAdmin());
             response.sendRedirect("Index.jsp");

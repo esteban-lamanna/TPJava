@@ -62,6 +62,69 @@ public class DBCarros extends DBAdapter
 	
 		}	
 	}
+	
+	public CarritoCompra BuscaCarro(int codigo, String dni)
+	{
+		CarritoCompra carro = new CarritoCompra();
+		try
+		{
+		
+		Statement st=conex.createStatement();
+		ResultSet rs=st.executeQuery("SELECT * FROM Carritos where dni=" + dni+"' OR codigo='"+codigo+"'");
+	
+		
+		while(rs.next())
+		{
+			
+			carro.setDni(rs.getInt("dni"));
+			carro.setCodigo_carrito(rs.getInt("codigo"));
+		
+		}
+	
+		
+		
+		
+		
+	} catch (SQLException t) 
+		{
+		
+		t.printStackTrace();
+	
+		}
+		return carro;
+	}
+
+
+public CarritoCompra BuscaCarro(String dni)
+{
+	CarritoCompra carro = new CarritoCompra();
+	try
+	{
+	
+	Statement st=conex.createStatement();
+	ResultSet rs=st.executeQuery("SELECT * FROM Carritos where dni=" + dni+"");
+
+	
+	while(rs.next())
+	{
+		
+		carro.setDni(rs.getInt("dni"));
+		carro.setCodigo_carrito(rs.getInt("codigo"));
+	
+	}
+
+	
+	
+	
+	
+} catch (SQLException t) 
+	{
+	
+	t.printStackTrace();
+
+	}
+	return carro;
+}
 }
 
 

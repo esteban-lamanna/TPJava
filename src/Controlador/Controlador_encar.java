@@ -1,5 +1,6 @@
 package Controlador;
 
+import java.sql.SQLException;
 import java.util.*;
 
 import org.apache.catalina.Session;
@@ -8,6 +9,7 @@ import DB.DBUsuarios;
 import DB.DBProductos;
 import Modelo.CarritoCompra;
 import Modelo.Compra;
+import Modelo.LineaCarro;
 import Modelo.LineaProducto;
 import Modelo.Producto;
 import Modelo.Fuente;
@@ -24,6 +26,7 @@ import Modelo.RCable;
 import Modelo.Usuario;
 import DB.DBCarros;
 import DB.DBCompras;
+import DB.DBLineaCarro;
 import DB.DBLineascomp;
 
 
@@ -40,6 +43,7 @@ static CarritoCompra carroCompleto;
 static String[] correcto;
 static DBUsuarios UsuariosDB=new DBUsuarios();
 static DBProductos ProductosDB=new DBProductos();
+static DB.DBLineaCarro DBLineaCarro=new DBLineaCarro();
 static DBLineascomp LineascompDB=new DBLineascomp();
 static DBCarros CarrosDB=new DBCarros();
 static DBCompras ComprasDB=new DBCompras();
@@ -50,6 +54,11 @@ static ArrayList<Producto> productosActuales;
 public CarritoCompra getCarroCompleto()
 {
 	return carroNew;
+}
+
+public Usuario getUsuarioActual()
+{
+	return usuarioActual;
 }
 
 public enum Prods {
@@ -78,6 +87,11 @@ public boolean Login(String dni,String pass)
 		carroNew=new CarritoCompra();
 	}
 	return band;
+}
+
+public void SetCarroComprasAUsuario(CarritoCompra carro)
+{
+	usuarioActual.setCarcomp(carro);
 }
 
 public void LevantaCarroOld(String dni)
@@ -608,7 +622,7 @@ public  void Comprar(String codprods[],String cantidades[],String dni)
 		//usuarioActual.añadeCompra(compraActual);
 	}
 	
-public String añadeAlCarro(int codigo)
+public String añadeAlCarro(int codigo_producto, String dni)
 { 
 		/*String tipo;
 		productoActual=ProductosDB.buscaProducto(codigo);
@@ -617,10 +631,19 @@ public String añadeAlCarro(int codigo)
 		tipo=productoActual.getTipo();
 		return tipo;*/
 	String tipo;
-	productoActual=ProductosDB.buscaProducto(codigo);
-	LineaProducto linea = new LineaProducto();
+	System.out.print(dni);
+	productoActual=ProductosDB.buscaProducto(codigo_producto);
+	LineaCarro linea = new LineaCarro();
 	linea.setProducto(productoActual);
-	
+	linea.setDni(dni);
+	try {
+		DBLineaCarro.CreaLineaCarro(linea, usuarioActual.getCarcomp().getCodigo_carrito());
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	tipo=productoActual.getTipo();
+	return tipo;
 	
 }
 

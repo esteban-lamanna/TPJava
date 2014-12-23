@@ -49,12 +49,15 @@ public class AgregaCarros extends Padre {
 	{
 		String tipo;
 		Controlador_encar contr= getControlador();
-		System.out.println(request.getParameter("cod"));
-		
+			
 		String codigo= request.getParameter("cod");
-		int codi=Integer.parseInt(codigo);
-
-		tipo=contr.añadeAlCarro(codi );
+		int cod_producto=Integer.parseInt(codigo);
+		HttpSession sesion = request.getSession(false);
+    	if(sesion==null)
+    	{
+    		sesion = request.getSession(true);
+    	}
+		tipo=contr.añadeAlCarro(cod_producto, sesion.getAttribute("dni").toString());
 		//response.sendRedirect("MiCarrito.jsp");	
 		//request.getRequestDispatcher("MiCarrito.jsp").forward(request, response);
 		//return;
