@@ -13,6 +13,7 @@ String localidad;
 String direnvio;
 String contraseña;
 String mail;
+int EsAdmin;
 
 int edad;
 CarritoCompra carcomp;
@@ -116,6 +117,12 @@ public void setMail(String mail)
 		carcomp=car;
 		return carcomp;
 		
+	}
+	public int getEsAdmin() {
+		return EsAdmin;
+	}
+	public void setEsAdmin(int esAdmin) {
+		EsAdmin = esAdmin;
 	}
 	
 }

@@ -33,9 +33,11 @@
 			<h1 id="logo"><a href="#"></a></h1>
 			<div id="navigation">
 				<ul id="sddm">
-<<<<<<< HEAD
 				<%if(session.getAttribute("username")!= null)
-					{%>
+					{
+					if(session.getAttribute("EsAdmin").equals(1))
+					{response.sendRedirect("MasterMenu.jsp");}
+				%>
 				<li><a href="EdicionUsuario.jsp"> Hola <%=session.getAttribute("username")%></a>
 				</li>
 				<li><a href="CerrarSesion.jsp">Cerrar Sesion</a>
@@ -47,25 +49,25 @@
 					
 					 <li>
 				    <a href="#" 
-=======
-				    <li><a href="#" 
->>>>>>> origin/master
 				        onmouseover="mopen('m2')" 
-				        onmouseout="mclosetime()">Ingresar</a>
-				        <div id="m2" 
-				            onmouseover="mcancelclosetime()" 
+				        onmouseout="mclosetime()">Ingresar</a></li>
+				        <div id="m2" style="z-index: 3;" onmouseover="mcancelclosetime()" 
 				            onmouseout="mclosetime()" align="center">
-							  <form action="LoginCheck.jsp" method="get" class="login" style="margin-top: 0px;">
-							    <input type="text" name="dni" class="input-login" placeholder="Documento" style="margin-bottom: 10px;">
+							  <form action="LoginCheck.jsp" method="get" class="login">
+							    <input type="text" name="dni" class="input-login" placeholder="Dni" style="margin-bottom: 10px;">
 							    <br>
 							    <input type="password" name="password" class="input-login" placeholder="Password" style="margin-bottom: 15px;">
 							    <br>
 							    <input type="submit" value="Login" class="login-submit">
 							  </form>
 				        </div>
-				    </li>
-				    <li class="last"><a href="Registro.jsp">Registrarse</a></li>
+				   <li><a href="Registro.jsp">Registrarme</a></li>
+				        	<%} %>
+				   
+				    <li class="last"><a href="#">Home</a></li>
 				</ul>
+						
+			
 				<div style="clear:both"></div>
 			</div>
 		</div>
@@ -108,7 +110,9 @@
 					<a href="#" class="cart-ico">&nbsp;</a>
 					<strong>$0.00</strong>
 				</span>
-				
+				<span class="left more-links">
+					<a id="MiCuenta" href="#"></a>
+				</span>
 			</div>
 		</div>
 		<!-- End Search, etc -->
@@ -129,6 +133,7 @@
 				    <li><a id="tab8"><span>Placa Red</span></a></li>
 				    <li><a id="tab9"><span>Placa Sonido</span></a></li>
 				    <li><a id="tab10"><span>Cable Red</span></a></li>
+				    <li><a id="tab11"><span>Busqueda</span></a></li>
 				</ul>
 			</div>
 				<script type="text/javascript">
@@ -173,12 +178,16 @@
 							closetimer = null;
 						}
 					}
-
+					
+					// close layer when click-out
+				//m2.onclick = mclose; 
 				
 				$(document).ready(function() {
 					$('#submit').click(function(event) {
-						actualizarTabs();
+						deselecionar();
 						var buscarVar = $('#buscar').val();
+						var nodo = document.getElementById("tab11");
+						nodo.className = "active";
 					      $.ajax({
 							    type: "POST",
 							    url: "Busqueda",
@@ -190,23 +199,7 @@
 					});
 				});
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 				
-=======
->>>>>>> origin/master
-=======
-				function actualizarTabs()
-				{			
-					$.ajax({
-					    type: "POST",
-					    url: "tabs",
-					    success: function(a) {
-				                $('#tabs').html(a);
-					    }
-				       });
-				}
->>>>>>> parent of 9f76646... mergeado correctamente
 				
 			      $.ajax({
 					    type: "POST",
@@ -238,6 +231,8 @@
 						nodo9.classList.remove("active");
 						var nodo10 = document.getElementById("tab10");
 						nodo10.classList.remove("active");
+						var nodo11 = document.getElementById("tab11");
+						nodo11.classList.remove("active");
 			      };
 			      
 					$(document).ready(function() {
@@ -348,21 +343,6 @@
 					$(document).ready(function() {
 						   $('#tab9').click(function(){
 							   deselecionar();
-								var nodo = document.getElementById("tab8");
-								nodo.className = "active";
-						      $.ajax({
-							    type: "POST",
-							    url: "PlacaRed",
-							    success: function(a) {
-						                $('#results').html(a);
-							    }
-						       });
-						   });
-						});	
-					
-					$(document).ready(function() {
-						   $('#tab9').click(function(){
-							   deselecionar();
 								var nodo = document.getElementById("tab9");
 								nodo.className = "active";
 						      $.ajax({
@@ -392,10 +372,10 @@
 					
 					function agregar(cod)
 				      {
-						
+					
 						      $.ajax({
-							    type: "POST",
-							    url: "AgregaCarros",
+						    	type: "POST",
+						        url: "AgregaCarros",
 							    data: {'cod':cod},
 							    success: function(a) {
 						                $('#results').html(a);

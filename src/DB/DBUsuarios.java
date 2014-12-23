@@ -27,7 +27,7 @@ public class DBUsuarios extends DBAdapter
 		String localidad=user.getLocalidad();
 		Statement st=conex.createStatement();
 		System.out.println("Llego a crea usuarios con: "+dni);
-		st.execute("INSERT INTO Usuarios VALUES('"+dni+"','"+pass+"','"+nombre+"','"+ape+"','"+direccion+"','"+direnvios+"','"+edad+"','"+mail+"','"+localidad+"')");
+		st.execute("INSERT INTO Usuarios VALUES('"+dni+"','"+pass+"','"+nombre+"','"+ape+"','"+direccion+"','"+direnvios+"','"+edad+"','"+mail+"','"+localidad+"',0')");
 	
 	} catch (SQLException t) 
 		{
@@ -79,6 +79,7 @@ public class DBUsuarios extends DBAdapter
 			user.setEdad(rs.getInt(7));
 			user.setMail(rs.getString(8));
 			user.setLocalidad(rs.getString(9));
+			user.setEsAdmin(rs.getInt(10));
 			return user;
 		}
 	}
@@ -115,6 +116,7 @@ public class DBUsuarios extends DBAdapter
 				user.setEdad(rs.getInt(7));
 				user.setMail(rs.getString(8));
 				user.setLocalidad(rs.getString(9));
+				user.setEsAdmin(rs.getInt(10));
 				}
 			return user;
 		} catch (SQLException t) 

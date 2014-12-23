@@ -19,6 +19,7 @@
         	Usuario usu=cont.buscaUsuario(dni);
         	session.setAttribute("dni",usu.getDni());
             session.setAttribute("username",usu.getNombre());
+            session.setAttribute("EsAdmin",usu.getEsAdmin());
             response.sendRedirect("Index.jsp");
             }
         else
