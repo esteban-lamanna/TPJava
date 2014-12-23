@@ -18,13 +18,24 @@
 <script type="text/javascript">
 
 //Funcion para validar DNI
-function validarExistenciaDNI(dni)
-{
+function RecuperarUsuario(dni)
+{  
 	      $.ajax({
 			    type: "POST",
-			    url: "BusquedaRegistro",
+			    url: "BusquedaUsuario",
 			    data: {'dni':dni},
-			    success: function (result){ return result;},
+			    success: function (result){
+			    $('#dni').val(result.getDni());
+			    $('#password').val(result.getContraseña());
+			    $('#passwordconfirm').val(result.getContraseña());
+			    $('#nombre').val(result.getNombre());
+			    $('#apellido').val(result.getApellido());
+			    $('#direccion').val(result.getDireccion());
+			    $('#direnvios').val(result.getDirenvio());
+			    $('#localidad').val(result.getLocalidad());
+			    $('#edad').val(result.getEdad());
+			    $('#email').val(result.getMail());
+			    },
 	      });
 }
 
@@ -67,6 +78,7 @@ debugger;
 
 function validarPass(pass)
 {
+	debugger;
 	 $.ajax({
 		    type: "POST",
 		    url: "Validador/isUsernameOrPasswordValid",
@@ -75,24 +87,7 @@ function validarPass(pass)
  });}
 
 function validarEnvio(){ 
-	debugger;
-   	//valido longitud DNI 
-   	var dni=$('#dni').val().trim();
-   	var respuesta=validarExistenciaDNI(dni);
-   	if (dni.length<1)
-   	{ 
-      	 alert("Tiene que escribir su dni");
-      	 $('#dni').focus(); 
-      	 return false;
-   	}
 
-   	//valido existencia DNI
-   	if(respuesta==true)
-   		{
-   			alert("Tiene que ingresar otro DNI");
-   			$('#dni').focus();
-   			return false;
-   		}
   	//valido longitud PASSWORD 
    	if ($('#password').val().trim().length<1)
    	{ 
@@ -102,7 +97,6 @@ function validarEnvio(){
    	}
   	
   	//valido longitud PASSWORD CONFIRMATION
-  	var pass = $("#password").val().trim();
 	if ($('#passwordconfirm').val().trim().length<1)
    	{ 
       	 alert("Tiene que escribir su confirmacion de password"); 
@@ -110,12 +104,12 @@ function validarEnvio(){
       	 return false; 
    	} 
   	
-  	if(validarPass(pass))
+  	if(!validarPass($("#password").val()))
   		{
   		
-	  	 alert("Debe ingresar una contraseña sin caracteres especiales y de más de 6 caracteres");
-	  	 $('#password').focus(); 
-	  	 return false;
+  	 alert("Debe ingresar una contraseña sin caracteres especiales y de más de 6 caracteres");
+  	 $('#password').focus(); 
+  	 return false;
   		}
 
   	
@@ -205,16 +199,18 @@ function validarEnvio(){
 	//Valido el EMAIL
 	if(!validarEmail(email))
 		{
-		
 			return false;
 		}
-
-  
    	
    	alert("Muchas gracias por Registrarse"); 
 
    	return true;
 }
+
+<%if(!session.getAttribute("dni").equals(null))
+{%>
+	RecuperarUsuario(<%=session.getAttribute("dni")%>);
+<%} %> 
 
 </script>
 
@@ -231,18 +227,19 @@ function validarEnvio(){
        <div class="shell">
        <div class="options"></div>
        	<div id="content">
-		        
-				<form id="Registro" class="dark-matter texto-form" action="Usuarios" method="post" > 
-		        	<h1>Registro</h1>
+
+<form id="Registro" class="dark-matter texto-form" action="Usuarios" method="post" > 
+		        <!--Comentario en HTML	        <form id="Registro" class="dark-matter texto-form" action="RegisterCheck.jsp" method="post" >-->
+		        	<h1>Modificacion Perfil</h1>
 		        	<p>
 						<label>
-				        	<span>Dni: </span> <input type="text" id="dni" name="dni" >
+				        	<span>Dni: </span> <input type="text" id="dni" name="dni">
 						</label>
 						<label>
-				        	<span>Contraseña: </span> <input type="password" id="password" name="password">
+				        	<span>Nueva Contraseña: </span> <input type="password" id="password" name="password" value="">
 						</label>
 						<label>
-				            <span>Confirma contraseña: </span> <input type="password" name="passwordconfirm" id="passwordconfirm">
+				            <span>Confirma Nueva Contraseña: </span> <input type="password" name="passwordconfirm" id="passwordconfirm">
 						</label>
 						<label>
 				            <span>Nombre: </span> <input type="text" name="nombre" id="nombre">
@@ -276,7 +273,6 @@ function validarEnvio(){
 	        </div>
 	    </div>
  	 </div>
- 	 
 </body>
 
 

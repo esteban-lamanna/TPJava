@@ -35,8 +35,11 @@
 			<div id="navigation">
 				<ul id="sddm">
 				<%if(session.getAttribute("username")!= null)
-					{%>
-				<li>Hola <%=session.getAttribute("username")%>
+					{
+					if(session.getAttribute("EsAdmin").equals(1))
+					{response.sendRedirect("MasterMenu.jsp");}
+				%>
+				<li><a href="EdicionUsuario.jsp"> Hola <%=session.getAttribute("username")%></a>
 				</li>
 				<li><a href="CerrarSesion.jsp">Cerrar Sesion</a>
 				</li>

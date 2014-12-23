@@ -70,6 +70,16 @@
     padding: 5px 0px 0px 5px;
     width: 70%;
 }
+
+fieldset { 
+width: 94%; 
+border:6px groove #ccc; /* Borde */
+background:silver; /* Color de fondo */
+color:#000; /* Color del texto de todo el contenido */
+padding: 6px; 
+display: block; 
+}
+
 .dark-matter input[type="button"], .dark-matter input[type="submit"] {
     background: #FFCC02;
     border: none;
