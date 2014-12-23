@@ -610,12 +610,18 @@ public  void Comprar(String codprods[],String cantidades[],String dni)
 	
 public String añadeAlCarro(int codigo)
 { 
-		String tipo;
+		/*String tipo;
 		productoActual=ProductosDB.buscaProducto(codigo);
 		carroNew.setDni(usuarioActual.getDni());
 		carroNew.añadeProducto(productoActual);
 		tipo=productoActual.getTipo();
-		return tipo;
+		return tipo;*/
+	String tipo;
+	productoActual=ProductosDB.buscaProducto(codigo);
+	LineaProducto linea = new LineaProducto();
+	linea.setProducto(productoActual);
+	
+	
 }
 
 public ArrayList<Producto> levantaCarro()

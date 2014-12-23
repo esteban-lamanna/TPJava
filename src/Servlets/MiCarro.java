@@ -17,7 +17,7 @@ import Modelo.Producto;
  * Servlet implementation class MiCarro
  */
 @WebServlet("/MiCarro")
-public class MiCarro extends HttpServlet {
+public class MiCarro extends Padre {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -47,7 +47,7 @@ public class MiCarro extends HttpServlet {
         
         
         out.println("</tr>");
-        Controlador_encar contr=new Controlador_encar();
+        Controlador_encar contr= getControlador();
         ArrayList<Producto> prods=contr.levantaCarro();
         for(int i=0;i<prods.size();i++)
         {        	      
