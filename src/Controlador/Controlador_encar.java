@@ -583,9 +583,15 @@ public void nuevoUsuario(String dni,String pass,String valpass,String nombre,Str
 			usuarioActual.setEdad(Integer.parseInt(edad));
 			usuarioActual.setMail(mail);
 			usuarioActual.setLocalidad(localidad);
-			carroNew=new CarritoCompra();
-			carroNew.setDni(usuarioActual.getDni());
-			usuarioActual.setCarcomp(carroNew);
+			CarritoCompra carrito=	CarrosDB.BuscaCarro(dni);
+			if(carrito == null)
+			{
+				
+			}
+			
+			//carroNew=new CarritoCompra();
+			//carroNew.setDni(usuarioActual.getDni());
+			//usuarioActual.setCarcomp(carroNew);
 			UsuariosDB.CreaUsuario(usuarioActual);
 		}
 	}

@@ -4,7 +4,7 @@ import java.util.*;
 public class CarritoCompra 
 {
 	ArrayList<Producto> productosCarro=new ArrayList<Producto>();
-	int dni;
+	String dni;
 	private int codigo_carrito;
 	
 	public int getCodigo_carrito() {
@@ -20,12 +20,12 @@ public class CarritoCompra
 		productosCarro.add(p);
 	}
 	
-	public int getDni() {
+	public String getDni() {
 		return dni;
 	}
 
-	public void setDni(int dni) {
-		this.dni = dni;
+	public void setDni(String string) {
+		this.dni = string;
 	}
 
 	public ArrayList<Producto> getProductosCarro() 
