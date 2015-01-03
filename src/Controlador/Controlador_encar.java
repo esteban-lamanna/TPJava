@@ -53,7 +53,7 @@ static ArrayList<Producto> productosActuales;
 
 public CarritoCompra getCarroCompleto()
 {
-	return carroNew;
+	return usuarioActual.getCarcomp();
 }
 
 public Usuario getUsuarioActual()
@@ -628,7 +628,7 @@ public  void Comprar(String codprods[],String cantidades[],String dni)
 		//usuarioActual.añadeCompra(compraActual);
 	}
 	
-public String añadeAlCarro(int codigo_producto, String dni)
+public String añadeAlCarro(int codigo_producto, String dni) throws SQLException
 { 
 		/*String tipo;
 		productoActual=ProductosDB.buscaProducto(codigo);
@@ -639,14 +639,16 @@ public String añadeAlCarro(int codigo_producto, String dni)
 	String tipo;
 	System.out.print(dni);
 	productoActual=ProductosDB.buscaProducto(codigo_producto);
+	usuarioActual.getCarcomp().añadeProducto(productoActual);//lo agrego al carrito en memoria
 	LineaCarro linea = new LineaCarro();
 	linea.setProducto(productoActual);
 	linea.setDni(dni);
 	try {
-		DBLineaCarro.CreaLineaCarro(linea, usuarioActual.getCarcomp().getCodigo_carrito());
+		DBLineaCarro.CreaLineaCarro(linea, usuarioActual.getCarcomp().getCodigo_carrito()); //lo agrego al carrito en BD
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
-		e.printStackTrace();
+	//	Exception e = new Exception();
+		throw e;
 	}
 	tipo=productoActual.getTipo();
 	return tipo;

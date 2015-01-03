@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import Modelo.CarritoCompra;
+import Modelo.Producto;
 
 public class DBCarros extends DBAdapter
 {
@@ -169,7 +170,7 @@ public CarritoCompra BuscaCarro(String dni)
 public boolean ExisteCarro(String dni)
 {
 	CarritoCompra carro = new CarritoCompra();
-	Boolean res = false;
+	Boolean res = true;
 	try
 	{
 	
@@ -198,6 +199,37 @@ if(cont ==0)
 	return res;
 	
 }
+/*
+public ArrayList<CarritoCompra> getAllCarritos(String modelo)
+{
+	Producto prod=null;
+	try
+	{
+	Statement st=conex.createStatement();
+	ResultSet rs=st.executeQuery("SELECT * FROM Productos");
+	while(rs.next())
+	{
+	if(rs.getString("modelo").equals(modelo))
+		{
+		prod=new Producto();
+		prod.setFoto(rs.getString("foto"));
+		prod.setModelo(rs.getString("modelo"));
+		prod.setNombre(rs.getString("nombre"));
+		prod.setPrecio(rs.getFloat("precio"));
+		prod.setTipo(rs.getString("tipo"));
+		prod.setDescripcion(rs.getString("Descripcion"));
+
+		}
+	}
+	
+	return prod;
+} catch (SQLException t) 
+{
+	
+t.printStackTrace();
+return prod;
+}
+}*/
 }
 
 

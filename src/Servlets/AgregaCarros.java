@@ -2,6 +2,7 @@ package Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,9 +44,10 @@ public class AgregaCarros extends Padre {
     }
 
 	/**
+	 * @throws IOException 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException 
 	{
 		String tipo;
 		Controlador_encar contr= getControlador();
@@ -57,6 +59,9 @@ public class AgregaCarros extends Padre {
     	{
     		sesion = request.getSession(true);
     	}
+    	try{
+    		
+    	
 		tipo=contr.añadeAlCarro(cod_producto, sesion.getAttribute("dni").toString());
 		//response.sendRedirect("MiCarrito.jsp");	
 		//request.getRequestDispatcher("MiCarrito.jsp").forward(request, response);
@@ -96,6 +101,13 @@ public class AgregaCarros extends Padre {
 			response.sendRedirect("RedCable");
 			break;
 		}
+    	}
+    	catch(Exception e)
+    	{
+    		e.printStackTrace();
+    		PrintWriter out=response.getWriter();
+    		out.println("Problema al insertar el producto al carro");
+    	}
 	}
 
 	/**
