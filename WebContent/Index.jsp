@@ -188,6 +188,8 @@
 				//m2.onclick = mclose; 
 				
 				$(document).ready(function() {
+					sumarCostoAcumulado();
+	                contarProductosEnCarro();
 					$('#submit').click(function(event) {
 						deselecionar();
 						var buscarVar = $('#buscar').val();

@@ -60,7 +60,7 @@ public class LoginCheck extends Padre {
         	
         	Usuario usu = cont.getUsuarioActual();
         
-            usu.setCarcomp(carrito);
+         //   usu.setCarcomp(carrito);
             cont.SetCarroComprasAUsuario(carrito);
             
         	sesion.setAttribute("username",usu.getNombre());

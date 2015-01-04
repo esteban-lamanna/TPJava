@@ -141,16 +141,26 @@ public CarritoCompra BuscaCarro(String dni)
 		if(ExisteCarro(dni))
 		{
 	Statement st=conex.createStatement();
-	ResultSet rs=st.executeQuery("SELECT * FROM Carritos where dni=" + dni+"");
+	ResultSet rs=st.executeQuery("SELECT * FROM Carritos c inner join lineacarro lc on lc.codigo_carro = c.codigo where dni=" + dni+"");
 	carro = new CarritoCompra();
 	
-	while(rs.next())
+	if(rs.next())
 	{
 		int dni2= rs.getInt("dni");
 		carro.setDni(String.valueOf(dni2));
 		carro.setCodigo_carrito(rs.getInt("codigo"));
-	
+		
+	}	
+	rs.first();
+	DBProductos ProdDB = new DBProductos();
+	ArrayList<Producto> arreglo = new ArrayList<>();
+	while(rs.next())
+	{
+		int cod = rs.getInt("codigo_producto");
+	    Producto pro=	ProdDB.buscaProducto(cod);
+	    arreglo.add(pro);
 	}
+	carro.setProductosCarro(arreglo);
 	
 
 		}
