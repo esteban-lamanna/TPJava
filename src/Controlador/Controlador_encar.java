@@ -687,25 +687,44 @@ public static void eliminaDelCarro(Vector<String> prods,String dni)
 	}
 }
 
-public static String eliminaDelCarroMemoria(int codigo)
+public  void eliminaDelCarroMemoria(int codigo)
 {
 	String tipo;
 	productoActual=ProductosDB.buscaProducto(codigo);
 	tipo=productoActual.getTipo();
 	
-		for(int j=0;j<carroNew.getProductosCarro().size();j++)
+		for(int j=0;j<usuarioActual.getCarcomp().getProductosCarro().size();j++)
 		{
-			if(codigo== carroNew.getProductosCarro().get(j).getCodigo())
+			if(codigo== usuarioActual.getCarcomp().getProductosCarro().get(j).getCodigo())
 			{
-				carroNew.getProductosCarro().remove(j);
+				usuarioActual.getCarcomp().getProductosCarro().remove(j);
 				
 			}
 		
 		
 	}
-		return tipo;
-}
+		}
 
+public static String eliminaDelCarro(int codigo, String dni) throws SQLException
+{
+	String tipo;
+	productoActual=ProductosDB.buscaProducto(codigo);
+	tipo=productoActual.getTipo();
+	
+	usuarioActual.getCarcomp().eliminaProducto(productoActual);//lo elimino del carrito en memoria
+	LineaCarro linea = new LineaCarro();
+	linea.setProducto(productoActual);
+	linea.setDni(dni);
+	try {
+		DBLineaCarro.EliminaLineaCarro(linea, usuarioActual.getCarcomp().getCodigo_carrito()); //lo agrego al carrito en BD
+	} catch (SQLException e) {
+		throw e;
+	}
+	tipo=productoActual.getTipo();
+	return tipo;
+	
+	
+}
 public ArrayList<Producto>BusquedaExhaustiva(String parametro)
 {
 	ArrayList<Producto> productos=new ArrayList<Producto>();

@@ -37,6 +37,23 @@ public class DBLineaCarro extends DBAdapter
 	
 	}
 	
+	public void EliminaLineaCarro(LineaCarro linea, int codigo_carro) throws SQLException
+	{
+		
+				
+		try {
+			Statement st=conex.createStatement();
+			st.execute("delete from lineacarro where codigo_producto = '"+linea.getProducto().getCodigo()+"' AND codigo_carro = '"+codigo_carro+"'");
+
+                      
+           
+		} catch (SQLException sqle) 
+		{
+			throw sqle;
+			//sqle.printStackTrace();
+		}
+	
+	}
 	
 	
 	public ArrayList<LineaProducto> buscaLineas(String codCarro)

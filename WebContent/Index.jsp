@@ -117,6 +117,12 @@
 				<span class="left more-links">
 					<a id="Comprar" href="#">Comprar</a>
 				</span>
+				<script language="javascript">
+				$(document).ready(function() {
+				sumarCostoAcumulado();
+				contarProductosEnCarro();
+				})
+				</script>
 				<%} %>
 			</div>
 		</div>
@@ -188,8 +194,7 @@
 				//m2.onclick = mclose; 
 				
 				$(document).ready(function() {
-					sumarCostoAcumulado();
-	                contarProductosEnCarro();
+					
 					$('#submit').click(function(event) {
 						deselecionar();
 						var buscarVar = $('#buscar').val();
@@ -466,7 +471,7 @@
 			
 			<!-- Container -->
 			<div id="container">
-				
+				<input type="hidden" name="logueado" id="logueado" value="false" ></input>
 				<div class="tabbed">
 					
 					<!-- First Tab Content -->

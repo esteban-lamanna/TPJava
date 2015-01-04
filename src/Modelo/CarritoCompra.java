@@ -15,6 +15,11 @@ public class CarritoCompra
 		this.codigo_carrito = codigo_carrito;
 	}
 
+	public void eliminaProducto(Producto p)
+	{
+		productosCarro.remove(p);
+	}
+	
 	public void añadeProducto(Producto p)
 	{
 		productosCarro.add(p);
