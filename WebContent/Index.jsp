@@ -109,7 +109,7 @@
 			<div class="right">
 			<%if (session.getAttribute("dni")!=null &&session.getAttribute("dni")!=""){ %>
 				<span class="cart">
-					<a href="MiCarro" class="cart-ico">&nbsp;</a>
+					<a href="MiCarrito2.jsp" class="cart-ico">&nbsp;</a>
 					
 					<strong><label id="ContadorProductosEnCarrito"></label></strong>
 					<strong>$<label id="AcumuladorCosto"></label></strong>
