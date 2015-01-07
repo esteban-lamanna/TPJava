@@ -65,7 +65,10 @@ public class Fuentes extends Padre {
         out.println("<input name=\"Codigos\" id=\"Codigos\" value=\""+pro.getCodigo()+"\" type=\"hidden\" />");
         out.println(" <div class=\"image\">");
         out.println("<a href=\"#\">");
-        out.println("<img src=\"css/images/image1.jpg\" alt=\"\" />");
+        out.println("<img src=\"css/images/image1.jpg\" alt=\"\" />"); // (*)
+        
+        //asi deberia ser para poner cada imagen: el renglon anterior se omitiria (*)
+        //out.println("<img src='"+pro.getFoto()+"' " +"alt=\"\" />");
         out.println("</a>"); 
         out.println("</div>");
         out.println("<p>");
@@ -89,12 +92,15 @@ public class Fuentes extends Padre {
         {
         if(!agregado)
         {
-        out.println("<input type=\"button\" id=\"btnAgregar\" title=\"Agregar\" value=\"Agregar\" onclick=\"agregar("+pro.getCodigo()+")\" />");
+        	 // out.println("<input type=\"button\" id=\"btnAgregar\" title=\"Agregar\" value=\"Agregar\" onclick=\"agregar("+pro.getCodigo()+")\" />");
+    out.print("<img src=\"css/images/cart_add.png\" id=\"btnAgregar\" alt=\"\" onclick=\"agregar("+pro.getCodigo()+")\" />");
+        				    
         }
         else
         {
-        out.println("<input type=\"button\" id=\"btnQuitar\" title=\"Quitar\" value=\"Quitar\" onclick=\"quitar("+pro.getCodigo()+")\" />");
-             
+     //   out.print("<input type=\"button\" id=\"btnQuitar\" title=\"Quitar\" value=\"Quitar\" onclick=\"quitar("+pro.getCodigo()+")\" />");
+        out.print("<img src=\"css/images/cart_delete.png\" id=\"btnQuitar\" alt=\"\" onclick=\"quitar("+pro.getCodigo()+")\" />");
+        
         }
         out.println("</li>");
         }
