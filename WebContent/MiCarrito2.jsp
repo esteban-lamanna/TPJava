@@ -100,27 +100,49 @@
 <script type="text/javascript" language="javascript">
 function Comprar()
 {
-	debugger;
+	debugger;   
+	var arregloCodigos = new Array();
+    var arregloCantidades = new Array();
 	
-	var $filas = $("#TablaProductosCarro tbody").children('tr');
-	var $filasParaComprar = $($filas).attr(,);
-	    /*  $.ajax({
-	    	type: "POST",
-	        url: "QuitarDelCarrito",
-		    data: {'cod':cod},
+		var filas = $('#TablaProductosCarro tbody tr');
+    filas.each(function () {
+        debugger;
+        var Td = $(this).find(">td")[6];
+
+        //  var ultimoTd = $(this).find('td:last');
+        var input = Td.children[0];
+     
+        var valor = input.checked;
+        if(valor)
+        {
+            var codi = $(this).find(">td")[8].innerText;
+            arregloCodigos.push(codi); //aca tengo todos los codigos
+            var canti = $(this).find(">td")[4].children[0];
+            arregloCantidades.push(canti.value); //aca tengo todos los codigos
+        }
+        alert(arregloCodigos.length);
+        
+        //ahora lo mando al servlet
+        
+        $.ajax({
+	    	type: "GET",
+	        url: "AgregaCompras2",
+		    data: {'codigos':arregloCodigos,'cantidades':arregloCantidades},
 		    success: function(a) {
 		    	 debugger;
-	                $('#results').html(a);
+	                alert("Su compra se ha registrado");
+	                location.href="Index.jsp";
 	              
-	                sumarCostoAcumulado();
-	               contarProductosEnCarro();
 	       
 		    },
 		    error: function (xhr, ajaxOptions, thrownError) {
 		       
 		        alert(thrownError);
 		        }
-});*/
+});
+        
+    });
+
 }
 
 

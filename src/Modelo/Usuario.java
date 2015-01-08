@@ -86,18 +86,22 @@ public void setMail(String mail)
 		this.carcomp = carcomp;
 	}
 	public ArrayList<Compra> getCompras() {
+		if(compras == null)
+		{
+			compras = new ArrayList<>();
+		}
 		return compras;
 	}
 	public void setCompras(ArrayList<Compra> comp)
 	{
-		compras=comp;
+		this.getCompras().addAll(comp);
 		
 	}
 
 	
 	public void añadeCompra(Compra compr)
 	{
-		compras.add(compr);
+		this.getCompras().add(compr);
 	}
 	public void cargaUsuario(int dni,String pass,String nom,String apell,String direc,String envio,String mail,String localidad,int edad)
 	{
@@ -113,7 +117,7 @@ public void setMail(String mail)
 	public CarritoCompra AñadeCarrito()
 	{
 		CarritoCompra car=new CarritoCompra();
-		car.setDni(this.dni);
+		car.setDni(this.dni.toString());
 		carcomp=car;
 		return carcomp;
 		

@@ -602,13 +602,13 @@ public void nuevoUsuario(String dni,String pass,String valpass,String nombre,Str
 	}
 }
 
-public  void Comprar(String codprods[],String cantidades[],String dni)
+public  void Comprar(String codprods[],String cantidades[])
 	{
 		Compra compraActual=new Compra();
 		compraActual.setDni(usuarioActual.getDni());
 		compraActual.setTotalcompra(0.0f);
 		compraActual.setEstado("Pendiente");
-		 System.out.println("A verrr "+codprods.length);
+		
 		compraActual=ComprasDB.CreaCompra(compraActual);
 		for (int i=0;i<codprods.length;i++)
 		{
@@ -625,7 +625,7 @@ public  void Comprar(String codprods[],String cantidades[],String dni)
 			
 		}
 		ComprasDB.GuardaCompra(compraActual);
-		//usuarioActual.añadeCompra(compraActual);
+		usuarioActual.añadeCompra(compraActual);
 	}
 	
 public String añadeAlCarro(int codigo_producto, String dni) throws SQLException
