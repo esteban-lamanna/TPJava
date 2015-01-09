@@ -23,9 +23,10 @@ function validarExistenciaDNI(dni)
 	      $.ajax({
 			    type: "POST",
 			    url: "BusquedaRegistro",
-			    data: {'dni':dni},
 			    async: false,
-			    success: function (result){ return result;},
+			    data: {'dni':dni},
+
+			    success: function (result){ $('#dniValidacion').val(result);},
 	      });
 }
 
@@ -69,19 +70,19 @@ debugger;
 function validarPass(pass)
 {
 	 $.ajax({
-		 
-		    type: "POST",
+			type: "POST",
 		    url: "Validador",
-		    data: {'pass':pass},
 		    async: false,
-		    success: function (result){ return result;},
+		    data: {'pass':pass},
+		    success: function (result){ $('#passValidacion').val(result);},
  });}
 
 function validarEnvio(){ 
 	debugger;
    	//valido longitud DNI 
    	var dni=$('#dni').val().trim();
-   	var respuesta=validarExistenciaDNI(dni);
+   	validarExistenciaDNI(dni);
+   	var respuesta = $('#dniValidacion').val();
    	if (dni.length<1)
    	{ 
       	 alert("Tiene que escribir su dni");
@@ -90,7 +91,7 @@ function validarEnvio(){
    	}
 
    	//valido existencia DNI
-   	if(respuesta==true)
+   	if(respuesta == 'false')
    		{
    			alert("Tiene que ingresar otro DNI");
    			$('#dni').focus();
@@ -106,14 +107,17 @@ function validarEnvio(){
   	
   	//valido longitud PASSWORD CONFIRMATION
   	var pass = $("#password").val().trim();
+	validarPass(pass);
+   	var contra = $('#passValidacion').val();
 	if ($('#passwordconfirm').val().trim().length<1)
    	{ 
       	 alert("Tiene que escribir su confirmacion de password"); 
       	 $('#passwordconfirm').focus(); 
       	 return false; 
    	} 
-  	
-  	if(validarPass(pass))
+	
+	//Valido password
+  	if(contra == 'false')
   		{
   		
 	  	 alert("Debe ingresar una contraseña sin caracteres especiales y de más de 6 caracteres");
@@ -236,7 +240,7 @@ function validarEnvio(){
        	<div id="content">
 		        
 				<form id="Registro" class="dark-matter texto-form" action="Usuarios" method="post" > 
-		        	<h1>Registro</h1>
+		        	<h1>Registro<input type="text" id="dniValidacion" style="display: none;" ><input type="text" id="passValidacion" style="display: none;"></h1>
 		        	<p>
 						<label>
 				        	<span>Dni: </span> <input type="text" id="dni" name="dni" >

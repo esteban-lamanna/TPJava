@@ -3,7 +3,7 @@ package Controlador;
 import java.util.*;
 
 import org.apache.catalina.Session;
-
+import java.sql.SQLException;
 import DB.DBUsuarios;
 import DB.DBProductos;
 import Modelo.CarritoCompra;
@@ -26,7 +26,8 @@ import DB.DBCarros;
 import DB.DBCompras;
 import DB.DBLineascomp;
 
-
+import DB.DBLineaCarro;
+import Modelo.LineaCarro;
 
 public class Controlador_encar 
 {
@@ -40,6 +41,7 @@ static CarritoCompra carroCompleto;
 static String[] correcto;
 static DBUsuarios UsuariosDB=new DBUsuarios();
 static DBProductos ProductosDB=new DBProductos();
+static DB.DBLineaCarro DBLineaCarro=new DBLineaCarro();
 static DBLineascomp LineascompDB=new DBLineascomp();
 static DBCarros CarrosDB=new DBCarros();
 static DBCompras ComprasDB=new DBCompras();
@@ -49,8 +51,13 @@ static ArrayList<Producto> productosActuales;
 
 public CarritoCompra getCarroCompleto()
 {
-	return carroNew;
+		return usuarioActual.getCarcomp();
+	}
+	public Usuario getUsuarioActual()
+	{
+		return usuarioActual;
 }
+
 
 public enum Prods {
 
@@ -80,6 +87,10 @@ public boolean Login(String dni,String pass)
 	return band;
 }
 
+public void SetCarroComprasAUsuario(CarritoCompra carro)
+{
+	usuarioActual.setCarcomp(carro);
+}
 public void LevantaCarroOld(String dni)
 {
 	carroOld.getProductosCarro().clear();
@@ -563,7 +574,7 @@ public void nuevoUsuario(String dni,String pass,String valpass,String nombre,Str
 			usuarioActual.setMail(mail);
 			usuarioActual.setLocalidad(localidad);
 			carroNew=new CarritoCompra();
-			carroNew.setDni(usuarioActual.getDni());
+			carroNew.setDni(String.valueOf(usuarioActual.getDni()));
 			usuarioActual.setCarcomp(carroNew);
 			UsuariosDB.CreaUsuario(usuarioActual);
 		}
@@ -575,13 +586,12 @@ public void nuevoUsuario(String dni,String pass,String valpass,String nombre,Str
 	}
 }
 
-public  void Comprar(String codprods[],String cantidades[],String dni)
+public  void Comprar(String codprods[],String cantidades[])
 	{
 		Compra compraActual=new Compra();
 		compraActual.setDni(usuarioActual.getDni());
 		compraActual.setTotalcompra(0.0f);
 		compraActual.setEstado("Pendiente");
-		 System.out.println("A verrr "+codprods.length);
 		compraActual=ComprasDB.CreaCompra(compraActual);
 		for (int i=0;i<codprods.length;i++)
 		{
@@ -600,22 +610,26 @@ public  void Comprar(String codprods[],String cantidades[],String dni)
 		ComprasDB.GuardaCompra(compraActual);
 		//usuarioActual.añadeCompra(compraActual);
 	}
-	
-/*public String añadeAlCarro(int codigo)
+public String añadeAlCarro(int codigo_producto, String dni) throws SQLException
 { 
-		/*String tipo;
-		productoActual=ProductosDB.buscaProducto(codigo);
-		carroNew.setDni(usuarioActual.getDni());
-		carroNew.añadeProducto(productoActual);
-		tipo=productoActual.getTipo();
-		return tipo;*/
-	/*String tipo;
-	productoActual=ProductosDB.buscaProducto(codigo);
-	LineaProducto linea = new LineaProducto();
-	linea.setProducto(productoActual);
+	String tipo;
+		System.out.print(dni);
+		productoActual=ProductosDB.buscaProducto(codigo_producto);
+		usuarioActual.getCarcomp().añadeProducto(productoActual);//lo agrego al carrito en memoria
+		LineaCarro linea = new LineaCarro();
+		linea.setDni(dni);
+		linea.setProducto(productoActual);
+			try {
+				DBLineaCarro.CreaLineaCarro(linea, usuarioActual.getCarcomp().getCodigo_carrito()); //lo agrego al carrito en BD
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			//	Exception e = new Exception();
+				throw e;
+			}
+			tipo=productoActual.getTipo();
+			return tipo;
 	
-	
-}*/
+}
 
 public ArrayList<Producto> levantaCarro()
 {
@@ -626,7 +640,6 @@ public ArrayList<Producto> levantaCarro()
 	return carroCompleto.getProductosCarro();
 
 }
-
 public static void eliminaDelCarro(Vector<String> prods,String dni)
 {
 	boolean old=false;
@@ -649,24 +662,43 @@ public static void eliminaDelCarro(Vector<String> prods,String dni)
 	}
 }
 
-public static String eliminaDelCarroMemoria(int codigo)
+public  void eliminaDelCarroMemoria(int codigo)
 {
 	String tipo;
 	productoActual=ProductosDB.buscaProducto(codigo);
 	tipo=productoActual.getTipo();
 	
-		for(int j=0;j<carroNew.getProductosCarro().size();j++)
+		for(int j=0;j<usuarioActual.getCarcomp().getProductosCarro().size();j++)
 		{
-			if(codigo== carroNew.getProductosCarro().get(j).getCodigo())
+			if(codigo== usuarioActual.getCarcomp().getProductosCarro().get(j).getCodigo())
 			{
-				carroNew.getProductosCarro().remove(j);
+				usuarioActual.getCarcomp().getProductosCarro().remove(j);
 				
 			}
 		
 		
 	}
-		return tipo;
+		}
+
+public static String eliminaDelCarro(int codigo, String dni) throws SQLException
+{
+	String tipo;
+	productoActual=ProductosDB.buscaProducto(codigo);
+	tipo=productoActual.getTipo();
+	
+	usuarioActual.getCarcomp().eliminaProducto(productoActual);//lo elimino del carrito en memoria
+	LineaCarro linea = new LineaCarro();
+	linea.setProducto(productoActual);
+	linea.setDni(dni);
+	try {
+		DBLineaCarro.EliminaLineaCarro(linea, usuarioActual.getCarcomp().getCodigo_carrito()); //lo agrego al carrito en BD
+	} catch (SQLException e) {
+		throw e;
+	}
+	tipo=productoActual.getTipo();
+	return tipo;
 }
+	
 
 public ArrayList<Producto>BusquedaExhaustiva(String parametro)
 {

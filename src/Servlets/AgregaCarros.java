@@ -2,7 +2,7 @@ package Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +14,8 @@ import Controlador.Controlador_encar;
 import Controlador.Controlador_encar.Prods;
 /**
  * Servlet implementation class AgregaCarros
- */
+ * @throws IOException 
+  */
 @WebServlet("/AgregaCarros")
 public class AgregaCarros extends Padre {
 	
@@ -45,54 +46,67 @@ public class AgregaCarros extends Padre {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	/*protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String tipo;
 		Controlador_encar contr= getControlador();
-		System.out.println(request.getParameter("cod"));
-		
 		String codigo= request.getParameter("cod");
-		int codi=Integer.parseInt(codigo);
-
+		int cod_producto=Integer.parseInt(codigo);
+				HttpSession sesion = request.getSession(false);
+		    	if(sesion==null)
+		    	{
+		    		sesion = request.getSession(true);
+		    	}
+		    	try{
+		    		tipo=contr.añadeAlCarro(cod_producto, sesion.getAttribute("dni").toString());
+		    		Prods valor = Prods.valueOf(tipo.toUpperCase());
+		    	
+		    	
 		//tipo=contr.añadeAlCarro(codi );
 		//response.sendRedirect("MiCarrito.jsp");	
 		//request.getRequestDispatcher("MiCarrito.jsp").forward(request, response);
 		//return;
-		/*Prods valor = Prods.valueOf(tipo.toUpperCase());
+		//Prods valor = Prods.valueOf(tipo.toUpperCase());
 	
 		//request.getRequestDispatcher("MiCarrito.jsp").forward(request, response);
 		//response.sendRedirect("MiCarrito.jsp");	
 		//return;
 		switch(valor)
-		{
-		case FUENTE:
-			response.sendRedirect("Fuentes");
-			break;
-		case GABINETE:
-			response.sendRedirect("Gabinetes");
-			break;
-		case HD:
-			response.sendRedirect("HD");
-			break;
-		case MEMORIA:
-			response.sendRedirect("Memorias");
-			break;
-		case MICRO:
-			response.sendRedirect("Micros");
-			break;
-		case PLACAMADRE:
-			response.sendRedirect("PlacaMadres");
-			break;
-		case PVIDEO:
-			response.sendRedirect("PlacaVideo");
-			break;
-		case PSONIDO:
-			response.sendRedirect("PlacaSonido");
-			break;
-		case RCABLE:
-			response.sendRedirect("RedCable");
-			break;
-		}
+ 		{
+ 		case FUENTE:
+ 			response.sendRedirect("Fuentes");
+ 			break;
+ 		case GABINETE:
+ 			response.sendRedirect("Gabinetes");
+ 			break;
+ 		case HD:
+ 			response.sendRedirect("HD");
+ 			break;
+ 		case MEMORIA:
+ 			response.sendRedirect("Memorias");
+ 			break;
+ 		case MICRO:
+ 			response.sendRedirect("Micros");
+ 			break;
+ 		case PLACAMADRE:
+ 			response.sendRedirect("PlacaMadres");
+ 			break;
+ 		case PVIDEO:
+ 			response.sendRedirect("PlacaVideo");
+ 			break;
+ 		case PSONIDO:
+ 			response.sendRedirect("PlacaSonido");
+ 			break;
+ 		case RCABLE:
+ 			response.sendRedirect("RedCable");
+ 			break;
+ 		}
+    }
+	catch(Exception e)
+	    	{
+	    		e.printStackTrace();
+	    		PrintWriter out=response.getWriter();
+	    		out.println("Problema al insertar el producto al carro");
+	    	}
 	}
 
 	/**

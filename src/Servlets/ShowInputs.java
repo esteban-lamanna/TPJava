@@ -64,76 +64,76 @@ public class ShowInputs extends HttpServlet {
 		
 		switch(valor)
 		{
-		case FUENTE:		        
- out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Watts:</td> <td><input class=\"inputTabla\" name=\"watts\" type=\"text\" id=\"watts\" value=\"\" size=\"32\" /></td> </tr>");
- out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Amperaje:</td> <td><input class=\"inputTabla\" name=\"amperaje\" type=\"text\" id=\"amperaje\" value=\"\" size=\"32\" /></td> </tr>");  	          	        
-			break;
+		case FUENTE:	
+			
+					out.println("<label><span>Watts: </span> <input type='text' name='watts' id='watts'></label>");
+					out.println("<label><span>Amperaje: </span> <input type='text' name='amperaje' id='amperaje'></label>");	break;
 
 		case GABINETE:
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Tamaño:</td> <td><input class=\"inputTabla\" name=\"taman\" type=\"text\" id=\"taman\" value=\"\" size=\"32\" /></td> </tr>");
+			out.println("<label><span>Tamaño: </span> <input type='text' name='taman' id='taman'></label>");
 			         	        
 						break;
 		
 			
 		case HD:
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Capacidad:</td> <td><input class=\"inputTabla\" name=\"capacidadhd\" type=\"text\" id=\"capacidadhd\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Interfaz:</td> <td><input class=\"inputTabla\" name=\"interfaz\" type=\"text\" id=\"interfaz\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">RPM:</td> <td><input class=\"inputTabla\" name=\"rpm\" type=\"text\" id=\"rpm\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Buffer:</td> <td><input class=\"inputTabla\" name=\"buffer\" type=\"text\" id=\"buffer\" value=\"\" size=\"32\" /></td> </tr>");
-	               
+			out.println("<label><span>Capacidad: </span> <input type='text' name='capacidadHD' id='capacidadHD'></label>");
+			out.println("<label><span>Interfaz: </span> <input type='text' name='interfaz' id='interfaz'></label>");
+			out.println("<label><span>RPM: </span> <input type='text' name='rpm' id='rpm'></label>");
+			out.println("<label><span>Buffer: </span> <input type='text' name='buffer' id='buffer'></label>");
+         
 	        
 			break;
 			
 		case MEMORIA:
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Frecuencia:</td> <td><input class=\"inputTabla\" name=\"frecuenciamem\" type=\"text\" id=\"frecuenciamem\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Capacidad:</td> <td><input class=\"inputTabla\" name=\"capacidadmem\" type=\"text\" id=\"capacidadmem\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Latencia:</td> <td><input class=\"inputTabla\" name=\"latencia\" type=\"text\" id=\"latencia\" value=\"\" size=\"32\" /></td> </tr>");
+			out.println("<label><span>Frecuencia: </span> <input type='text' name='frecuenciamem' id='frecuenciamem'></label>");
+			out.println("<label><span>Capacidad: </span> <input type='text' name='capacidadmem' id='capacidadmem'></label>");
+			out.println("<label><span>Latencia: </span> <input type='text' name='latencia' id='latencia'></label>");
             
 			break;
 			
 		case MICRO:
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Frecuencia:</td> <td><input class=\"inputTabla\" name=\"frecuenciamicro\" type=\"text\" id=\"frecuenciamicro\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Cache:</td> <td><input class=\"inputTabla\" name=\"cachemicro\" type=\"text\" id=\"cachemicro\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Socket:</td> <td><input class=\"inputTabla\" name=\"socketmicro\" type=\"text\" id=\"socketmicro\" value=\"\" size=\"32\" /></td> </tr>");
+			out.println("<label><span>Frecuencia: </span> <input type='text' name='frecuenciamicro' id='frecuenciamicro'></label>");
+			out.println("<label><span>Cache: </span> <input type='text' name='cachemicro' id='cachemicro'></label>");
+			out.println("<label><span>Socket: </span> <input type='text' name='socketmicro' id='socketmicro'></label>");
         	
 			break;
 		case PLACAMADRE:
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Cant USB:</td> <td><input class=\"inputTabla\" name=\"cantusb\" type=\"text\" id=\"cantusb\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Cant USB 3.0:</td> <td><input class=\"inputTabla\" name=\"cantusb3\" type=\"text\" id=\"cantusb3\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Cant Pci-E x16:</td> <td><input class=\"inputTabla\" name=\"cantpcie\" type=\"text\" id=\"cantpcie\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Video Onboard:</td> <td><input class=\"inputTabla\" name=\"videoonboard\" type=\"text\" id=\"videoonboard\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Sonido Onboard:</td> <td><input class=\"inputTabla\" name=\"sonidoonboard\" type=\"text\" id=\"sonidoonboard\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Chipset:</td> <td><input class=\"inputTabla\" name=\"chipset\" type=\"text\" id=\"chipset\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Cant Max Mem:</td> <td><input class=\"inputTabla\" name=\"cantmaxmemmo\" type=\"text\" id=\"cantmaxmemmo\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Socket:</td> <td><input class=\"inputTabla\" name=\"socketmo\" type=\"text\" id=\"socketmo\" value=\"\" size=\"32\" /></td> </tr>");
+			out.println("<label><span>USB: </span> <input type='text' name='cantusb' id='cantusb'></label>");
+			out.println("<label><span>USB 3.0: </span> <input type='text' name='cantusb3' id='cantusb3'></label>");
+			out.println("<label><span>Cant Pci-E x16: </span> <input type='text' name='cantpcie' id='cantpcie'></label>");
+			out.println("<label><span>Video on board: </span> <input type='text' name='videoonboard' id='videoonboard'></label>");
+			out.println("<label><span>Sonido on board: </span> <input type='text' name='sonidoonboard' id='sonidoonboard'></label>");
+			out.println("<label><span>Chipset: </span> <input type='text' name='chipset' id='chipset'></label>");
+			out.println("<label><span>Cant max memoria: </span> <input type='text' name='cantmaxmemmo' id='cantmaxmemmo'></label>");
+			out.println("<label><span>Socket: </span> <input type='text' name='socketmo' id='socketmo'></label>");
 			break;
 		case PVIDEO:
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Frecuencia:</td> <td><input class=\"inputTabla\" name=\"frecuenciavideo\" type=\"text\" id=\"frecuenciavideo\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Ancho del Bus:</td> <td><input class=\"inputTabla\" name=\"anchobus\" type=\"text\" id=\"anchobus\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Cantidad de Memoria:</td> <td><input class=\"inputTabla\" name=\"cantmemvideo\" type=\"text\" id=\"cantmemvideo\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Pipelines:</td> <td><input class=\"inputTabla\" name=\"pipelines\" type=\"text\" id=\"pipelines\" value=\"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Shaders:</td> <td><input class=\"inputTabla\" name=\"shaders\" type=\"text\" id=\"shaders\" value=\"\" size=\"32\" /></td> </tr>");
+			out.println("<label><span>Frecuencia: </span> <input type='text' name='frecuenciavideo' id='frecuenciavideo'></label>");
+			out.println("<label><span>Ancho del bus: </span> <input type='text' name='anchobus' id='anchobus'></label>");
+			out.println("<label><span>Cantidad de memoria: </span> <input type='text' name='cantmemvideo' id='cantmemvideo'></label>");
+			out.println("<label><span>Pipelines: </span> <input type='text' name='pipelines' id='pipelines'></label>");
+			out.println("<label><span>Shaders: </span> <input type='text' name='shaders' id='shaders'></label>");
       	  
             
 			break;
 		case PSONIDO:
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Jacks:</td> <td><input class=\"inputTabla\" name=\"jacks\" type=\"text\" id=\"jacks\" value=\"\" size=\"32\" /></td> </tr>");
+			out.println("<label><span>Jacks: </span> <input type='text' name='jacks' id='jacks'></label>");
 
             
 			break;
 		case RCABLE:
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Velocidad:</td> <td><input class=\"inputTabla\" name=\"velocidadc\" type=\"text\" id=\"velocidadc\" value=\"\" size=\"32\" /></td> </tr>");
+			out.println("<label><span>Velocidad: </span> <input type='text' name='velocidadc' id='v'></label>");
 
 	           
 			break;
 			
 		case RED:
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Velocidad:</td> <td><input class=\"inputTabla\" name=\"velocidadr\" type=\"text\" id=\"velocidadr\" value=\"\" size=\"32\" /></td> </tr>");  
+			out.println("<label><span>Velocidad: </span> <input type='text' name='velocidadr' id=''></label>");
  
 		break;
 		
 		case DEF:
-			out.println("Seleccione una categoria");
+		//	out.println("Seleccione una categoria");
 		}
 		
 }

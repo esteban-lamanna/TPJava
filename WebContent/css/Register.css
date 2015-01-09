@@ -46,7 +46,7 @@
     font-size: 20px;
 }
 
-.dark-matter input[type="text"], .dark-matter input[type="email"], .dark-matter textarea, .dark-matter select, .dark-matter input[type="password"] {
+.dark-matter input[type="text"], .dark-matter input[type="email"],.dark-matter input[type="file"], .dark-matter textarea, .dark-matter select, .dark-matter input[type="password"] {
     border: none;
     color: #525252;
     height: 25px;

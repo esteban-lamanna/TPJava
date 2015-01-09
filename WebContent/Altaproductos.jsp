@@ -4,6 +4,8 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>CompuCom.com</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+
+	<link rel="stylesheet" href="css/Register.css" type="text/css" media="all" />
 	<!--[if lte IE 6]>
 		<style type="text/css" media="screen">
 			.tabbed { height:420px; }
@@ -36,91 +38,82 @@
 
 </head>
 <body>
-
-<!-- Header -->
-<div id="topFormularios">
-<div class="shell">
-		<div id="header">
-			<h1 id="logo"><a href="#"></a></h1>
-			<div id="navigation">
+  <!-- Top -->
+		<div id="topAdmin">
+	
+	<div class="shell">
+				<!-- Header -->
+				<div id="header" style="color: #ff0000">
+					<h1 id="logo"><a href="#"></a></h1>
+					<div id="navigation">
 				<ul id="sddm">
-				<%if(session.getAttribute("DniUsuario")!= null)
-					{%>
-				<li>Hola <%=session.getAttribute("username")%>
-				</li>
+				<%if(session.getAttribute("username")!= null)
+					{
+					if(session.getAttribute("EsAdmin").equals(0))
+					{response.sendRedirect("Index.jsp");}
+				%>
+					<li><a href="EdicionUsuario.jsp"> Hola <%=session.getAttribute("username")%></a></li>
+					<li><a href="CerrarSesion.jsp">Cerrar Sesion</a></li>
+				  	<%} 
 				
-				<li><a href="CerrarSesion.jsp">Cerrar Sesion</a>
-				</li>
-				<%} %>
-				 <%if(session.getAttribute("DniUsuario")== null)
-					{%>
-				 	 <li>
-				    <a href="#" 
-				        onmouseover="mopen('m2')" 
-				        onmouseout="mclosetime()">Ingresar</a></li>
-				        <div id="m2" onmouseover="mcancelclosetime()" 
-				            onmouseout="mclosetime()" align="center">
-							  <form action="LoginCheck.jsp" method="get" class="login">
-							    <input type="text" name="dni" class="input-login" placeholder="Dni"  style="margin-bottom: 10px;"/>
-							    <br/>
-							    <input type="password" name="password" placeholder="Password" class="input-login"  style="margin-bottom: 15px;"/>
-							    <br/>
-							    <input type="submit" value="Login" class="login-submit"/>
-							  </form>
-				        </div>	      
-				
-
-				    <li class="last"><a href="Index.jsp">Home</a></li>
-				    <%} %>
+				if(session.getAttribute("username")== null)
+					{response.sendRedirect("Login.jsp");
+					
+					}%>
+				     <li class="last"><a href="#">Home</a></li>
 				</ul>
-				</div>		
+						
 			
 				<div style="clear:both"></div>
-			
-		</div>
-		<!-- End Header -->
-        <div id="tituloPagina"> Alta de Nuevo Producto</div>
-        <div>
-        </div>
-	</div>
-</div><!-- End top -->
-		
-		<!-- Content -->
-        <div id="main">
+			</div>
+			    </div>
+			    	</div>
+</div>
+       <div id="main" >
+       <div class="shell">
+       <div class="options" align="center"></div>
         
         <div id="content">
         
- 		
+        <%/*<form id="Registro" class="dark-matter texto-form" action="Usuarios" method="post" > 
+		        	<h1>Registro</h1>
+		        	<p>
+						<label>
+				        	<span>Dni: </span> <input type="text" id="dni" name="dni" >
+						</label>
+						<label>
+				        	<span>Contraseña: </span> <input type="password" id="password" name="password">
+						</label>
+						<label>
+				            <span>Confirma contraseña: </span> <input type="password" name="passwordconfirm" id="passwordconfirm">
+						</label>*/
+ 		%>
 
-    <form method="post"  name="Registroprod" onsubmit="return validar()" action="RegisterProd.jsp">
-      <table align="center" style="height: 353px; ">
-        <tr valign="baseline">
-          <td nowrap="nowrap" class="etiquetaTabla" align="right">Nombre del Producto:</td>
-          <td><input class="inputTabla" name="nombreprod" type="text" id="nombreprod" value="" size="32" /></td>
-          
-        </tr>
-        <tr valign="baseline">
-        
-          <td nowrap="nowrap" class="etiquetaTabla" align="right">Modelo:</td>
-          <td><input class="inputTabla" name="modelo" type="text" id="modelo" value="" size="32" /></td>
-        </tr>
-        <tr valign="baseline">
-          <td nowrap="nowrap" class="etiquetaTabla" align="right">Descripcion:</td>
-          <td><input class="inputTabla" name="descripcion" type="text" id="descripcion" value="" size="32" /></td>
-          
-        </tr>
-        <tr valign="baseline">
-          <td nowrap="nowrap" class="etiquetaTabla" align="right">Foto:</td>
-          <td><input name="foto" class="inputTabla" type="text" id="foto" value="" size="32" /></td>
-        </tr>
-        <tr valign="baseline">
-          <td nowrap="nowrap" class="etiquetaTabla" align="right">Precio:</td>
-          <td><input  name="precio" class="inputTabla" type="text" id="precio" value="" size="32" /></td>
-        </tr>
-       <tr valign="baseline">
-          <td nowrap="nowrap" class="etiquetaTabla" align="right">Categoria:</td>
-          <td>
-          <select name="categoria" id="categoria" class="etiquetaTabla">
+    <form method="post"  name="Registroprod" onsubmit="return validar()" class="dark-matter texto-form"  action="RegisterProd.jsp">
+
+			<h1>Alta producto</h1>
+		        	<p>
+						<label>
+				        	<span>Nombre del Producto:</span> <input type="text" id="nombreprod" name="nombreprod" >
+						</label>
+							<label>
+				        	<span>Modelo:</span> <input type="text" id="modelo" name="modelo" >
+						</label>
+						<label>
+				        	<span>Descripcion:</span> <input type="text" id="descripcion" name="descripcion" >
+						</label>
+						
+			<label>
+				        	<span>Foto:</span> <input type="file" id="foto" name="foto" >
+						</label>
+						
+		
+			<label>
+				        	<span>Precio:</span> <input type="text" id="precio" name="precio" >
+						</label>
+						
+						<label>
+				        	<span>Seleccione una categoría:</span>  <select name="categoria" id="categoria" class="etiquetaTabla">
           <option value="def">Seleccione una opcion</option>
           <option value="gabinete">Gabinete</option>
           <option value="fuente">Fuentes</option>
@@ -133,16 +126,20 @@
           <option value="psonido">Placas de Sonido</option>
           <option value="rcable">Cable de Red</option>
           </select>
-          </td>
-         
-        </tr>
-          <tr valign="baseline">
+						</label>		
+	
+	 <p type="text" id="resultinput" name="resultinput" ></p>
+		
                  
-          <td /><p name="resultinput" id="resultinput"> </p></td>
-        </tr>
-         <td><input type="submit" align="middle" class="login-submit-formulario" name="altaprod" value="Registrar producto" /></td>
-      </div>
-      </table>
+         <label>
+				        	<span>&nbsp</span>
+				        	<input type="button" value="Volver" onclick="location.href = 'Index.jsp' "> 
+				  <input type="submit" align="middle" class="login-submit-formulario" name="altaprod" value="Registrar producto" />
+      
+				        </label>
+				          </p> 
+			   
+      
       <% if(session.getAttribute("confirm")!="bien" && session.getAttribute("confirm")!=null )
 {session.setAttribute("confirm",null);
 	%><p><FONT FACE="arial" SIZE=9 COLOR=red>!!ERROR!! EL PRODUCTO INGRESADO YA EXISTE CON ESE NOMBRE Y ESE MODELO</FONT></p><%

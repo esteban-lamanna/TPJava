@@ -12,7 +12,7 @@ public class DBAdapter
 		{   
 			try {  Class.forName("com.mysql.jdbc.Driver");
 		             
-		             conex=DriverManager.getConnection("jdbc:mysql://localhost/tpf", "root", "pass");
+		             conex=DriverManager.getConnection("jdbc:mysql://localhost/tpf", "root", "");
 		             
 		             
 				} catch (ClassNotFoundException ex) 

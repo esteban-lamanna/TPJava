@@ -117,7 +117,7 @@ public void setMail(String mail)
 	public CarritoCompra AñadeCarrito()
 	{
 		CarritoCompra car=new CarritoCompra();
-		car.setDni(this.dni.toString());
+		car.setDni(String.valueOf(this.dni));
 		carcomp=car;
 		return carcomp;
 		

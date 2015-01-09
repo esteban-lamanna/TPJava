@@ -23,11 +23,38 @@
 </head>
 <body>
     <!-- Top -->
-		
+		<div id="topAdmin">
+	
+	<div class="shell">
 				<!-- Header -->
 				<div id="header" style="color: #ff0000">
 					<h1 id="logo"><a href="#"></a></h1>
+					<div id="navigation">
+				<ul id="sddm">
+				<%if(session.getAttribute("username")!= null)
+					{
+					if(session.getAttribute("EsAdmin").equals(1) && session.getAttribute("bandera").equals(1))
+					{response.sendRedirect("MasterMenu.jsp");}
+				%>
+					<li><a href="EdicionUsuario.jsp"> Hola <%=session.getAttribute("username")%></a></li>
+					<li><a href="CerrarSesion.jsp">Cerrar Sesion</a></li>
+				  	<%} %>
+				   
+				    <%if(session.getAttribute("username")== null)
+					{%>
+					
+					 <li><a href="Login.jsp">Ingresar</a></li>
+				   	 <li><a href="Registro.jsp">Registrarme</a></li>
+				   <%}%>
+				     <li class="last"><a href="#">Home</a></li>
+				</ul>
+						
+			
+				<div style="clear:both"></div>
+			</div>
 			    </div>
+			    	</div>
+</div>
        <div id="main" >
        <div class="shell">
        <div class="options" align="center"></div>
@@ -39,6 +66,11 @@
 									<li><a href="Index.jsp">Indice</a></li>
 									<li><a href="Registro.jsp">Alta Usuario</a></li>
 									<li><a href="EdicionUsuarioAdmin.jsp">Edicion Usuario</a></li>
+									<li><a href="Altaproductos.jsp">Alta de productos</a></li>
+									<li><a href="Modificaproductos.jsp">Edición de productos</a></li>
+									<li><a href="BorraProductos.jsp">Eliminar productos</a></li>
+									<li><a href="#">Carga de saldo a usuarios</a></li>
+									
 								</ul> 
 							</form>									        	
 	        </div>

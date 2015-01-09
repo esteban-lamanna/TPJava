@@ -28,12 +28,13 @@ public class Validador extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		 char[] cadena = request.getParameter("pass").toLowerCase().toCharArray();
+		 boolean respuesta = true;
 		 PrintWriter out=response.getWriter();
 		 
 	        //Compruebo la longitud
 	        if (cadena.length <= 6)
 	        {
-	            out.println(false);
+	            respuesta = false;
 	        }
 	       for (int i = 0; i < cadena.length; i++) 
 	        {
@@ -52,14 +53,15 @@ public class Validador extends HttpServlet {
 	                    || cadena[i] == '!'
 	                    || cadena[i] == '<'
 	                    || cadena[i] == '>'
+	                    		  || cadena[i] == '$'
 	                    || cadena[i] == ':') 
 	            {
-	            	out.println(false);
+	            	respuesta = false;
 	            }
 	 
 	        }
 
-		 out.println(true);
+		 out.println(respuesta);
 	    }
 	
 	

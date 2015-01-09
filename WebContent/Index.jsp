@@ -93,11 +93,17 @@
 			<div class="right">
 			<%if (session.getAttribute("dni")!=null &&session.getAttribute("dni")!=""){ %>
 				<span class="cart">
-					<a href="MiCarro" class="cart-ico">&nbsp;</a>
+					<a href="MiCarrito2.jsp" class="cart-ico">&nbsp;</a>
 					
 					<strong><label id="ContadorProductosEnCarrito"></label></strong>
 					<strong>$<label id="AcumuladorCosto"></label></strong>
 				</span>
+				<script language="javascript">
+				$(document).ready(function() {
+				sumarCostoAcumulado();
+				contarProductosEnCarro();
+				})
+				</script>
 				<span class="left more-links">
 					<a id="Comprar" href="#">Comprar</a>
 				</span>
@@ -335,7 +341,7 @@
 							    },
 							    error: function (xhr, ajaxOptions, thrownError) {
 							       
-							        alert(thrownError);
+							        alert("Problema al agregar un producto al carro");
 							        }
 				      });
 				      }
@@ -406,6 +412,7 @@
 			
 			<!-- Container -->
 			<div id="container">
+			<input type="hidden" name="logueado" id="logueado" value="false" ></input>
 				
 				<div class="tabbed">
 					

@@ -114,7 +114,11 @@ public class Usuarios extends Padre {
 								{
 									//El usuario existe, por lo tanto actualizo la DB
 									contr.modificaUsuario(dni,password, confirm_password, apellido, direccion, localidad, direnvios, nombre, emailUsuario, edad);
-								    response.sendRedirect("Index.jsp");
+									 HttpSession session = request.getSession(true);
+									   
+									    session.setAttribute("username", nombre);
+							            session.setAttribute("EsAdmin",0);
+									response.sendRedirect("Index.jsp");
 								}
 					            
 							}
