@@ -1,6 +1,8 @@
 package Servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Vector;
 
 import javax.servlet.ServletException;
@@ -8,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Servlets.AgregaCarros.Prods;
 
@@ -43,12 +46,21 @@ public class QuitarDelCarrito extends Padre {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession sesion = request.getSession(false);
+    	if(sesion==null)
+    	{
+    		sesion = request.getSession(true);
+    	}
 		
-		Controlador_encar contr = getControlador();
 		String codigo= request.getParameter("cod");
 		int codi=Integer.parseInt(codigo);
-
-			String tipo = contr.eliminaDelCarroMemoria(codi);
+		Controlador_encar cont = getControlador();
+		
+			String tipo;
+			try {
+				cont.eliminaDelCarroMemoria(codi);
+				tipo = Controlador_encar.eliminaDelCarro(codi,sesion.getAttribute("dni").toString()); //elimina de BD
+			
 			Prods valor = Prods.valueOf(tipo.toUpperCase());
 			
 			//request.getRequestDispatcher("MiCarrito.jsp").forward(request, response);
@@ -93,5 +105,12 @@ public class QuitarDelCarrito extends Padre {
 		return tipo;
 			 */
 	}
-
+	 catch (SQLException e) {
+		 e.printStackTrace();
+ 		PrintWriter out=response.getWriter();
+ 		out.println("Problema al eliminar el producto al carro");
+	}
+	}
 }
+
+

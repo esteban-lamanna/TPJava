@@ -48,7 +48,7 @@ public class MiCarro extends Padre {
         
         out.println("</tr>");
         Controlador_encar contr= getControlador();
-        ArrayList<Producto> prods=contr.levantaCarro();
+        ArrayList<Producto> prods=contr.getUsuarioActual().getCarcomp().getProductosCarro();
         for(int i=0;i<prods.size();i++)
         {        	      
         out.println("<tr>");

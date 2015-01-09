@@ -9,8 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Controlador.Controlador_encar;
+import Modelo.PRed;
+import Modelo.PVideo;
 import Modelo.Producto;
 import Modelo.PWireless;
 
@@ -18,7 +21,7 @@ import Modelo.PWireless;
  * Servlet implementation class PWireless
  */
 @WebServlet("/PlacaWireless")
-public class PlacaWireless extends HttpServlet {
+public class PlacaWireless extends Padre {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -33,50 +36,71 @@ public class PlacaWireless extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		PrintWriter out=response.getWriter();
-		
-		out.println("<form action=\"AgregaCarros\" method=\"GET\">");
-		out.println("<table border=1 align=\"center\">");
-        out.println("<tr>");
-        out.println("<td>");out.println("</td>");
-        out.println("<td>Nombre");out.println("</td>");
-        out.println("<td>Descripcion");out.println("</td>");
-        out.println("<td>Modelo");out.println("</td>");
-        out.println("<td>Velocidad");out.println("</td>");
-        out.println("<td>Seguridad");out.println("</td>");
-        out.println("<td>Precio");out.println("</td>");
-        
-        out.println("<td>Agregar al Carro");out.println("</td>");
-        out.println("</tr>");
-        Controlador_encar contr=new Controlador_encar();
+        Controlador_encar contr = getControlador();
         ArrayList<Producto> prod=contr.buscaProductos("PWIRELESS");
+        ArrayList<Producto>prodsCarroActual = new ArrayList<>();
+        if(contr.getCarroCompleto()!=null){
+        if(contr.getCarroCompleto().getProductosCarro()!=null)
+        {
+        	
+        
+        prodsCarroActual = contr.getCarroCompleto().getProductosCarro();
+        }
+        }
+        Boolean agregado;
         for(int i=0;i<prod.size();i++)
         {
+        	agregado=false;
+        	
+        	for (int j=0;j< prodsCarroActual.size();j++)
+        	{
+				
+				if(prod.get(i).getCodigo()==prodsCarroActual.get(j).getCodigo())
+				{
+					agregado=true;
+				}
+        	}
         	PWireless pro=(PWireless)prod.get(i);
-        
-               //String id2=prod.get(i).getRutafoto();
-               //System.out.println(id2);
-        	 out.println("<input type=\"text\" name=\"Codigos\" value=\""+pro.getCodigo()+"\">");
-        out.println("<tr>");
-        out.println("<td>"+pro.getFoto());out.println("</td>");
-        out.println("<td>"+pro.getNombre());out.println("</td>");
-        out.println("<td>"+pro.getDescripcion());out.println("</td>");
-        out.println("<td>"+pro.getModelo());out.println("</td>");
-        out.println("<td>"+pro.getVelocidad());out.println("</td>");
-        out.println("<td>"+pro.getSeguridad());out.println("</td>");
-        out.println("<td>"+"$"+prod.get(i).getPrecio());out.println("</td>");
-        
-        out.println("<td><input type=\"checkbox\" name=\"ArticulosSeleccionados\" value=\""+i+"\">");out.println("</td>");
-        out.println("</td>"); 
-        out.println("</tr>");
+      	  out.println("<li>");
+            out.println("<input name=\"Codigos\" value=\""+pro.getCodigo()+"\" type=\"hidden\" />");
+            out.println(" <div class=\"image\">");
+            out.println("<a href=\"#\">");
+            out.println("<img src=\"css/images/image1.jpg\" alt=\"\" />");
+            out.println("</a>");
+            out.println("</div>");
+            out.println("<p>");
+            out.println("Nombre: <span>"+pro.getNombre()+"</span><br />");
+            out.println("Descripcion: <span>"+pro.getDescripcion()+"</span><br />");
+            out.println("Modelo: <span>"+pro.getModelo()+"</span><br />");
+            out.println("Velocidad: <span>"+pro.getVelocidad()+"</span><br />");
+            out.println("Seguridad: <span>"+pro.getSeguridad()+"</span><br />");
+            out.println(" </p>");   
+            out.println("<p class=\"price\">Precio: <strong> $"+pro.getPrecio()+"</strong></p>");
+            HttpSession sesion = request.getSession(false);
+            if(sesion == null)
+            {
+            	sesion = request.getSession(true);
+            }
+            System.out.print(sesion.getAttribute("dni"));
             
-        }
-
-        out.println("</table>");
-        out.println("<input type=\"submit\" id=\"btnAgregar\" name=\"Agregar\" title=\"Agregar\" value=\"Agregar\">"); 
-        out.println("</form>");
-	}
+           
+         
+            if(sesion.getAttribute("dni")!=null && sesion.getAttribute("dni")!="")
+            {
+            if(!agregado)
+            {
+            out.println("<input type=\"button\" id=\"btnAgregar\" title=\"Agregar\" value=\"Agregar\" onclick=\"agregar("+pro.getCodigo()+")\" />");
+            }
+            else
+            {
+            out.println("<input type=\"button\" id=\"btnQuitar\" title=\"Quitar\" value=\"Quitar\" onclick=\"quitar("+pro.getCodigo()+")\" />");
+                 
+            }
+            out.println("</li>");
+            }
+            }
+    	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

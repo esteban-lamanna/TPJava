@@ -1,4 +1,5 @@
 package DB;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,10 +18,12 @@ public class DBLineascomp extends DBAdapter
 		try
 		{
 
-			System.out.println("El codigo Foreigndqw "+ lp.getCodC());
+			
 		Statement st=conex.createStatement();
 		
 st.execute("INSERT INTO lineacomp(codcompra,codigo,cantidad,subtotal) VALUES('"+lp.getCodC()+"','"+lp.getProducto().getCodigo()+"','"+lp.getCantidad()+"','"+lp.getSubtotlinea()+"')");
+
+
 
 
 	} catch (SQLException t) 

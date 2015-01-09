@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import java.util.*;
 import java.io.*;
 import Controlador.Controlador_encar;
@@ -18,7 +20,7 @@ import Modelo.Micro;
  * Servlet implementation class Micros
  */
 @WebServlet("/Micros")
-public class Micros extends HttpServlet {
+public class Micros extends Padre {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -34,14 +36,31 @@ public class Micros extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		// TODO Auto-generated method stub
 		PrintWriter out=response.getWriter();
-		Controlador_encar contr=new Controlador_encar();
+        Controlador_encar contr = getControlador();
         ArrayList<Producto> prod=contr.buscaProductos("micro");
-   
+        ArrayList<Producto>prodsCarroActual = new ArrayList<>();
+        if(contr.getCarroCompleto()!=null){
+        if(contr.getCarroCompleto().getProductosCarro()!=null)
+        {
+        	
         
+        prodsCarroActual = contr.getCarroCompleto().getProductosCarro();
+        }
+        }
+        Boolean agregado;
         for(int i=0;i<prod.size();i++)
         {
+        	agregado=false;
+        	
+        	for (int j=0;j< prodsCarroActual.size();j++)
+        	{
+				
+				if(prod.get(i).getCodigo()==prodsCarroActual.get(j).getCodigo())
+				{
+					agregado=true;
+				}
+        	}
         	Micro pro=(Micro)prod.get(i);
         	out.println("<li>");
             out.println("<input name=\"Codigos\" value=\""+pro.getCodigo()+"\" type=\"hidden\" />");
@@ -59,14 +78,31 @@ public class Micros extends HttpServlet {
             out.println("Socket: <span>"+pro.getSocket()+"</span><br />");
             out.println(" </p>");   
             out.println("<p class=\"price\">Precio: <strong> $"+pro.getPrecio()+"</strong></p>");
+            HttpSession sesion = request.getSession(false);
+            if(sesion == null)
+            {
+            	sesion = request.getSession(true);
+            }
+            System.out.print(sesion.getAttribute("dni"));
+            
+           
+         
+            if(sesion.getAttribute("dni")!=null && sesion.getAttribute("dni")!="")
+            {
+            if(!agregado)
+            {
             out.println("<input type=\"button\" id=\"btnAgregar\" title=\"Agregar\" value=\"Agregar\" onclick=\"agregar("+pro.getCodigo()+")\" />");
+            }
+            else
+            {
+            out.println("<input type=\"button\" id=\"btnQuitar\" title=\"Quitar\" value=\"Quitar\" onclick=\"quitar("+pro.getCodigo()+")\" />");
+                 
+            }
             out.println("</li>");
-               //String id2=prod.get(i).getRutafoto();
-               //System.out.println(id2);
+            }
         }
-        
 	}
-		
+            
 	
 
 	/**
