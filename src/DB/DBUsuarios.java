@@ -27,7 +27,7 @@ public class DBUsuarios extends DBAdapter
 		String localidad=user.getLocalidad();
 		Statement st=conex.createStatement();
 		System.out.println("Llego a crea usuarios con: "+dni);
-		st.execute("INSERT INTO Usuarios VALUES('"+dni+"','"+pass+"','"+nombre+"','"+ape+"','"+direccion+"','"+direnvios+"','"+edad+"','"+mail+"','"+localidad+"',0')");
+		st.execute("INSERT INTO Usuarios VALUES("+dni+",'"+pass+"','"+nombre+"','"+ape+"','"+direccion+"','"+direnvios+"',"+edad+",'"+mail+"','"+localidad+"',0)");
 	
 	} catch (SQLException t) 
 		{
@@ -41,11 +41,23 @@ public class DBUsuarios extends DBAdapter
 	{
 		try
 		{
-		
-		Statement st=conex.createStatement();
-		st.execute("UPDATE Usuarios SET dni='"+user.getDni()+"',password='"+user.getContraseña()+"',nombre='"+user.getNombre()+"',apellido='"+user.getApellido()+
-		"',direccion='"+user.getDireccion()+"',direnvio='"+user.getDirenvio()+"',edad='"+user.getEdad()+"',localidad='"+user.getLocalidad()+"'" +
-		"mail='"+user.getMail()+"'");
+
+			PreparedStatement ps = conex.prepareStatement("UPDATE Usuarios SET password = ?, nombre = ?, apellido = ?, direccion = ?, direnvio = ?, edad = ?, localidad = ?, mail = ? WHERE dni = ?");
+
+
+			ps.setString(1,user.getContraseña());
+			ps.setString(2,user.getNombre());
+			ps.setString(3,user.getApellido());
+			ps.setString(4,user.getDireccion());
+			ps.setString(5,user.getDirenvio());
+			ps.setInt(6,user.getEdad());
+			ps.setString(7,user.getLocalidad());
+			ps.setString(8,user.getMail());
+			ps.setInt(9,user.getDni());
+
+			ps.executeUpdate();
+			ps.close();
+			
 	
 	} catch (SQLException t) 
 		{

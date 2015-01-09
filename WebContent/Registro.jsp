@@ -24,6 +24,7 @@ function validarExistenciaDNI(dni)
 			    type: "POST",
 			    url: "BusquedaRegistro",
 			    data: {'dni':dni},
+			    async: false,
 			    success: function (result){ return result;},
 	      });
 }
@@ -68,9 +69,11 @@ debugger;
 function validarPass(pass)
 {
 	 $.ajax({
+		 
 		    type: "POST",
-		    url: "Validador/isUsernameOrPasswordValid",
-		    data: {'$cadena':pass},
+		    url: "Validador",
+		    data: {'pass':pass},
+		    async: false,
 		    success: function (result){ return result;},
  });}
 

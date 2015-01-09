@@ -37,7 +37,7 @@ public class Gabinetes extends Padre {
 		PrintWriter out=response.getWriter();
         Controlador_encar contr = getControlador();
         ArrayList<Producto> prod=contr.buscaProductos("gabinete");
-        ArrayList<Producto>prodsCarroActual = new ArrayList<>();
+        ArrayList<Producto>prodsCarroActual = new ArrayList<Producto>();
         if(contr.getCarroCompleto()!=null){
         if(contr.getCarroCompleto().getProductosCarro()!=null)
         {

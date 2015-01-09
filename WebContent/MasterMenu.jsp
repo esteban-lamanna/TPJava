@@ -15,6 +15,11 @@
     <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
     
 <title>Menu del Admin</title>
+<script type="text/javascript">
+
+//Funcion para validar DNI
+
+</script>
 </head>
 <body>
     <!-- Top -->
@@ -25,14 +30,17 @@
 			    </div>
        <div id="main" >
        <div class="shell">
-       <div class="options" align="center"><h1>Eleccion de opciones del Administrador</h1></div>
+       <div class="options" align="center"></div>
        	<div id="content">
-		        	
-		        	<fieldset>
-			        	<ul style="font:oblique bold 200% cursive;">
-							<li><a href="Index.jsp">Indice</a></li>				        	
-					    </ul> 
-				    </fieldset>
+		        	<% session.setAttribute("bandera",0);%>
+		        			<form class="dark-matter texto-form" >
+								<h1>Panel del Administrador</h1>
+								<ul>
+									<li><a href="Index.jsp">Indice</a></li>
+									<li><a href="Registro.jsp">Alta Usuario</a></li>
+									<li><a href="EdicionUsuarioAdmin.jsp">Edicion Usuario</a></li>
+								</ul> 
+							</form>									        	
 	        </div>
 	    </div>
  	 </div>

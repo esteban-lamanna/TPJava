@@ -1,3 +1,4 @@
+<%@page import="java.io.Writer"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
@@ -22,19 +23,20 @@ function RecuperarUsuario(dni)
 {  
 	      $.ajax({
 			    type: "POST",
+			    dataType: "json",
 			    url: "BusquedaUsuario",
 			    data: {'dni':dni},
 			    success: function (result){
-			    $('#dni').val(result.getDni());
-			    $('#password').val(result.getContraseña());
-			    $('#passwordconfirm').val(result.getContraseña());
-			    $('#nombre').val(result.getNombre());
-			    $('#apellido').val(result.getApellido());
-			    $('#direccion').val(result.getDireccion());
-			    $('#direnvios').val(result.getDirenvio());
-			    $('#localidad').val(result.getLocalidad());
-			    $('#edad').val(result.getEdad());
-			    $('#email').val(result.getMail());
+			    $('#dni').val(result.dni);
+			    $('#password').val(result.contraseña);
+			    $('#passwordconfirm').val(result.contraseña);
+			    $('#nombre').val(result.nombre);
+			    $('#apellido').val(result.apellido);
+			    $('#direccion').val(result.direccion);
+			    $('#direnvios').val(result.direnvio);
+			    $('#localidad').val(result.localidad);
+			    $('#edad').val(result.edad);
+			    $('#email').val(result.email);
 			    },
 	      });
 }
@@ -63,7 +65,6 @@ function validarEntero(valor)
      //intento convertir a entero. 
      //si era un entero no le afecta, si no lo era lo intenta convertir 
      valor = parseInt(valor); 
-debugger;
      	//Compruebo si es un valor numérico 
      	if (isNaN(valor)) 
 		{ 
@@ -78,16 +79,20 @@ debugger;
 
 function validarPass(pass)
 {
-	debugger;
 	 $.ajax({
+		 
 		    type: "POST",
-		    url: "Validador/isUsernameOrPasswordValid",
-		    data: {'$cadena':pass},
-		    success: function (result){ return result;},
+		    url: "Validador",
+		    data: {'pass':pass},
+		    async: false,
+		    success: function (result){ $('#validacionPass').val(result);}
  });}
 
 function validarEnvio(){ 
 
+  	pass=$("#password").val();
+  	validarPass(pass);
+  	validar=$('#validacionPass').val();
   	//valido longitud PASSWORD 
    	if ($('#password').val().trim().length<1)
    	{ 
@@ -95,7 +100,7 @@ function validarEnvio(){
       	$('#password').focus(); 
       	return false; 
    	}
-  	
+
   	//valido longitud PASSWORD CONFIRMATION
 	if ($('#passwordconfirm').val().trim().length<1)
    	{ 
@@ -104,12 +109,13 @@ function validarEnvio(){
       	 return false; 
    	} 
   	
-  	if(!validarPass($("#password").val()))
+
+  	if(!validar)
   		{
   		
-  	 alert("Debe ingresar una contraseña sin caracteres especiales y de más de 6 caracteres");
-  	 $('#password').focus(); 
-  	 return false;
+	  	 alert("Debe ingresar una contraseña sin caracteres especiales y de más de 6 caracteres");
+	  	 $('#password').focus(); 
+	  	 return false;
   		}
 
   	
@@ -194,15 +200,13 @@ function validarEnvio(){
       	 return false; 
    	}
 
-	
-	debugger;
 	//Valido el EMAIL
 	if(!validarEmail(email))
 		{
 			return false;
 		}
    	
-   	alert("Muchas gracias por Registrarse"); 
+   	alert("Informacion editada satisfactoriamente"); 
 
    	return true;
 }
@@ -228,18 +232,19 @@ function validarEnvio(){
        <div class="options"></div>
        	<div id="content">
 
-<form id="Registro" class="dark-matter texto-form" action="Usuarios" method="post" > 
-		        <!--Comentario en HTML	        <form id="Registro" class="dark-matter texto-form" action="RegisterCheck.jsp" method="post" >-->
-		        	<h1>Modificacion Perfil</h1>
+		
+
+			<form id="Registro" class="dark-matter texto-form" action="Usuarios" method="post" > 
+		        	<h1>Modificacion Perfil<input id="validacionPass" style="display: none" /></h1>
 		        	<p>
-						<label>
-				        	<span>Dni: </span> <input type="text" id="dni" name="dni">
+						<label style="display: none">
+				        	<span>Dni: </span> <input type="text" id="dni" name="dni" >
 						</label>
 						<label>
 				        	<span>Nueva Contraseña: </span> <input type="password" id="password" name="password" value="">
 						</label>
 						<label>
-				            <span>Confirma Nueva Contraseña: </span> <input type="password" name="passwordconfirm" id="passwordconfirm">
+				            <span>Confirmar Contraseña: </span> <input type="password" name="passwordconfirm" id="passwordconfirm">
 						</label>
 						<label>
 				            <span>Nombre: </span> <input type="text" name="nombre" id="nombre">
@@ -263,9 +268,16 @@ function validarEnvio(){
 				            <span>Mail: </span> <input type="text" id="email"  name="email">
 				        </label>
 				        <label>
+				        <% String direccion;
+				        if(session.getAttribute("EsAdmin").equals(1)){
+				        	direccion= "EdicionUsuarioAdmin.jsp";
+				        } else{
+				        	direccion = "Index.jsp";
+				        }
+				        %>
 				        	<span>&nbsp</span>
-				        	<input type="button" value="Volver" onclick="location.href = 'Index.jsp' "> 
-				        	<input type="submit" onclick="return validarEnvio()"value="Registrarse" >
+				        	<input type="button" value="Volver" onclick="location.href ='<%= direccion %>' "> 
+				        	<input type="submit" onclick="return validarEnvio()"value="Guardar" >
 				        	
 				        </label>
 				       </p> 

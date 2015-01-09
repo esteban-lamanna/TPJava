@@ -45,7 +45,7 @@ public class AgregaCarros extends Padre {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	/*protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		String tipo;
 		Controlador_encar contr= getControlador();
@@ -54,11 +54,11 @@ public class AgregaCarros extends Padre {
 		String codigo= request.getParameter("cod");
 		int codi=Integer.parseInt(codigo);
 
-		tipo=contr.añadeAlCarro(codi );
+		//tipo=contr.añadeAlCarro(codi );
 		//response.sendRedirect("MiCarrito.jsp");	
 		//request.getRequestDispatcher("MiCarrito.jsp").forward(request, response);
 		//return;
-		Prods valor = Prods.valueOf(tipo.toUpperCase());
+		/*Prods valor = Prods.valueOf(tipo.toUpperCase());
 	
 		//request.getRequestDispatcher("MiCarrito.jsp").forward(request, response);
 		//response.sendRedirect("MiCarrito.jsp");	

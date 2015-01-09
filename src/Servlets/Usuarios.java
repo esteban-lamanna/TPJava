@@ -87,7 +87,7 @@ public class Usuarios extends Padre {
 		    else{
 	
 			    //La direccion de email si es correcta, verifico que la contraseña tambien lo sea
-			    if(v.isUsernameOrPasswordValid(password))
+			    if(!v.isUsernameOrPasswordValid(password))
 				{
 			    	System.out.println("error contraseña invalida");
 				}
@@ -100,12 +100,22 @@ public class Usuarios extends Padre {
 						}
 							else
 							{
-								//Legado a este punto significa que todo esta correcto, por lo tanto ingreso a la DB
-							    contr.nuevoUsuario(dni,password , confirm_password, nombre, apellido, direccion, direnvios, edad, emailUsuario,localidad);
-							    HttpSession session = request.getSession();
-							    session.setAttribute("dni",dni);
-							    session.setAttribute("username", nombre);
-							    response.sendRedirect("Index.jsp");
+								if(contr.buscaUsuario(dni)==null)
+								{
+									//El usuario no existe, por lo tanto lo Inserto a la DB
+								    contr.nuevoUsuario(dni,password , confirm_password, nombre, apellido, direccion, direnvios, edad, emailUsuario,localidad);
+								    HttpSession session = request.getSession(true);
+								    session.setAttribute("dni",dni);
+								    session.setAttribute("username", nombre);
+						            session.setAttribute("EsAdmin",0);
+								    response.sendRedirect("Index.jsp");
+								}
+								else
+								{
+									//El usuario existe, por lo tanto actualizo la DB
+									contr.modificaUsuario(dni,password, confirm_password, apellido, direccion, localidad, direnvios, nombre, emailUsuario, edad);
+								    response.sendRedirect("Index.jsp");
+								}
 					            
 							}
 				    }

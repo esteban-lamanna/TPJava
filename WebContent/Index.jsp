@@ -36,36 +36,20 @@
 				<ul id="sddm">
 				<%if(session.getAttribute("username")!= null)
 					{
-					if(session.getAttribute("EsAdmin").equals(1))
+					if(session.getAttribute("EsAdmin").equals(1) && session.getAttribute("bandera").equals(1))
 					{response.sendRedirect("MasterMenu.jsp");}
 				%>
-				<li><a href="EdicionUsuario.jsp"> Hola <%=session.getAttribute("username")%></a>
-				</li>
-				<li><a href="CerrarSesion.jsp">Cerrar Sesion</a>
-				</li>
+					<li><a href="EdicionUsuario.jsp"> Hola <%=session.getAttribute("username")%></a></li>
+					<li><a href="CerrarSesion.jsp">Cerrar Sesion</a></li>
 				  	<%} %>
 				   
 				    <%if(session.getAttribute("username")== null)
 					{%>
 					
-					 <li>
-				    <a href="#" 
-				        onmouseover="mopen('m2')" 
-				        onmouseout="mclosetime()">Ingresar</a></li>
-				        <div id="m2" style="z-index: 3;" onmouseover="mcancelclosetime()" 
-				            onmouseout="mclosetime()" align="center">
-							  <form action="LoginCheck" method="post" class="login">
-							    <input type="text" name="dni" class="input-login" placeholder="Dni" style="margin-bottom: 10px;">
-							    <br>
-							    <input type="password" name="password" class="input-login" placeholder="Password" style="margin-bottom: 15px;">
-							    <br>
-							    <input type="submit" value="Login" class="login-submit">
-							  </form>
-				        </div>
-				   <li><a href="Registro.jsp">Registrarme</a></li>
-				        	<%} %>
-				   
-				    <li class="last"><a href="#">Home</a></li>
+					 <li><a href="Login.jsp">Ingresar</a></li>
+				   	 <li><a href="Registro.jsp">Registrarme</a></li>
+				   <%}%>
+				     <li class="last"><a href="#">Home</a></li>
 				</ul>
 						
 			
@@ -141,53 +125,11 @@
 				    <li><a id="tab11"><span>Busqueda</span></a></li>
 				</ul>
 			</div>
-				<script type="text/javascript">
-									// Copyright 2006-2007 javascript-array.com
-					
-					var timeout	= 500;
-					var closetimer	= 0;
-					var ddmenuitem	= 0;
-					
-					// open hidden layer
-					function mopen(id)
-					{	
-						// cancel close timer
-						mcancelclosetime();
-					
-						// close old layer
-						if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
-					
-						// get new layer and show it
-						ddmenuitem = document.getElementById(id);
-						ddmenuitem.style.visibility = 'visible';
-					
-					}
-					// close showed layer
-					function mclose()
-					{
-						if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
-					}
-					
-					// go close timer
-					function mclosetime()
-					{
-						closetimer = window.setTimeout(mclose, timeout);
-					}
-					
-					// cancel close timer
-					function mcancelclosetime()
-					{
-						if(closetimer)
-						{
-							window.clearTimeout(closetimer);
-							closetimer = null;
-						}
-					}
-					
-					// close layer when click-out
-				//m2.onclick = mclose; 
+			
+<script type="text/javascript">
+
 				
-				$(document).ready(function() {
+		$(document).ready(function() {
 					$('#submit').click(function(event) {
 						deselecionar();
 						var buscarVar = $('#buscar').val();

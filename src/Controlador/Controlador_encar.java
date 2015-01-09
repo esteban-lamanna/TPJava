@@ -92,26 +92,19 @@ public void LevantaCarroOld(String dni)
 	
 }
 
-public void modificaUsuario(String pass,String valpass,String apellido,String direccion,String localidad,String direnvio,String nombre,String mail)
+public void modificaUsuario(String dni,String pass,String valpass,String apellido,String direccion,String localidad,String direnvio,String nombre,String mail, String edad)
 {
 	UsuariosDB=new DBUsuarios();
-	if (pass.equals(valpass))
-	{
+	usuarioActual.setDni(Integer.parseInt(dni));
 	usuarioActual.setContraseña(pass);
 	usuarioActual.setNombre(nombre);
 	usuarioActual.setApellido(apellido);
 	usuarioActual.setDireccion(direccion);
 	usuarioActual.setLocalidad(localidad);
 	usuarioActual.setDirenvio(direnvio);
+	usuarioActual.setEdad(Integer.parseInt(edad));
 	usuarioActual.setMail(mail);
 	UsuariosDB.ActualizaUsuario(usuarioActual);
-	}
-	else
-	{
-		System.out.print("Mal los passwords");
-		
-	}
-	
 	
 }
 
@@ -608,7 +601,7 @@ public  void Comprar(String codprods[],String cantidades[],String dni)
 		//usuarioActual.añadeCompra(compraActual);
 	}
 	
-public String añadeAlCarro(int codigo)
+/*public String añadeAlCarro(int codigo)
 { 
 		/*String tipo;
 		productoActual=ProductosDB.buscaProducto(codigo);
@@ -616,13 +609,13 @@ public String añadeAlCarro(int codigo)
 		carroNew.añadeProducto(productoActual);
 		tipo=productoActual.getTipo();
 		return tipo;*/
-	String tipo;
+	/*String tipo;
 	productoActual=ProductosDB.buscaProducto(codigo);
 	LineaProducto linea = new LineaProducto();
 	linea.setProducto(productoActual);
 	
 	
-}
+}*/
 
 public ArrayList<Producto> levantaCarro()
 {

@@ -56,6 +56,7 @@ public class LoginCheck extends Padre {
             sesion.setAttribute("username",usu.getNombre());
             sesion.setAttribute("dni",usu.getDni());
             sesion.setAttribute("EsAdmin",usu.getEsAdmin());
+            sesion.setAttribute("bandera", 1);
             response.sendRedirect("Index.jsp");
             }
         else
