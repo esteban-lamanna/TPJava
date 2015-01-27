@@ -62,7 +62,7 @@
 		        	<% session.setAttribute("bandera",0);%>
 		        			<form class="dark-matter texto-form" >
 								<h1>Panel del Administrador</h1>
-								<ul>
+								<ul class="cssmenu">
 									<li><a href="Index.jsp">Indice</a></li>
 									<li><a href="Registro.jsp">Alta Usuario</a></li>
 									<li><a href="EdicionUsuarioAdmin.jsp">Edicion Usuario</a></li>

@@ -1,6 +1,8 @@
 package Servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +35,19 @@ public class LoginCheck extends Padre {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		this.doPost(request, response);
+		Controlador_encar cont= getControlador();
+        String dni=request.getParameter("dni");
+        String pass=request.getParameter("password");
+        boolean respuesta = false;
+        PrintWriter out=response.getWriter();
+        
+        
+    	if(cont.Login(dni,pass))
+        {
+    		respuesta = true;
+        }
+    	
+    	out.println(respuesta);
 	}
 
 	/**
@@ -46,7 +60,7 @@ public class LoginCheck extends Padre {
         String pass=request.getParameter("password");
        
         
-        if(cont.Login(dni,pass))
+        	if(cont.Login(dni,pass))
             {
         	HttpSession sesion = request.getSession(false);
         	if(sesion==null)
@@ -69,8 +83,6 @@ public class LoginCheck extends Padre {
             sesion.setAttribute("bandera", 1);
             response.sendRedirect("Index.jsp");
             }
-        else
-            response.sendRedirect("Error.jsp");
 	}
 
 }

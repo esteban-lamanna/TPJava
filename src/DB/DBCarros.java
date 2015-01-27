@@ -96,7 +96,7 @@ public class DBCarros extends DBAdapter
 		return carro;
 	}
 
-	public CarritoCompra CreaCarro(String dni) throws SQLException
+	public CarritoCompra CreaCarro(String dni)
 	{
 		CarritoCompra carrito =  new CarritoCompra();
 		try{
@@ -153,7 +153,7 @@ public CarritoCompra BuscaCarro(String dni)
 	}	
 	rs.first();
 	DBProductos ProdDB = new DBProductos();
-	ArrayList<Producto> arreglo = new ArrayList<>();
+	ArrayList<Producto> arreglo = new ArrayList<Producto>();
 	while(rs.next())
 	{
 		int cod = rs.getInt("codigo_producto");

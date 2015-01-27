@@ -48,15 +48,41 @@ expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
 if (expr.test(email))
 
-
 	{
 	return true;
 	}
 else
 	{
-    alert("Error: La dirección de correo " + email + " es incorrecta.");
     return false;
 	}
+}
+
+//Funcion para controlar el largo del mensaje de error acumulado
+function controlarLongitudError(error){
+	var cont = 0;
+	var errorTruncado = "";
+	for(var i=0;i<error.length;i++)
+	{
+		if(error[i]=='<' && error[i+1]=='l' && error[i+2]=='i' && error[i+3]=='>')
+		{
+			cont++;
+		}
+	}
+	if(cont>6){
+		for(var i=0,cont=6;cont>0;i++){
+				if(error[i]=='<' && error[i+1]=='l' && error[i+2]=='i' && error[i+3]=='>')
+				{
+					cont--;
+				}
+				errorTruncado=errorTruncado+error[i];
+			}
+		errorTruncado=errorTruncado+"/ul>";
+		return errorTruncado;
+	}
+	else{
+			return error;
+		}
+
 }
 
 //Funcion para validar EDA
@@ -65,6 +91,7 @@ function validarEntero(valor)
      //intento convertir a entero. 
      //si era un entero no le afecta, si no lo era lo intenta convertir 
      valor = parseInt(valor); 
+
      	//Compruebo si es un valor numérico 
      	if (isNaN(valor)) 
 		{ 
@@ -80,135 +107,132 @@ function validarEntero(valor)
 function validarPass(pass)
 {
 	 $.ajax({
-		 
-		    type: "POST",
+			type: "POST",
 		    url: "Validador",
-		    data: {'pass':pass},
 		    async: false,
-		    success: function (result){ $('#validacionPass').val(result);}
+		    data: {'pass':pass},
+		    success: function (result){ $('#validacionPass').val(result);},
  });}
 
 function validarEnvio(){ 
+	$('#divMensaje').empty();
+	var bandera=true;
+	var error="<ul>";
 
-  	pass=$("#password").val();
-  	validarPass(pass);
-  	validar=$('#validacionPass').val();
-  	//valido longitud PASSWORD 
+	//valido longitud PASSWORD 
    	if ($('#password').val().trim().length<1)
    	{ 
-      	alert("Tiene que escribir su password"); 
-      	$('#password').focus(); 
-      	return false; 
+      	error=error+"<li>Tiene que escribir su password</li>"; 
+      	bandera=false; 
+   	} else {
+	  	var pass = $("#password").val().trim();
+		validarPass(pass);
+	   	var contra = $('#passValidacion').val();
+		//Valido password
+	  	if(contra == 'false')
+	  		{
+		  	 error=error+"<li>Debe ingresar una contraseña sin caracteres especiales y de más de 6 caracteres</li>";
+		  	 bandera=false;
+	  		}
+	  	else{
+		  	if($("#password").val()!=$("#passwordconfirm").val())
+			{
+		  		error=error+"<li>La contraseña y su confirmación deben ser iguales</li>";
+		  		bandera=false;
+		  	}
+	   	}
    	}
-
+  	
   	//valido longitud PASSWORD CONFIRMATION
 	if ($('#passwordconfirm').val().trim().length<1)
    	{ 
-      	 alert("Tiene que escribir su confirmacion de password"); 
-      	 $('#passwordconfirm').focus(); 
-      	 return false; 
-   	} 
-  	
-
-  	if(!validar)
-  		{
-  		
-	  	 alert("Debe ingresar una contraseña sin caracteres especiales y de más de 6 caracteres");
-	  	 $('#password').focus(); 
-	  	 return false;
-  		}
-
-  	
- 
-  	if($("#password").val()!=$("#passwordconfirm").val())
-{
-  		alert("La contraseña y su confirmación deben ser iguales");
-  		return false;
-  		}
+      	error=error+"<li>Tiene que escribir su confirmacion de password</li>"; 
+      	bandera=false;
+   	}
 	//valido longitud NOMBRE
 	if ($('#nombre').val().trim().length<1)
    	{ 
-      	 alert("Tiene que escribir su nombre"); 
-      	 $('#nombre').focus();  
-      	 return false; 
+      	 error=error+"<li>Tiene que escribir su nombre</li>"; 
+      	 bandera=false;; 
    	} 
 	
 	//valido longitud APELLIDO
 	if ($('#apellido').val().trim().length<1)
    	{ 
-      	 alert("Tiene que escribir su Apellido"); 
-      	 $('#apellido').focus(); 
-      	 return false; 
+      	error=error+"<li>Tiene que escribir su Apellido</li>"; 
+      	bandera=false;
    	} 
 	
 	//valido longitus DIRECCION
 	if ($('#direccion').val().trim().length<1)
    	{ 
-      	 alert("Tiene que escribir su Direccion"); 
-      	 $('#direccion').focus(); 
-      	 return false; 
+      	 error=error+"<li>Tiene que escribir su Direccion</li>"; 
+      	 bandera=false;
    	} 
 	
 	//valido longitud DIRECCION ENVIOS
 	if ($('#direnvios').val().trim().length<1)
    	{ 
-      	 alert("Tiene que escribir su Direccion de envios"); 
-      	 $('#direnvios').focus(); 
-      	 return false; 
+      	 error=error+"<li>Tiene que escribir su Direccion de envios</li>"; 
+      	 bandera=false;
    	} 
 	
 	//valido longitud LOCALIDAD
 	if ($('#localidad').val().trim().length<1)
    	{ 
-      	 alert("Tiene que escribir su Localidad"); 
-      	 $('#localidad').focus(); 
-      	 return false; 
+      	 error=error+"<li>Tiene que escribir su Localidad</li>"; 
+      	 bandera=false; 
    	} 
 	
 	//valido longitud EDAD
 	var edad = $('#edad').val();
-	debugger;
 	if (edad<1)
    	{ 
-      	 alert("Tiene que escribir su Edad"); 
-      	 $('#edad').focus(); 
-      	 return false; 
-   	} 
-	
-    //valido EDAD entero mayor de 18
-   	res = validarEntero(edad);
-   	if (!res)
-   	{ 
-       alert("Tiene que introducir un número entero en su edad."); 
-       $('#edad').focus();
-       return false; 
-   	}else
-   	{ 
-      	 if (edad<18){ 
-         	 alert("Debe ser mayor de 18 años."); 
-         	 $('#edad').focus(); 
-         	 return false; 
-      	 } 
-  	} 
+      	 error=error+"<li>Tiene que escribir su Edad</li>"; 
+      	 bandera=false; 
+   	} else{
+	    //valido EDAD entero mayor de 18
+	   	res = validarEntero(edad);
+	   	if (!res)
+	   	{ 
+	       error=error+"<li>Tiene que introducir un número entero en su edad</li>"; 
+	       bandera=false; 
+	   	}else
+	   	{ 
+	      	 if (edad<18){ 
+	         	 error=error+"<li>Debe ser mayor de 18 años</li>"; 
+	         	 bandera=false; 
+	      	 } 
+	  	}
+   	}
 	
 	//valido longitud EMAIL
 	var email=$('#email').val().trim();
 	if (email.length<1)
    	{ 
-      	 alert("Tiene que escribir su email"); 
-      	 $('#email').focus(); 
-      	 return false; 
+      	 error=error+"<li>Tiene que escribir su email</li>"; 
+      	 bandera=false; 
+   	} else{
+		//Valido el EMAIL
+		if(!validarEmail(email))
+			{
+		     	 error=error+"<li>Tiene que escribir un email valido</li>"; 
+		      	 bandera=false;
+			}
    	}
-
-	//Valido el EMAIL
-	if(!validarEmail(email))
-		{
-			return false;
-		}
    	
-   	alert("Informacion editada satisfactoriamente"); 
-
-   	return true;
+   	if(bandera == true)
+   	{
+   		return true;
+   	}
+   	else
+	{
+   		error=error+"</ul>";
+   		var mensaje = controlarLongitudError(error);
+   		$('#divMensaje').show();
+   		$('#divMensaje').append(mensaje);
+   		return false;
+	}
 }
 
 <%if(!session.getAttribute("dni").equals(null))
@@ -237,6 +261,7 @@ function validarEnvio(){
 			<form id="Registro" class="dark-matter texto-form" action="Usuarios" method="post" > 
 		        	<h1>Modificacion Perfil<input id="validacionPass" style="display: none" /></h1>
 		        	<p>
+		        	<div class="error" style="display: none; background-image: none;" id="divMensaje"></div>
 						<label style="display: none">
 				        	<span>Dni: </span> <input type="text" id="dni" name="dni" >
 						</label>
@@ -277,7 +302,7 @@ function validarEnvio(){
 				        %>
 				        	<span>&nbsp</span>
 				        	<input type="button" value="Volver" onclick="location.href ='<%= direccion %>' "> 
-				        	<input type="submit" onclick="return validarEnvio()"value="Guardar" >
+				        	<input type="submit" onclick="return validarEnvio()" value="Guardar" >
 				        	
 				        </label>
 				       </p> 

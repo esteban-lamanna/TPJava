@@ -28,7 +28,6 @@ public class DBUsuarios extends DBAdapter
 		Statement st=conex.createStatement();
 		System.out.println("Llego a crea usuarios con: "+dni);
 		st.execute("INSERT INTO Usuarios VALUES("+dni+",'"+pass+"','"+nombre+"','"+ape+"','"+direccion+"','"+direnvios+"',"+edad+",'"+mail+"','"+localidad+"',0)");
-	
 	} catch (SQLException t) 
 		{
 		

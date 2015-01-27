@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Controlador.Controlador_encar;
+
+import java.sql.SQLException;
 import java.util.regex.*;
 import Servlets.Validador;
 import java.util.*;

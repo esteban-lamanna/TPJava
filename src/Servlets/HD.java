@@ -38,7 +38,7 @@ public class HD extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		Controlador_encar contr=new Controlador_encar();
         ArrayList<Producto> prod=contr.buscaProductos("hd");
-        ArrayList<Producto>prodsCarroActual = new ArrayList<>();
+        ArrayList<Producto>prodsCarroActual = new ArrayList<Producto>();
         if(contr.getCarroCompleto()!=null){
         if(contr.getCarroCompleto().getProductosCarro()!=null)
         {

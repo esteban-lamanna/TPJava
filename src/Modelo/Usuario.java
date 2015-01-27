@@ -88,7 +88,7 @@ public void setMail(String mail)
 	public ArrayList<Compra> getCompras() {
 		if(compras == null)
 		{
-			compras = new ArrayList<>();
+			compras = new ArrayList<Compra>();
 		}
 		return compras;
 	}

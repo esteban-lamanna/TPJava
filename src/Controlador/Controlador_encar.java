@@ -577,6 +577,7 @@ public void nuevoUsuario(String dni,String pass,String valpass,String nombre,Str
 			carroNew.setDni(String.valueOf(usuarioActual.getDni()));
 			usuarioActual.setCarcomp(carroNew);
 			UsuariosDB.CreaUsuario(usuarioActual);
+			CarrosDB.CreaCarro(String.valueOf(usuarioActual.getDni()));
 		}
 	}
 	else

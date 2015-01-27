@@ -39,7 +39,7 @@
 					if(session.getAttribute("EsAdmin").equals(1) && session.getAttribute("bandera").equals(1))
 					{response.sendRedirect("MasterMenu.jsp");}
 				%>
-					<li><a href="EdicionUsuario.jsp"> Hola <%=session.getAttribute("username")%></a></li>
+					<%if(session.getAttribute("EsAdmin").equals(1)) { %><li><a href="MasterMenu.jsp">Hola <%=session.getAttribute("username")%></a></li><%}else{ %><li><a href="EdicionUsuario.jsp">Hola <%=session.getAttribute("username")%></a></li><%} %>
 					<li><a href="CerrarSesion.jsp">Cerrar Sesion</a></li>
 				  	<%} %>
 				   
