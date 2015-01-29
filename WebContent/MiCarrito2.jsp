@@ -102,8 +102,7 @@ function Comprar()
 {
 	debugger;   
 	var arregloCodigos = new Array();
-    var arregloCantidades = new Array();
-	
+    var arregloCantidades = new Array();	
 		var filas = $('#TablaProductosCarro tbody tr');
     filas.each(function () {
         debugger;
@@ -120,6 +119,7 @@ function Comprar()
             var canti = $(this).find(">td")[4].children[0];
             arregloCantidades.push(canti.value); //aca tengo todos los codigos
         }
+    });
         alert(arregloCodigos.length);
         
         //ahora lo mando al servlet
@@ -139,11 +139,12 @@ function Comprar()
 		       
 		        alert(thrownError);
 		        }
-});
+        
         
     });
-
 }
+
+
 
 
 </script>

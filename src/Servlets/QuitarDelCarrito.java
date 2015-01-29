@@ -59,8 +59,8 @@ public class QuitarDelCarrito extends Padre {
 			String tipo;
 			try {
 				cont.eliminaDelCarroMemoria(codi);
-				tipo = Controlador_encar.eliminaDelCarro(codi,sesion.getAttribute("dni").toString()); //elimina de BD
-			
+				tipo = cont.eliminaDelCarro(codi,sesion.getAttribute("dni").toString()); //elimina de BD
+				
 			Prods valor = Prods.valueOf(tipo.toUpperCase());
 			
 			//request.getRequestDispatcher("MiCarrito.jsp").forward(request, response);

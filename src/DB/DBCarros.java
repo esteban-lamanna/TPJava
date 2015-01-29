@@ -72,21 +72,14 @@ public class DBCarros extends DBAdapter
 		{
 		
 		Statement st=conex.createStatement();
-		ResultSet rs=st.executeQuery("SELECT * FROM Carritos where dni=" + dni+"' OR codigo='"+codigo+"'");
-	
-		
+		ResultSet rs=st.executeQuery("SELECT * FROM carritos where dni=" + Integer.parseInt(dni)+"' OR codigo='"+codigo+"'");
 		while(rs.next())
 		{
 			int dni2 = rs.getInt("dni");
 			carro.setDni(String.valueOf(dni2));
 			carro.setCodigo_carrito(rs.getInt("codigo"));
 		
-		}
-	
-		
-		
-		
-		
+		}	
 	} catch (SQLException t) 
 		{
 		
@@ -106,7 +99,7 @@ public class DBCarros extends DBAdapter
 			
 		
 PreparedStatement preparedStatement = conex.prepareStatement("insert into carritos(dni) values (?)",PreparedStatement.RETURN_GENERATED_KEYS);
-preparedStatement.setString(1, dni);
+preparedStatement.setInt(1,Integer.parseInt(dni));
 preparedStatement.executeUpdate();
 
 ResultSet tableKeys = preparedStatement.getGeneratedKeys();
@@ -140,8 +133,9 @@ public CarritoCompra BuscaCarro(String dni)
 	{
 		if(ExisteCarro(dni))
 		{
-	Statement st=conex.createStatement();
-	ResultSet rs=st.executeQuery("SELECT * FROM Carritos c inner join lineacarro lc on lc.codigo_carro = c.codigo where dni=" + dni+"");
+	Statement st=conex.createStatement();														
+	ResultSet rs=st.executeQuery("SELECT * FROM carritos c left join lineacarro lc on lc.codigo_carro = c.codigo where dni=" + Integer.parseInt(dni));
+	
 	carro = new CarritoCompra();
 	
 	if(rs.next())
@@ -151,14 +145,19 @@ public CarritoCompra BuscaCarro(String dni)
 		carro.setCodigo_carrito(rs.getInt("codigo"));
 		
 	}	
-	rs.first();
+	rs.beforeFirst();
 	DBProductos ProdDB = new DBProductos();
 	ArrayList<Producto> arreglo = new ArrayList<Producto>();
 	while(rs.next())
 	{
+		int codigpr=rs.getInt("codigo_producto");
+		if(codigpr!=0)
+		{
+			
 		int cod = rs.getInt("codigo_producto");
 	    Producto pro=	ProdDB.buscaProducto(cod);
 	    arreglo.add(pro);
+		}
 	}
 	carro.setProductosCarro(arreglo);
 	
@@ -196,7 +195,7 @@ public boolean ExisteCarro(String dni)
 	
 if(cont ==0)
 {
-	res = true;
+	res = false;
 }
 }
 

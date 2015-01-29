@@ -89,7 +89,7 @@
 						</label>*/
  		%>
 
-    <form method="post"  name="Registroprod" onsubmit="return validar()" class="dark-matter texto-form"  action="RegisterProd.jsp">
+    <form method="post"   name="Registroprod" onsubmit="return validar()" class="dark-matter texto-form"  action="RegisterProd">
 
 			<h1>Alta producto</h1>
 		        	<p>
@@ -102,11 +102,11 @@
 						<label>
 				        	<span>Descripcion:</span> <input type="text" id="descripcion" name="descripcion" >
 						</label>
-						
-			<label>
-				        	<span>Foto:</span> <input type="file" id="foto" name="foto" >
+					<%// modificar seguro esto %>
+						<label>
+				        	<span>Foto:</span> <input type="text" id="foto" name="foto">
 						</label>
-						
+					
 		
 			<label>
 				        	<span>Precio:</span> <input type="text" id="precio" name="precio" >
@@ -127,17 +127,19 @@
           <option value="rcable">Cable de Red</option>
           </select>
 						</label>		
-	
+	</p>
 	 <p type="text" id="resultinput" name="resultinput" ></p>
 		
                  
          <label>
 				        	<span>&nbsp</span>
 				        	<input type="button" value="Volver" onclick="location.href = 'Index.jsp' "> 
-				  <input type="submit" align="middle" class="login-submit-formulario" name="altaprod" value="Registrar producto" />
+		
+		<input type="submit" align="middle" class="login-submit-formulario" name="altaprod" value="Registrar producto" />
       
-				        </label>
-				          </p> 
+		</label>
+		
+		
 			   
       
       <% if(session.getAttribute("confirm")!="bien" && session.getAttribute("confirm")!=null )
@@ -153,8 +155,18 @@ else
  }%>
     </form>
 
-        <!-- End Content -->
-        </div>
+      
+      
+      
+       <!-- Formulario para subir las imagenes -->
+      
+      
+        <form action="Upload2" class="dark-matter texto-form"  method="post" enctype="enctype="multipart/form-data">
+<input type="file" name="file" size="50" />
+<input type="submit" value="Cargar Imagen" />
+        
+        </form>
+        </div>  <!-- End Content -->
                 <!-- End shell -->
    		<div id="footer">
 					<div class="left">

@@ -19,16 +19,13 @@ public class DBLineaCarro extends DBAdapter
 		
 
 	public void CreaLineaCarro(LineaCarro linea, int codigo_carro) throws SQLException
-	{
-		
+	{		
 				
 		try {
 			System.out.println(linea.getProducto().getCodigo());
 			Statement st=conex.createStatement();
 			st.execute("INSERT INTO lineaCarro(codigo_producto, codigo_carro) VALUES('"+linea.getProducto().getCodigo()+"','"+codigo_carro+"')");
 
-                      
-           
 		} catch (SQLException sqle) 
 		{
 			throw sqle;

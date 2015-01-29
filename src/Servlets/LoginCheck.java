@@ -57,23 +57,19 @@ public class LoginCheck extends Padre {
 		// TODO Auto-generated method stub
 		Controlador_encar cont= getControlador();
         String dni=request.getParameter("dni");
-        String pass=request.getParameter("password");
-       
-        
+        String pass=request.getParameter("password");       
         	if(cont.Login(dni,pass))
             {
         	HttpSession sesion = request.getSession(false);
         	if(sesion==null)
         	{
         		sesion = request.getSession(true);
-        	}
-        	
+        	}        	
         	//le creo el carrito
         	DBCarros carro = new DBCarros();
         	CarritoCompra carrito=	carro.BuscaCarro(dni);
         	
-        	Usuario usu = cont.getUsuarioActual();
-        
+        	Usuario usu = cont.getUsuarioActual();        
          //   usu.setCarcomp(carrito);
             cont.SetCarroComprasAUsuario(carrito);
             

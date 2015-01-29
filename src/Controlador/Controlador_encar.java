@@ -291,7 +291,7 @@ public String nuevoProducto(String nombre,String modelo,String descripcion,float
 			    	  break;
 				
 				}
-				
+			
 				
 			}
 				
@@ -594,6 +594,7 @@ public  void Comprar(String codprods[],String cantidades[])
 		compraActual.setTotalcompra(0.0f);
 		compraActual.setEstado("Pendiente");
 		compraActual=ComprasDB.CreaCompra(compraActual);
+		try{
 		for (int i=0;i<codprods.length;i++)
 		{
 			
@@ -608,7 +609,11 @@ public  void Comprar(String codprods[],String cantidades[])
 			compraActual.añadeLineaCompra(lineaActual);
 			
 		}
-		ComprasDB.GuardaCompra(compraActual);
+		ComprasDB.GuardaCompra(compraActual);}
+		catch(Exception e)
+		{
+			throw e;
+		}
 		//usuarioActual.añadeCompra(compraActual);
 	}
 public String añadeAlCarro(int codigo_producto, String dni) throws SQLException
@@ -662,6 +667,7 @@ public static void eliminaDelCarro(Vector<String> prods,String dni)
 		}
 	}
 }
+//no va mas este
 
 public  void eliminaDelCarroMemoria(int codigo)
 {
@@ -692,7 +698,7 @@ public static String eliminaDelCarro(int codigo, String dni) throws SQLException
 	linea.setProducto(productoActual);
 	linea.setDni(dni);
 	try {
-		DBLineaCarro.EliminaLineaCarro(linea, usuarioActual.getCarcomp().getCodigo_carrito()); //lo agrego al carrito en BD
+		DBLineaCarro.EliminaLineaCarro(linea, usuarioActual.getCarcomp().getCodigo_carrito()); //lo elimino al carrito en BD
 	} catch (SQLException e) {
 		throw e;
 	}

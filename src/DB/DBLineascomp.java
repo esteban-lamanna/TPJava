@@ -16,15 +16,9 @@ public class DBLineascomp extends DBAdapter
 	public void CreaLineaCompra(LineaProducto lp)
 	{
 		try
-		{
-
-			
+		{			
 		Statement st=conex.createStatement();
-		
-st.execute("INSERT INTO lineacomp(codcompra,codigo,cantidad,subtotal) VALUES('"+lp.getCodC()+"','"+lp.getProducto().getCodigo()+"','"+lp.getCantidad()+"','"+lp.getSubtotlinea()+"')");
-
-
-
+		st.execute("INSERT INTO lineacomp(codcompra,codigo,cantidad,subtotal) VALUES('"+lp.getCodC()+"','"+lp.getProducto().getCodigo()+"','"+lp.getCantidad()+"','"+lp.getSubtotlinea()+"')");
 
 	} catch (SQLException t) 
 		{

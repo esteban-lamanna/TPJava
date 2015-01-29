@@ -36,6 +36,8 @@
 				<ul id="sddm">
 				<%if(session.getAttribute("username")!= null)
 					{
+					
+					
 					if(session.getAttribute("EsAdmin").equals(1) && session.getAttribute("bandera").equals(1))
 					{response.sendRedirect("MasterMenu.jsp");}
 				%>
@@ -150,9 +152,7 @@
 							    }
 						       });
 					});
-				});
-
-				
+				});			
 				
 			      $.ajax({
 					    type: "POST",
@@ -333,11 +333,9 @@
 							    data: {'cod':cod},
 							    success: function(a) {
 							    	 debugger;
-						                $('#results').html(a);
-						                
+						                $('#results').html(a);						                
 						                sumarCostoAcumulado();
-						                contarProductosEnCarro();
-						              
+						                contarProductosEnCarro();s						              
 							    },
 							    error: function (xhr, ajaxOptions, thrownError) {
 							       
