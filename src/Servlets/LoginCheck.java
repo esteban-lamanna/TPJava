@@ -67,8 +67,7 @@ public class LoginCheck extends Padre {
         	}        	
         	//le creo el carrito
         	DBCarros carro = new DBCarros();
-        	CarritoCompra carrito=	carro.BuscaCarro(dni);
-        	
+        	CarritoCompra carrito=	carro.BuscaCarro(dni);        	
         	Usuario usu = cont.getUsuarioActual();        
          //   usu.setCarcomp(carrito);
             cont.SetCarroComprasAUsuario(carrito);

@@ -41,8 +41,7 @@ public class AgregaCompras2 extends HttpServlet {
 	
 		String[] cantidades = request.getParameterValues("cantidades[]");
 		Controlador_encar contr=new Controlador_encar();
-		contr.Comprar(codigos, cantidades);
-		
+		contr.Comprar(codigos, cantidades);	
 		
 		
 	}

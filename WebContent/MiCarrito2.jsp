@@ -55,7 +55,7 @@
 			<td><input  style="width: 40px;font: 15px 'Helvetica Neue', Helvetica, Arial, sans-serif;" type="text" name="cantidad" value="1"/></td>
 			<td>$<%=pr.getPrecio() %></td>
 				<td><input name="seleccionar" type="checkbox" checked="checked"/></td>
-			<td><a id="eliminar" href="#"/><img src="css/images/cart_delete.png"/></a></td>
+			<td><a onclick="eliminar(this)" href="#"/><img src="css/images/cart_delete.png"/></a></td>
 			<td style="display: none" ><%=pr.getCodigo() %></td>
 			
 			
@@ -72,7 +72,7 @@
 		<td><input  style="width: 40px;font: 15px 'Helvetica Neue', Helvetica, Arial, sans-serif;" type="text" name="cantidad" value="1"/></td>
 		<td>$<%=pr.getPrecio() %></td>
 		<td><input type="checkbox" name="seleccionar" checked="checked"/></td>
-		<td><a id="eliminar" href="#"/><img src="css/images/cart_delete.png"/></a></td>
+		<td><a onclick="eliminar(this)" href="#"/><img src="css/images/cart_delete.png"/></a></td>
 		<td style="display: none" ><%=pr.getCodigo() %></td>
 		</tr>
 		
@@ -98,6 +98,36 @@
 
 </html>
 <script type="text/javascript" language="javascript">
+
+	function eliminar(a)	
+			{
+		debugger;
+		tr = $(a).closest('tr')[0];
+		var tds = $(tr).find(">td");
+		var td = tds[8];
+		var id = td.innerText;
+		quitar(id);
+		}
+	
+function quitar(cod)
+{
+	debugger;
+
+	      $.ajax({
+	    	type: "POST",
+	        url: "QuitarDelCarrito",
+		    data: {'cod':cod},
+		    success: function(a) {
+		    	 debugger;                    
+	              
+	               location.href="MiCarrito2.jsp";
+		    },
+		    error: function (xhr, ajaxOptions, thrownError) {
+		       
+		        alert(thrownError);
+		        }
+});
+}
 function Comprar()
 {
 	debugger;   

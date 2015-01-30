@@ -160,13 +160,8 @@ public CarritoCompra BuscaCarro(String dni)
 		}
 	}
 	carro.setProductosCarro(arreglo);
-	
-
 		}
-	
-	
-	
-} catch (SQLException t) 
+	} catch (SQLException t) 
 	{
 	
 	t.printStackTrace();

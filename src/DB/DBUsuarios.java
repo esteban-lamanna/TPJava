@@ -90,7 +90,7 @@ public class DBUsuarios extends DBAdapter
 			user.setEdad(rs.getInt(7));
 			user.setMail(rs.getString(8));
 			user.setLocalidad(rs.getString(9));
-			user.setEsAdmin(rs.getInt(10));
+			user.setEsAdmin(rs.getShort(10));
 			return user;
 		}
 	}
