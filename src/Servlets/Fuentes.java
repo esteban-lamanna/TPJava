@@ -64,8 +64,10 @@ public class Fuentes extends Padre {
         out.println("<li>");
         out.println("<input name=\"Codigos\" id=\"Codigos\" value=\""+pro.getCodigo()+"\" type=\"hidden\" />");
         out.println(" <div class=\"image\">");
+
         out.println("<a href=\"#\">");
-        out.println("<img src=\"css/images/image1.jpg\" alt=\"\" />"); // (*)
+        out.println("<img src=\""+pro.getFoto()+"\">");
+        //out.println("<img src=\"css/images/image1.jpg\" alt=\"\" />"); // (*)
         
         //asi deberia ser para poner cada imagen: el renglon anterior se omitiria (*)
         //out.println("<img src='"+pro.getFoto()+"' " +"alt=\"\" />");

@@ -166,6 +166,7 @@ public class DBProductos extends DBAdapter
 	public void añadeProducto(Fuente prod)
 
 	{
+		
 		try
 		{
 PreparedStatement preparedStatement = conex.prepareStatement("INSERT INTO Productos(nombre,modelo,descripcion,precio,foto,tipo,wattsF,amperajeF) VALUES (?,?,?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);

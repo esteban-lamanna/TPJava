@@ -29,10 +29,17 @@ public class Upload2 extends HttpServlet {
 
    public void init( ){
       // Get the file location where it would be stored.
-	   ServletContext context = getServletContext();
-      filePath = 
-    		  context.getInitParameter("file-upload");
-    		  }
+	   //ServletContext context = getServletContext();
+	  // String path = context.getRealPath("/");
+     // filePath = context.getInitParameter("file-upload");
+	//   filePath = "css/images/productos";
+	   
+	  // String relativeWebPath = "/tempfiledir";
+	   //String absoluteDiskPath = getServletContext().getRealPath(relativeWebPath);
+	   filePath = "c:\\imagenesProductos";		  
+    		  }   
+	  
+    		  
    
    
    public void doPost(HttpServletRequest request,    HttpServletResponse response)      throws ServletException, java.io.IOException {
@@ -99,7 +106,10 @@ public class Upload2 extends HttpServlet {
          }
          else
          {
-        	 out.println("Nombre: " + request.getParameter("nombre") + "<br>");        
+                 // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
+                /* String fieldName = fi.getFieldName();                
+                 String fieldValue = fi.getString(fieldName);
+        	// out.println("Nombre: " +fieldValue + "<br>");  */      
          }
       }
       out.println("</body>");

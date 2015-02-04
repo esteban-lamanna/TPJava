@@ -11,8 +11,7 @@
 			.tabbed { height:420px; }
 		</style>
 	<![endif]-->
-	<script src="js/altaprod.js" type="text/javascript"></script>
-	
+	<script src="js/altaprod.js" type="text/javascript"></script>	
 	<script src="js/jquery-1.4.1.min.js" type="text/javascript"></script>
 	<script src="js/jquery.jcarousel.pack.js" type="text/javascript"></script>
 	<script src="js/jquery.slide.js" type="text/javascript"></script>
@@ -33,7 +32,7 @@
 							      success: function(a) 
 							      	{   $('#resultinput').html(a); 	}
 						       });});});
-				
+		
 </script>
 
 </head>
@@ -73,23 +72,10 @@
        <div class="shell">
        <div class="options" align="center"></div>
         
-        <div id="content">
-        
-        <%/*<form id="Registro" class="dark-matter texto-form" action="Usuarios" method="post" > 
-		        	<h1>Registro</h1>
-		        	<p>
-						<label>
-				        	<span>Dni: </span> <input type="text" id="dni" name="dni" >
-						</label>
-						<label>
-				        	<span>Contraseña: </span> <input type="password" id="password" name="password">
-						</label>
-						<label>
-				            <span>Confirma contraseña: </span> <input type="password" name="passwordconfirm" id="passwordconfirm">
-						</label>*/
- 		%>
+        <div id="content">       
+    
 
-    <form method="post"   name="Registroprod" onsubmit="return validar()" class="dark-matter texto-form"  action="RegisterProd">
+    <form method="post" enctype="multipart/form-data" name="Registroprod" onsubmit="return validar()" class="dark-matter texto-form"  action="RegistroConUpload">
 
 			<h1>Alta producto</h1>
 		        	<p>
@@ -102,14 +88,12 @@
 						<label>
 				        	<span>Descripcion:</span> <input type="text" id="descripcion" name="descripcion" >
 						</label>
-					<%// modificar seguro esto %>
-						<label>
-				        	<span>Foto:</span> <input type="text" id="foto" name="foto">
-						</label>
 					
-		
-			<label>
+						<label>
 				        	<span>Precio:</span> <input type="text" id="precio" name="precio" >
+						</label>
+						<label>
+				        	<span>Foto:</span> <input type="file" id="foto" name="foto" >
 						</label>
 						
 						<label>
@@ -129,19 +113,8 @@
 						</label>		
 	</p>
 	 <p type="text" id="resultinput" name="resultinput" ></p>
-		
-                 
-         <label>
-				        	<span>&nbsp</span>
-				        	<input type="button" value="Volver" onclick="location.href = 'Index.jsp' "> 
-		
-		<input type="submit" align="middle" class="login-submit-formulario" name="altaprod" value="Registrar producto" />
-      
-		</label>
-		
-		
-			   
-      
+		             
+     
       <% if(session.getAttribute("confirm")!="bien" && session.getAttribute("confirm")!=null )
 {session.setAttribute("confirm",null);
 	%><p><FONT FACE="arial" SIZE=9 COLOR=red>!!ERROR!! EL PRODUCTO INGRESADO YA EXISTE CON ESE NOMBRE Y ESE MODELO</FONT></p><%
@@ -153,19 +126,18 @@ else
 	%><div><FONT FACE="arial" SIZE=9 COLOR=red>PRODUCTO REGISTRADO CORRECTAMENTE</FONT></div><%
 	}
  }%>
-    </form>
-
+     <label>
+				        	<span>&nbsp</span>
+				        	<input type="button" value="Volver" onclick="location.href = 'Index.jsp' "> 
+		
+		<input type="submit" align="middle" class="login-submit-formulario" name="altaprod" value="Registrar producto" />
       
+		</label>
+    </form>  
       
+      <!-- Formulario para subir las imagenes -->      
       
-       <!-- Formulario para subir las imagenes -->
-      
-      
-        <form action="Upload2" class="dark-matter texto-form"  method="post" enctype="enctype="multipart/form-data">
-<input type="file" name="file" size="50" />
-<input type="submit" value="Cargar Imagen" />
-        
-        </form>
+ 
         </div>  <!-- End Content -->
                 <!-- End shell -->
    		<div id="footer">

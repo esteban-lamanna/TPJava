@@ -132,7 +132,16 @@ public String nuevoProducto(String nombre,String modelo,String descripcion,float
 		String cantpcieMO,String vonboardMO,String sonboardMO,String chipsetMO,String USB30MO,String cantmaxmemMO,String frecMem,String latenciaMem,String cantmemMem,String frecvga,
 		String abusvga,String cantmemVGA,String pipelsvga,String shadersvga,String socket,String foto,String tipo)
 		{
+	
 			String error=null;
+			String strRutaImagen;			
+	         //Instanciamos la clase que corrige la ruta del archivo
+	         Util.CorregirRuta ruta1 = new Util.CorregirRuta(foto,"\\", "\\\\");
+	         //CORREGIR LA RUTA
+	         foto = ruta1.obtenerRutaCorregidaWindows();      
+	         
+	         
+			//foto.replaceAll("\\", "/");			    
 			productoActual=ProductosDB.buscaProducto(nombre, modelo);
 			if(productoActual!=null)
 			{

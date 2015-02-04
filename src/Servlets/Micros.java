@@ -42,8 +42,7 @@ public class Micros extends Padre {
         ArrayList<Producto>prodsCarroActual = new ArrayList<Producto>();
         if(contr.getCarroCompleto()!=null){
         if(contr.getCarroCompleto().getProductosCarro()!=null)
-        {
-        	
+        {     	
         
         prodsCarroActual = contr.getCarroCompleto().getProductosCarro();
         }
@@ -62,11 +61,15 @@ public class Micros extends Padre {
 				}
         	}
         	Micro pro=(Micro)prod.get(i);
+        
         	out.println("<li>");
             out.println("<input name=\"Codigos\" value=\""+pro.getCodigo()+"\" type=\"hidden\" />");
             out.println(" <div class=\"image\">");
             out.println("<a href=\"#\">");
-            out.println("<img src=\"css/images/image1.jpg\" alt=\"\" />");
+           // out.println("<img src=\"css/images/image1.jpg\" alt=\"\" />");
+          //out.println("<img src=\""+pro.getFoto()+"\""  /*+" alt=\"\"/>"*/);
+            out.println("<img src=\""+pro.getFoto()+"\">");
+            
             out.println("</a>");
             out.println("</div>");
             out.println("<p>");
