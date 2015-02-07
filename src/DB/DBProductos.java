@@ -93,13 +93,48 @@ public class DBProductos extends DBAdapter
 		return prods;
 	}
 	
+	public Producto buscaProducto(int codigo,String tipo)
+	{
+		Producto prod=null;
+		try
+		{
+		Statement st=conex.createStatement();
+		ResultSet rs=st.executeQuery("SELECT * FROM Productos where codigo= '"+codigo+"'");;
+		while(rs.next())
+		{
+		if(rs.getInt("codigo")==(codigo))
+			{
+			prod=new Producto();
+			prod.setCodigo(rs.getInt("codigo"));
+			prod.setFoto(rs.getString("foto"));
+			prod.setModelo(rs.getString("modelo"));
+			prod.setNombre(rs.getString("nombre"));
+			prod.setPrecio(rs.getFloat("precio"));
+			prod.setTipo(rs.getString("tipo"));
+			prod.setDescripcion(rs.getString("Descripcion"));
+			return prod;
+			}
+		}
+		return prod;
+		
+		
+	} catch (SQLException t) 
+	{
+		
+	t.printStackTrace();
+	return prod;
+	}
+		
+		
+	}
+	
 	public Producto buscaProducto(int codigo)
 	{
 		Producto prod=null;
 		try
 		{
 		Statement st=conex.createStatement();
-		ResultSet rs=st.executeQuery("SELECT * FROM Productos");;
+		ResultSet rs=st.executeQuery("SELECT * FROM Productos where codigo= '"+codigo+"'");;
 		while(rs.next())
 		{
 		if(rs.getInt("codigo")==(codigo))

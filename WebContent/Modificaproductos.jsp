@@ -1,15 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>CompuCom.com</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+
+	<link rel="stylesheet" href="css/Register.css" type="text/css" media="all" />
 	<!--[if lte IE 6]>
 		<style type="text/css" media="screen">
 			.tabbed { height:420px; }
 		</style>
 	<![endif]-->
-	
+	<script src="js/altaprod.js" type="text/javascript"></script>	
 	<script src="js/jquery-1.4.1.min.js" type="text/javascript"></script>
 	<script src="js/jquery.jcarousel.pack.js" type="text/javascript"></script>
 	<script src="js/jquery.slide.js" type="text/javascript"></script>
@@ -17,6 +19,7 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    
     <script type="text/javascript">
     $(document).ready(function() {
    $('#categ').change(function(event){
@@ -136,80 +139,73 @@
     	break;
 }
   });
-						});
+						});   
+    
+    
     </script>
-    <script type="text/javascript">
-   function agregar(codig)
-				      {
-					document.getElementById("codigoseleccionado").value = codig;
-						    document.Mprod.submit(); 
-				      }
+    <script type="text/javascript">  
+   
+   function editar(codig)
+   {
+	   document.getElementById("codigoseleccionado").value = codig;
+  	   document.Mprod.submit(); 
+	   
+   }
  </script>
 </head>
 <body>
 
 <!-- Header -->
 <div id="topFormularios">
-<div class="shell">
-		<div id="header">
-			<h1 id="logo"><a href="#"></a></h1>
-			<div id="navigation">
+		<div id="topAdmin">
+	
+	
+				<!-- Header -->
+				<div id="header" style="color: #ff0000">
+					<h1 id="logo"><a href="#"></a></h1>
+					<div id="navigation">
 				<ul id="sddm">
-				<%if(session.getAttribute("DniUsuario")!= null)
-					{%>
-				<li>Hola <%=session.getAttribute("username")%>
-				</li>
+				<%if(session.getAttribute("username")!= null)
+					{
+					if(session.getAttribute("EsAdmin").equals(0))
+					{response.sendRedirect("Index.jsp");}
+				%>
+					<li><a href="EdicionUsuario.jsp"> Hola <%=session.getAttribute("username")%></a></li>
+					<li><a href="CerrarSesion.jsp">Cerrar Sesion</a></li>
+				  	<%
+				  	} 
 				
-				<li><a href="CerrarSesion.jsp">Cerrar Sesion</a>
-				</li>
-				<%} %>
-				 <%if(session.getAttribute("DniUsuario")== null)
-					{%>
-				 	 <li>
-				    <a href="#" 
-				        onmouseover="mopen('m2')" 
-				        onmouseout="mclosetime()">Ingresar</a></li>
-				        <div id="m2" onmouseover="mcancelclosetime()" 
-				            onmouseout="mclosetime()" align="center">
-							  <form action="LoginCheck.jsp" method="get" class="login">
-							    <input type="text" name="dni" class="input-login" placeholder="Dni"  style="margin-bottom: 10px;"/>
-							    <br/>
-							    <input type="password" name="password" placeholder="Password" class="input-login"  style="margin-bottom: 15px;"/>
-							    <br/>
-							    <input type="submit" value="Login" class="login-submit"/>
-							  </form>
-				        </div>	      
-				
-
-				    <li class="last"><a href="Index.jsp">Home</a></li>
-				    <%} %>
+				if(session.getAttribute("username")== null)
+					{response.sendRedirect("Login.jsp");
+					
+					}
+				session.setAttribute("modificarProducto","editar");
+					%>
+				     <li class="last"><a href="#">Home</a></li>
 				</ul>
-				</div>		
+						
 			
 				<div style="clear:both"></div>
-			
-		</div>
-		<!-- End Header -->
-        <div id="tituloPagina"> Modificación de Productos</div>
-        <div>
-        </div>
-	</div>
+					</div>
+			    </div>
+	
+</div>       
+	
 </div><!-- End top -->
 		
 		<!-- Content -->
         <div id="main">
-        
+        <div class="shell" style="width: 90%">
         <div id="content">
         
  		
 
-    <form method="post"  name="Mprod" id="Mprod" onsubmit="return validar()" action="Modificaproductoseleccionado.jsp" >
-      <table align="center" style="height: 353px; ">
-        
+    <form method="post" name="Mprod" id="Mprod" onsubmit="return validar()" class="dark-matter grande" action="Modificaproductoseleccionado.jsp" >
+      <h1>Seleccione el tipo de producto</h1>        
        <tr valign="baseline">
           <td nowrap="nowrap" class="etiquetaTabla" align="right">Categoria:</td>
           <td>
-          <select name="categ" id="categ" class="etiquetaTabla">
+          <select name="categ" id="categ" style="width:30%;text-align: center" class="etiquetaTabla">
           <option value="def">Seleccione una opcion</option>
           <option value="gabinete">Gabinete</option>
           <option value="fuente">Fuentes</option>
@@ -230,9 +226,10 @@
           <tr valign="baseline">
           <p name="results" id="results"> </p>
         </tr>
-         <td><input type="submit" align="middle" class="login-submit-formulario" name="modifprod" id="modifprod" value="Registrar producto" /></td>
+         <td>
+          <!-- <input type="submit" align="middle" class="login-submit-formulario" name="modifprod" id="modifprod" value="Modificar producto" /></td> -->
       
-      </table>
+      
       <% if(session.getAttribute("confirm")=="mal")
 {session.setAttribute("confirm",null);
 	%><p><FONT FACE="arial" SIZE=9 COLOR=red>!!ERROR!! EL PRODUCTO NO SE HA PODIDO MODIFICAR YA QUE EXISTE OTRO PRODUCTO CON EL MISMO NOMBRE Y EL MISMO MODELO</FONT></p><%
@@ -241,6 +238,7 @@ else
 {	if(session.getAttribute("confirm")=="bien")
 	{
 	session.setAttribute("confirm",null);
+	session.setAttribute("modificarProducto",null);
 	%><div><FONT FACE="arial" SIZE=9 COLOR=red>PRODUCTO MODIFICADO CORRECTAMENTE</FONT></div><%
 	}
  }%>
@@ -267,7 +265,8 @@ else
 	  </div>
 	<!-- End footer -->
 
- 
+ </div>
+ </div>
 				</body>
 			
 </html>

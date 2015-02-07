@@ -68,7 +68,7 @@
 									<li><a href="EdicionUsuarioAdmin.jsp">Edicion Usuario</a></li>
 									<li><a href="Altaproductos.jsp">Alta de productos</a></li>
 									<li><a href="Modificaproductos.jsp">Edición de productos</a></li>
-									<li><a href="BorraProductos.jsp">Eliminar productos</a></li>
+									<li><a href="Bajaproductos.jsp">Eliminar productos</a></li>
 									<li><a href="#">Carga de saldo a usuarios</a></li>
 									
 								</ul> 

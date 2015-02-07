@@ -676,8 +676,11 @@ public static void eliminaDelCarro(Vector<String> prods,String dni)
 		}
 	}
 }
-//no va mas este
 
+public Producto buscaProducto(int codigo)
+{	
+	return ProductosDB.buscaProducto(codigo);
+}
 public  void eliminaDelCarroMemoria(int codigo)
 {
 	String tipo;

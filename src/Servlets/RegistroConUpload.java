@@ -36,13 +36,16 @@ public class RegistroConUpload extends Padre {
 	   
 	   public void init( ){
 	      // Get the file location where it would be stored.
-		 //  ServletContext context = getServletContext();
-		 //  String path = context.getRealPath("/");
+		   ServletContext context = getServletContext();
+		   carpeta = "imagenesProductos\\";
+		   String path = context.getRealPath("/");
+		   filePath = getServletContext().getRealPath("")+ File.separator + carpeta;
 	    //filePath = context.getInitParameter("file-upload");
 		   /*String relativeWebPath = "/tempfiledir";
 		   String absoluteDiskPath = getServletContext().getRealPath(relativeWebPath);
 		   filePath = "/css/images/productos";		  */
-		   carpeta = "imagenesProductos";
+		   
+		  
 	    		  }
     /**
      * @see HttpServlet#HttpServlet()
@@ -163,7 +166,7 @@ public class RegistroConUpload extends Padre {
 	            long sizeInBytes = fi.getSize();
 	            // Write the file
 	          
-	            filePath = "c:\\"+carpeta;
+	            //filePath = "c:\\"+carpeta;
 	            if( fileName.lastIndexOf("\\") >= 0 ){
 	            	direccion = filePath + fileName.substring( fileName.lastIndexOf("\\"));
 	               file = new File( direccion);

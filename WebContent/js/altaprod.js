@@ -315,7 +315,7 @@ if(validaEntero(document.getElementById("anchobus").value))
    		
         break;
         
-        case "red":
+        case "pred":
            if (document.getElementById("velocidadr").value.length==0)
    	{ 
    		errores += "\n Tiene que escribir la Velocidad del producto"; 

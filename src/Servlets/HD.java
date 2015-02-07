@@ -66,7 +66,8 @@ public class HD extends HttpServlet {
         out.println("<input name=\"Codigos\" value=\""+pro.getCodigo()+"\" type=\"hidden\" />");
         out.println(" <div class=\"image\">");
         out.println("<a href=\"#\">");
-        out.println("<img src=\"css/images/image1.jpg\" alt=\"\" />");
+        out.println("<img src=\""+pro.getFoto()+"\">");
+        //out.println("<img src=\"css/images/image1.jpg\" alt=\"\" />");
         out.println("</a>");
         out.println("</div>");
         out.println("<p>");
@@ -89,6 +90,8 @@ public class HD extends HttpServlet {
        
      
         if(sesion.getAttribute("dni")!=null && sesion.getAttribute("dni")!="")
+        	if(sesion.getAttribute("EsAdmin")!=null && sesion.getAttribute("EsAdmin").equals(0))
+        	{
         {
         if(!agregado)
         {
@@ -102,6 +105,19 @@ public class HD extends HttpServlet {
         out.println("</li>");
         }
         }
+        	else
+        	{
+        		if(sesion.getAttribute("modificarProducto")!=null && sesion.getAttribute("modificarProducto")=="eliminar")
+        		{
+        			 out.println("<input type=\"button\" id=\"btnEliminar\" title=\"Eliminar\" value=\"Eliminar\" onclick=\"eliminar("+pro.getCodigo()+")\" />");
+                }
+        		if(sesion.getAttribute("modificarProducto")!=null && sesion.getAttribute("modificarProducto")=="editar")
+        		{
+        			 out.println("<input type=\"button\" id=\"btnEditar\" title=\"Editar\" value=\"Editar\" onclick=\"editar("+pro.getCodigo()+")\" />");
+                }
+        	}
+        }
+        
             
         
 		

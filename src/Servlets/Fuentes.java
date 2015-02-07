@@ -41,9 +41,7 @@ public class Fuentes extends Padre {
         ArrayList<Producto>prodsCarroActual = new ArrayList<Producto>();
         if(contr.getCarroCompleto()!=null){
         if(contr.getCarroCompleto().getProductosCarro()!=null)
-        {
-        	
-        
+        {     	
         prodsCarroActual = contr.getCarroCompleto().getProductosCarro();
         }
         }
@@ -91,6 +89,8 @@ public class Fuentes extends Padre {
        
      
         if(sesion.getAttribute("dni")!=null && sesion.getAttribute("dni")!="")
+        	if(sesion.getAttribute("EsAdmin")!=null && sesion.getAttribute("EsAdmin").equals(0))
+        	{
         {
         if(!agregado)
         {
@@ -106,6 +106,18 @@ public class Fuentes extends Padre {
         }
         out.println("</li>");
         }
+        }
+        	else
+        	{
+        		if(sesion.getAttribute("modificarProducto")!=null && sesion.getAttribute("modificarProducto")=="eliminar")
+        		{
+        			 out.println("<input type=\"button\" id=\"btnEliminar\" title=\"Eliminar\" value=\"Eliminar\" onclick=\"eliminar("+pro.getCodigo()+")\" />");
+                }
+        		if(sesion.getAttribute("modificarProducto")!=null && sesion.getAttribute("modificarProducto")=="editar")
+        		{
+        			 out.println("<input type=\"button\" id=\"btnEditar\" title=\"Editar\" value=\"Editar\" onclick=\"editar("+pro.getCodigo()+")\" />");
+                }
+        	}
         }
 	}
 

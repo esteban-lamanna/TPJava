@@ -53,12 +53,14 @@
 				%>
 					<li><a href="EdicionUsuario.jsp"> Hola <%=session.getAttribute("username")%></a></li>
 					<li><a href="CerrarSesion.jsp">Cerrar Sesion</a></li>
-				  	<%} 
+				  	<%
+				  	} 
 				
 				if(session.getAttribute("username")== null)
 					{response.sendRedirect("Login.jsp");
 					
-					}%>
+					}
+					%>
 				     <li class="last"><a href="#">Home</a></li>
 				</ul>
 						
@@ -106,7 +108,7 @@
           <option value="micro">Microprocesadores</option>
           <option value="placamadre">Motherboards</option>
           <option value="pvideo">Placas de Video</option>
-          <option value="red">Placas de Red</option>
+          <option value="pred">Placas de Red</option>
           <option value="psonido">Placas de Sonido</option>
           <option value="rcable">Cable de Red</option>
           </select>
@@ -155,6 +157,8 @@ else
 					<div class="right">
 						&copy; Sitename.com. Design by <a href="http://chocotemplates.com" target="_blank" title="CSS Templates">ChocoTemplates.com</a>
 					</div>
+	  </div>
+	  </div>
 	  </div>
 	<!-- End footer -->
 

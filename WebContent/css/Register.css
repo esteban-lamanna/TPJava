@@ -1,3 +1,14 @@
+.grande
+{
+	color:#D3D3D3;
+	max-width: 90% !important;
+}
+.grande select
+{
+	width: 30%;
+	color:#D3D3D3;
+}
+
 /* #### Dark Matter #### */
 .dark-matter {
     margin-left: auto;
@@ -81,6 +92,7 @@
     padding: 5px 0px 0px 5px;
     width: 70%;
 }
+
 
 fieldset { 
 width: 94%; 

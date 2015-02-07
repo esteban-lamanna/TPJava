@@ -9,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Controlador.Controlador_encar;
+import Modelo.Fuente;
 import Modelo.Memoria;
 import Modelo.PRed;
 import Modelo.Producto;
@@ -19,7 +21,7 @@ import Modelo.Producto;
  * Servlet implementation class PlacaRed
  */
 @WebServlet("/PlacaRed")
-public class PlacaRed extends HttpServlet {
+public class PlacaRed extends Padre {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -35,45 +37,71 @@ public class PlacaRed extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out=response.getWriter();
-		
-		out.println("<form action=\"AgregaCarros\" method=\"GET\">");
-		out.println("<table border=1 align=\"center\">");
-        out.println("<tr>");
-        out.println("<td>");out.println("</td>");
-        out.println("<td>Nombre");out.println("</td>");
-        out.println("<td>Descripcion");out.println("</td>");
-        out.println("<td>Modelo");out.println("</td>");
-        out.println("<td>Velocidad");out.println("</td>");
-        out.println("<td>Precio");out.println("</td>");
-                out.println("<td>Agregar al Carro");out.println("</td>");
-        out.println("</tr>");
-        Controlador_encar contr=new Controlador_encar();
-        ArrayList<Producto> prod=contr.buscaProductos("pred");
+        Controlador_encar contr = getControlador();
+        ArrayList<Producto> prod=contr.buscaProductos("PRED");
+        ArrayList<Producto>prodsCarroActual = new ArrayList<Producto>();
+        if(contr.getCarroCompleto()!=null){
+        if(contr.getCarroCompleto().getProductosCarro()!=null)
+        {     	
+        prodsCarroActual = contr.getCarroCompleto().getProductosCarro();
+        }
+        }
+        Boolean agregado;
         for(int i=0;i<prod.size();i++)
         {
-        	PRed pro=(PRed)prod.get(i);
-        
-               //String id2=prod.get(i).getRutafoto();
-               //System.out.println(id2);
-        	 out.println("<input type=\"text\" name=\"Codigos\" value=\""+pro.getCodigo()+"\">");
-        out.println("<tr>");
-        out.println("<td>"+pro.getFoto());out.println("</td>");
-        out.println("<td>"+pro.getNombre());out.println("</td>");
-        out.println("<td>"+pro.getDescripcion());out.println("</td>");
-        out.println("<td>"+pro.getModelo());out.println("</td>");
-        out.println("<td>"+pro.getVelocidad()+" Mhz");out.println("</td>");
-        out.println("<td>"+"$"+prod.get(i).getPrecio());out.println("</td>");
-        
-        out.println("<td><input type=\"checkbox\" name=\"ArticulosSeleccionados\" value=\""+i+"\">");out.println("</td>");
-        out.println("</td>"); 
-        out.println("</tr>");
-            
-        }
+        	agregado=false;
+        	
+        	for (int j=0;j< prodsCarroActual.size();j++)
+        	{
+				
+				if(prod.get(i).getCodigo()==prodsCarroActual.get(j).getCodigo())
+				{
+					agregado=true;
+				}
+        	}
+        PRed pro=(PRed)prod.get(i);
+        out.println("<li>");
+        out.println("<input name=\"Codigos\" id=\"Codigos\" value=\""+pro.getCodigo()+"\" type=\"hidden\" />");
+        out.println(" <div class=\"image\">");
 
-        out.println("</table>");
-        out.println("<input type=\"submit\" id=\"btnAgregar\" name=\"Agregar\" title=\"Agregar\" value=\"Agregar\">"); 
-        out.println("</form>");
-	}
+        out.println("<a href=\"#\">");
+        out.println("<img src=\""+pro.getFoto()+"\">");     
+        out.println("</a>"); 
+        out.println("</div>");
+        out.println("<p>");
+        out.println("Nombre: <span>"+pro.getNombre()+"</span><br />");
+        out.println("Descripcion: <span>"+pro.getDescripcion()+"</span><br />");
+        out.println("Modelo: <span>"+pro.getModelo()+"</span><br />");       
+        out.println("Velocidad: <span>"+pro.getVelocidad()+"</span><br />");    
+        out.println(" </p>");   
+        out.println("<p class=\"price\">Precio: <strong> $"+pro.getPrecio()+"</strong></p>");
+        HttpSession sesion = request.getSession(false);
+        if(sesion == null)
+        {
+        	sesion = request.getSession(true);
+        }
+        System.out.print(sesion.getAttribute("dni"));
+        
+       
+     
+        if(sesion.getAttribute("dni")!=null && sesion.getAttribute("dni")!="")
+        {
+        if(!agregado)
+        {
+        	 // out.println("<input type=\"button\" id=\"btnAgregar\" title=\"Agregar\" value=\"Agregar\" onclick=\"agregar("+pro.getCodigo()+")\" />");
+    out.print("<img src=\"css/images/cart_add.png\" id=\"btnAgregar\" alt=\"\" onclick=\"agregar("+pro.getCodigo()+")\" />");
+        				    
+        }
+        else
+        {
+     //   out.print("<input type=\"button\" id=\"btnQuitar\" title=\"Quitar\" value=\"Quitar\" onclick=\"quitar("+pro.getCodigo()+")\" />");
+        out.print("<img src=\"css/images/cart_delete.png\" id=\"btnQuitar\" alt=\"\" onclick=\"quitar("+pro.getCodigo()+")\" />");
+        
+        }
+        out.println("</li>");
+        }
+        }
+	}	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

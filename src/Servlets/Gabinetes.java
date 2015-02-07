@@ -69,7 +69,8 @@ public class Gabinetes extends Padre {
               out.println("<input name=\"Codigos\" value=\""+pro.getCodigo()+"\" type=\"hidden\" />");
               out.println(" <div class=\"image\">");
               out.println("<a href=\"#\">");
-              out.println("<img src=\"css/images/image1.jpg\" alt=\"\" />");
+           //   out.println("<img src=\"css/images/image1.jpg\" alt=\"\" />");
+              out.println("<img src=\""+pro.getFoto()+"\">");
               out.println("</a>");
               out.println("</div>");
               out.println("<p>");

@@ -26,7 +26,7 @@ import Modelo.RCable;
  * Servlet implementation class ShowModifs
  */
 @WebServlet("/ShowModifs")
-public class ShowModifs extends HttpServlet {
+public class ShowModifs extends Padre {
 	public enum Prods {
 
 	    FUENTE,
@@ -58,58 +58,39 @@ public class ShowModifs extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-    	Controlador_encar contr=new Controlador_encar();
-    	//Producto prod=contr.buscaProducto(request.getParameter("codi"),request.getParameter("categ"));
-		
-    	//modificar esto
-    	Producto prod = null;
-    	// TODO Auto-generated method stub
-		String valori=request.getParameter("categ");
-		
-		Prods valor = Prods.valueOf(valori.toUpperCase());
-		PrintWriter out=response.getWriter();
-		
-		out.println("<tr valign=\"baseline\">");
-		out.println("<td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Nombre del Producto:</td>");
-		out.println("<td><input class=\"inputTabla\" name=\"nombreprod\" type=\"text\" id=\"nombreprod\" value=\""+prod.getNombre()+"\" size=\"32\" /></td></tr>");
-
-		out.println("<tr valign=\"baseline\"> <td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Modelo:</td>");
-		out.println("<td><input class=\"inputTabla\" name=\"modelo\" type=\"text\" id=\"modelo\" value=\""+prod.getModelo()+"\" size=\"32\" /></td></tr>");
-		out.println("<tr valign=\"baseline\">");
-		out.println("<td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Descripcion:</td>");
-		out.println("<td><input class=\"inputTabla\" name=\"descripcion\" type=\"text\" id=\"descripcion\" value=\""+prod.getDescripcion()+"\" size=\"32\" /></td></tr>");
-       
-		out.println("<tr valign=\"baseline\">");
-		out.println("<td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Foto:</td>");
-		out.println("<td><input name=\"foto\" class=\"inputTabla\" type=\"text\" id=\"foto\" value=\""+prod.getFoto()+"\" size=\"32\" /></td></tr>"); 
-		out.println("<tr valign=\"baseline\">");
-		out.println("<td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Precio:</td>");
-		out.println("<td><input  name=\"precio\" class=\"inputTabla\" type=\"text\" id=\"precio\" value=\""+prod.getPrecio()+"\" size=\"32\" /></td></tr>");
-		
-		
+    	Controlador_encar contr= getControlador();
+    	Producto prod=contr.buscaProducto(Integer.parseInt(request.getParameter("codi")));   
+		// TODO Auto-generated method stub
+		String valori=request.getParameter("categ");		
+		Prods valor = Prods.valueOf(valori.toUpperCase());		
+		PrintWriter out=response.getWriter();	
+		out.println("<label><span>Nombre del Producto </span> <input type='text' name='nombre' value=\""+prod.getNombre()+"\" id='nombre'></label>"); 
+		out.println("<label><span>Modelo:</span> <input type='text' name='modelo' value=\""+prod.getModelo()+"\" id='modelo'></label>"); 
+		out.println("<label><span>Descripcion:</span> <input type='text' name='descripcion' value=\""+prod.getDescripcion()+"\" id='descripcion'></label>"); 
+        out.println("<label><span>Foto:</span> <input type='text' name='foto' value=\""+prod.getFoto()+"\" id='foto'></label>"); 
+		out.println("<label><span>Precio:</span> <input type='text' name='precio' value=\""+prod.getPrecio()+"\" id='precio'></label>"); 
+				
 		switch(valor)
 		{
 		case FUENTE:
 			Fuente pro=(Fuente)prod;
- out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Watts:</td> <td><input class=\"inputTabla\" name=\"watts\" type=\"text\" id=\"watts\" value=\""+pro.getWatts()+"\" size=\"32\" /></td> </tr>");
- out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Amperaje:</td> <td><input class=\"inputTabla\" name=\"amperaje\" type=\"text\" id=\"amperaje\" value=\""+pro.getAmperaje()+"\" size=\"32\" /></td> </tr>");  	          	        
+ out.println("<label><span>Watts:</span> <input type='text' name='watts' value=\""+pro.getWatts()+"\" id='watts'></label>"); 
+ out.println("<label><span>Amperaje:</span> <input type='text' name='amperaje' value=\""+pro.getAmperaje()+"\" id='amperaje'></label>"); 
 			break;
 
 		case GABINETE:
 			Gabinete gab=(Gabinete)prod;
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Tamaño:</td> <td><input class=\"inputTabla\" name=\"taman\" type=\"text\" id=\"taman\" value=\""+gab.getTamaño()+"\" size=\"32\" /></td> </tr>");
-			         	        
-						break;
+			 out.println("<label><span>Tamaño:</span> <input type='text' name='tamaño' value=\""+gab.getTamaño()+"\" id='tamaño'></label>"); 
+			break;
 		
 			
 		case HD:
 			 Hd disco=(Hd)prod;
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Capacidad:</td> <td><input class=\"inputTabla\" name=\"capacidadhd\" type=\"text\" id=\"capacidadhd\" value=\""+disco.getCapacidad()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Interfaz:</td> <td><input class=\"inputTabla\" name=\"interfaz\" type=\"text\" id=\"interfaz\" value=\""+disco.getInterfaz()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">RPM:</td> <td><input class=\"inputTabla\" name=\"rpm\" type=\"text\" id=\"rpm\" value=\""+disco.getRpm()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Buffer:</td> <td><input class=\"inputTabla\" name=\"buffer\" type=\"text\" id=\"buffer\" value=\""+disco.getBuffer()+"\" size=\"32\" /></td> </tr>");
-	               
-	        
+			 out.println("<label><span>Capacidad:</span> <input type='text' name='capacidad' value=\""+disco.getCapacidad()+"\" id='capacidad'></label>"); 
+			 out.println("<label><span>Interfaz:</span> <input type='text' name='interfaz' value=\""+disco.getInterfaz()+"\" id='interfaz'></label>"); 
+			 out.println("<label><span>RPM:</span> <input type='text' name='rpm' value=\""+disco.getRpm()+"\" id='rpm'></label>"); 
+			 out.println("<label><span>Buffer:</span> <input type='text' name='buffer' value=\""+disco.getBuffer()+"\" id='buffer'></label>"); 
+			 
 			break;
 			
 		case MEMORIA:

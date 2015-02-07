@@ -127,7 +127,7 @@ public class ShowInputs extends HttpServlet {
 	           
 			break;
 			
-		case RED:
+		case PRED:
 			out.println("<label><span>Velocidad: </span> <input type='text' name='velocidadr' id=''></label>");
  
 		break;

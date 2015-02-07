@@ -38,8 +38,8 @@
 							    data : 'categ='+cate+'&codi='+cod,
 							      success: function(a) 
 							      	{   $('#resultinput').html(a); 	}
-						       });});	
-					
+						       });
+					});					
 				
 </script>
 

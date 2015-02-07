@@ -95,7 +95,10 @@
 			<span class="left"><a href="#">Busqueda Avanzada</a></span>
 			
 			<div class="right">
-			<%if (session.getAttribute("dni")!=null &&session.getAttribute("dni")!=""){ %>
+			<%if (session.getAttribute("dni")!=null &&session.getAttribute("dni")!=""){ 
+		
+			session.setAttribute("modificarProducto",null);
+			%>
 				<span class="cart">
 					<a href="MiCarrito2.jsp" class="cart-ico">&nbsp;</a>
 					
@@ -191,7 +194,7 @@
 			      };
 			      
 					$(document).ready(function() {
-						   $('#tab1').click(function(){
+							   $('#tab1').click(function(){
 							   deselecionar();
 								var nodo = document.getElementById("tab1");
 								nodo.className = "active";
@@ -294,6 +297,20 @@
 						       });
 						   });
 						});		
+					$(document).ready(function() {
+						   $('#tab8').click(function(){
+							   deselecionar();
+								var nodo = document.getElementById("tab7");
+								nodo.className = "active";
+						      $.ajax({
+							    type: "POST",
+							    url: "PlacaRed",
+							    success: function(a) {
+						                $('#results').html(a);
+							    }
+						       });
+						   });
+						});	
 					
 					$(document).ready(function() {
 						   $('#tab9').click(function(){
