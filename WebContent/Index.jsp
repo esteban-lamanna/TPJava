@@ -13,7 +13,7 @@
 			.tabbed { height:420px; }
 		</style>
 	<![endif]-->
-	
+	<link rel="stylesheet" href="css/jquery.bxslider.css" type="text/css" media="all" />
 	<script src="js/jquery-1.4.1.min.js" type="text/javascript"></script>
 	<script src="js/jquery.jcarousel.pack.js" type="text/javascript"></script>
 	<script src="js/jquery.slide.js" type="text/javascript"></script>
@@ -21,6 +21,8 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    <script src="js/jquery/bxslider.js" type="text/javascript"></script>
+    
 	
 </head>
 <body>
@@ -63,10 +65,29 @@
 		<!-- End Header -->
 		
 		<!-- Slider -->
+		
+		<div id="slider">
+		<div id="slider-holder">
+		<ul class="bxslider">
+		<li><img src="css/images/nvidiaGrande.jpg" /></li>
+  <li><img src="css/images/intelGrande.jpg" /></li>
+  
+   <li><img src="css/images/nvidiaGrande2.jpg" /></li>
+ 
+</ul>
+</div>
+<div id="slider-nav">
+				<a href="#" class="prev">Previous</a>
+				<a href="#" class="next">Next</a>
+			</div>
+		</div>
+		<!--
 		<div id="slider">
 			<div id="slider-holder">
 				<ul>
 				    <li><a href="#"><img src="css/images/slide1.jpg" alt="" /></a></li>
+				    <li><a href="#"><img src="css/images/slide2.jpg" alt="" /></a></li>
+				    <li><a href="#"><img src="css/images/tab.gif" alt="" /></a></li>
 				</ul>
 			</div>
 			<div id="slider-nav">
@@ -92,7 +113,7 @@
 					<input type="text" class="search-submit" value="" id="submit"/>
 				</form>
 			</div>
-			<span class="left"><a href="#">Busqueda Avanzada</a></span>
+			
 			
 			<div class="right">
 			<%if (session.getAttribute("dni")!=null &&session.getAttribute("dni")!=""){ 
@@ -109,11 +130,10 @@
 				$(document).ready(function() {
 				sumarCostoAcumulado();
 				contarProductosEnCarro();
-				})
+				});
+			
 				</script>
-				<span class="left more-links">
-					<a id="Comprar" href="#">Comprar</a>
-				</span>
+			
 				<%} %>
 			</div>
 		</div>
@@ -143,6 +163,8 @@
 
 				
 		$(document).ready(function() {
+			debugger;
+			// $('.bxslider').bxSlider();
 					$('#submit').click(function(event) {
 						deselecionar();
 						var buscarVar = $('#buscar').val();
@@ -354,7 +376,7 @@
 							    	 debugger;
 						                $('#results').html(a);						                
 						                sumarCostoAcumulado();
-						                contarProductosEnCarro();s						              
+						                contarProductosEnCarro();						              
 							    },
 							    error: function (xhr, ajaxOptions, thrownError) {
 							       
@@ -461,16 +483,14 @@
 
 
 				</div>
-				
 				<!-- Brands -->
 				<div class="brands">
 					<h3>Brands</h3>
 					<div class="logos">
-						<a href="#"><img src="css/images/logo1.gif" alt="" /></a>
-						<a href="#"><img src="css/images/logo2.gif" alt="" /></a>
-						<a href="#"><img src="css/images/logo3.gif" alt="" /></a>
-						<a href="#"><img src="css/images/logo4.gif" alt="" /></a>
-						<a href="#"><img src="css/images/logo5.gif" alt="" /></a>
+						<a href="#"><img src="css/images/nvidia.jpg" alt="" /></a>
+						<a href="#"><img src="css/images/intel.jpg" alt="" /></a>
+						<a href="#"><img src="css/images/amdnvidia.jpg" alt="" /></a>
+						<a href="#"><img src="css/images/windows.jpg" alt="" /></a>
 					</div>
 				</div>
 				<!-- End Brands -->
@@ -493,7 +513,7 @@
 					</div>
 				</div>
 				<!-- End Footer -->
-				
+			
 			</div>
 			<!-- End Container -->
 			

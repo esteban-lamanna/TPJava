@@ -299,28 +299,42 @@ public String nuevoProducto(String nombre,String modelo,String descripcion,float
 			    	  ProductosDB.añadeProducto(cab);
 			    	  break;
 				
-				}
-			
-				
-			}
-				
-			return error;
-			
+				}			
+			}				
+			return error;			
 		}
 
-public void modificaProducto(String codigo,String nombre,String modelo,String descripcion,
+public String modificaProducto(String codigo,String nombre,String modelo,String descripcion,
 		float precio,String capHD,String interfazHD,String rpmHD,int bufferHD,
 		String wattsF,String amperajeF,int frecM,int cacheM,String SocketM,float jacksS,
 		String tamañoG,String velocidadPR,String tecnologiaPR,int cantUSBMO,
 		int cantpcieMO,String vonboardMO,String sonboardMO,String chipsetMO,int USB30MO,
 		int cantmaxmemMO,int frecMem,String latenciaMem,int cantmemMem,int frecvga,
 		int abusvga,int cantmemVGA,int pipelsvga,int shadersvga,String socket,String foto,
-		String tipo,boolean antena,String seguridad)
+		String tipo,boolean antena,String seguridad) throws NumberFormatException, SQLException
 {
-	productoActual=ProductosDB.buscaProducto(nombre,modelo);
-	Prods enumval = Prods.valueOf(productoActual.getTipo());
+	try{
+	String error= null;
+	 Util.CorregirRuta ruta1 = new Util.CorregirRuta(foto,"\\", "\\\\");
+     //CORREGIR LA RUTA
+     foto = ruta1.obtenerRutaCorregidaWindows();      
+	//foto.replaceAll("\\", "/");			    
+	productoActual=ProductosDB.buscaProducto(Integer.parseInt(codigo),tipo);
+	
+	
+	if(productoActual==null)
+	{
+		error="El producto no existe en el sistema";
+		return error;
+		
+	}
+	else
+	{
+	
+	Prods enumval = Prods.valueOf(productoActual.getTipo().toUpperCase());
 	switch(enumval)
 	{
+	
 	case FUENTE:
 	Fuente fu=(Fuente)productoActual;
 	fu.setDescripcion(descripcion);
@@ -476,6 +490,14 @@ public void modificaProducto(String codigo,String nombre,String modelo,String de
     	  ProductosDB.modificaProducto(cab);
     	  break;
 	
+	}
+
+	}
+	return error;
+	}
+	catch(Exception e)
+	{
+		return e.getMessage();
 	}
 	
 }
@@ -680,6 +702,17 @@ public static void eliminaDelCarro(Vector<String> prods,String dni)
 public Producto buscaProducto(int codigo)
 {	
 	return ProductosDB.buscaProducto(codigo);
+}
+
+public Producto buscaProducto(int codigo,String categoria)
+{	
+	try {
+		return ProductosDB.buscaProducto(codigo,categoria);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return null;
+	}
 }
 public  void eliminaDelCarroMemoria(int codigo)
 {

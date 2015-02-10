@@ -50,7 +50,7 @@
 				if(i % 2 == 0)
 				{
 			%>
-			<tr><td><a href="#"> <img src="css/images/image1.jpg" alt="imagen"/></a><%// <%pr.getFoto();%></td><td><%=pr.getNombre() %></td>
+			<tr><td><a href="#"> <img src="<%=pr.getFoto()%>" alt="imagen"/></a><%// <%pr.getFoto();%></td><td><%=pr.getNombre() %></td>
 			<td><%=pr.getDescripcion()%></td><td><%=pr.getModelo() %></td>
 			<td><input  style="width: 40px;font: 15px 'Helvetica Neue', Helvetica, Arial, sans-serif;" type="text" name="cantidad" value="1"/></td>
 			<td>$<%=pr.getPrecio() %></td>
@@ -64,7 +64,7 @@
 				else
 				{%>
 					<tr class="alt">
-					<td><a href="#"> <img src="css/images/image1.jpg" alt="imagen"/></a><%// <%pr.getFoto();%></td>
+			<tr><td><a href="#"> <img src="<%=pr.getFoto()%>" alt="imagen"/></a></td>
 					<td><%=pr.getNombre() %></td>
 					<td><%=pr.getDescripcion()%></td>
 					<td><%=pr.getModelo() %></td>
@@ -150,7 +150,7 @@ function Comprar()
             arregloCantidades.push(canti.value); //aca tengo todos los codigos
         }
     });
-        alert(arregloCodigos.length);
+       
         
         //ahora lo mando al servlet
         

@@ -21,11 +21,6 @@ else
 	session.setAttribute("confirm","mal");
 }
 
-
-
-
-
-
 %>
 </body>
 </html>

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Controlador.Controlador_encar;
 import Servlets.ShowInputs.Prods;
+import Modelo.PRed;
 import Modelo.Producto;
 import Modelo.Fuente;
 import Modelo.Gabinete;
@@ -59,15 +60,18 @@ public class ShowModifs extends Padre {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
     	Controlador_encar contr= getControlador();
-    	Producto prod=contr.buscaProducto(Integer.parseInt(request.getParameter("codi")));   
+    	//Producto prod=contr.buscaProducto(Integer.parseInt(request.getParameter("codi")));   
+    	Producto prod = contr.buscaProducto(Integer.parseInt(request.getParameter("codi")),request.getParameter("categ"));
 		// TODO Auto-generated method stub
 		String valori=request.getParameter("categ");		
 		Prods valor = Prods.valueOf(valori.toUpperCase());		
 		PrintWriter out=response.getWriter();	
-		out.println("<label><span>Nombre del Producto </span> <input type='text' name='nombre' value=\""+prod.getNombre()+"\" id='nombre'></label>"); 
+		out.println("<label><span>Nombre del Producto </span> <input type='text' name='nombreprod' value=\""+prod.getNombre()+"\" id='nombreprod'></label>"); 
 		out.println("<label><span>Modelo:</span> <input type='text' name='modelo' value=\""+prod.getModelo()+"\" id='modelo'></label>"); 
 		out.println("<label><span>Descripcion:</span> <input type='text' name='descripcion' value=\""+prod.getDescripcion()+"\" id='descripcion'></label>"); 
-        out.println("<label><span>Foto:</span> <input type='text' name='foto' value=\""+prod.getFoto()+"\" id='foto'></label>"); 
+      //  out.println("<label><span>Foto:</span> <input type='file' name='foto' value=\""+prod.getFoto()+"\" id='foto'></label>"); 
+		  out.println("<label><span>Foto:</span> <input type='text' name='foto' value=\""+prod.getFoto()+"\" readonly='readonly' id='foto'></label>"); 
+			
 		out.println("<label><span>Precio:</span> <input type='text' name='precio' value=\""+prod.getPrecio()+"\" id='precio'></label>"); 
 				
 		switch(valor)
@@ -95,54 +99,58 @@ public class ShowModifs extends Padre {
 			
 		case MEMORIA:
 			Memoria mem=(Memoria)prod;
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Frecuencia:</td> <td><input class=\"inputTabla\" name=\"frecuenciamem\" type=\"text\" id=\"frecuenciamem\" value=\""+mem.getFrecuencia()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Capacidad:</td> <td><input class=\"inputTabla\" name=\"capacidadmem\" type=\"text\" id=\"capacidadmem\" value=\""+mem.getCantmen()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Latencia:</td> <td><input class=\"inputTabla\" name=\"latencia\" type=\"text\" id=\"latencia\" value=\""+mem.getLatencia()+"\" size=\"32\" /></td> </tr>");
+			out.println("<label><span>Frecuencia:</span> <input type='text' name='frecuencia' value=\""+mem.getFrecuencia()+"\" id='frecuencia'></label>"); 
+			out.println("<label><span>Capacidad:</span> <input type='text' name='capacidad' value=\""+mem.getCantmen()+"\" id='capacidad'></label>"); 
+			out.println("<label><span>Latencia:</span> <input type='text' name='latencia' value=\""+mem.getLatencia()+"\" id='latencia'></label>"); 
             
 			break;
 			
 		case MICRO:
 			Micro mic=(Micro)prod;
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Frecuencia:</td> <td><input class=\"inputTabla\" name=\"frecuenciamicro\" type=\"text\" id=\"frecuenciamicro\" value=\""+mic.getFrecuencia()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Cache:</td> <td><input class=\"inputTabla\" name=\"cachemicro\" type=\"text\" id=\"cachemicro\" value=\""+mic.getCaché()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Socket:</td> <td><input class=\"inputTabla\" name=\"socketmicro\" type=\"text\" id=\"socketmicro\" value=\""+mic.getSocket()+"\" size=\"32\" /></td> </tr>");
+			out.println("<label><span>Frecuencia:</span> <input type='text' name='frecuencia' value=\""+mic.getFrecuencia()+"\" id='frecuencia'></label>"); 
+			out.println("<label><span>Cache:</span> <input type='text' name='frecuencia' value=\""+mic.getFrecuencia()+"\" id='frecuencia'></label>"); 
+			out.println("<label><span>Socket:</span> <input type='text' name='socket' value=\""+mic.getSocket()+"\" id='socket'></label>"); 
         	
 			break;
 		case PLACAMADRE:
 			PlacaMadre pm=(PlacaMadre)prod;
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Cant USB:</td> <td><input class=\"inputTabla\" name=\"cantusb\" type=\"text\" id=\"cantusb\" value=\""+pm.getCantusb()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Cant USB 3.0:</td> <td><input class=\"inputTabla\" name=\"cantusb3\" type=\"text\" id=\"cantusb3\" value=\""+pm.getCantusb30()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Cant Pci-E x16:</td> <td><input class=\"inputTabla\" name=\"cantpcie\" type=\"text\" id=\"cantpcie\" value=\""+pm.getCantPCIE()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Video Onboard:</td> <td><input class=\"inputTabla\" name=\"videoonboard\" type=\"text\" id=\"videoonboard\" value=\""+pm.getvOnboard()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Sonido Onboard:</td> <td><input class=\"inputTabla\" name=\"sonidoonboard\" type=\"text\" id=\"sonidoonboard\" value=\""+pm.getsOnboard()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Chipset:</td> <td><input class=\"inputTabla\" name=\"chipset\" type=\"text\" id=\"chipset\" value=\""+pm.getChipset()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Cant Max Mem:</td> <td><input class=\"inputTabla\" name=\"cantmaxmemmo\" type=\"text\" id=\"cantmaxmemmo\" value=\""+pm.getCantmaxmem()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Socket:</td> <td><input class=\"inputTabla\" name=\"socketmo\" type=\"text\" id=\"socketmo\" value=\""+pm.getSocket()+"\" size=\"32\" /></td> </tr>");
+			out.println("<label><span>Cant USB:</span> <input type='text' name='cantusb' value=\""+pm.getCantusb()+"\" id='cantusb'></label>"); 
+			out.println("<label><span>Cant USB 3.0:</span> <input type='text' name='cantusb3' value=\""+pm.getCantusb30()+"\" id='cantusb3'></label>"); 
+			out.println("<label><span>Cant Pci-E x16:</span> <input type='text' name='cantpcie' value=\""+pm.getCantPCIE()+"\" id='cantpcie'></label>"); 
+			out.println("<label><span>Video Onboard:</span> <input type='text' name='videoonboard' value=\""+pm.getvOnboard()+"\" id='videoonboard'></label>"); 
+			out.println("<label><span>Sonido Onboard:</span> <input type='text' name='sonidoonboard' value=\""+pm.getsOnboard()+"\" id='sonidoonboard'></label>"); 
+			out.println("<label><span>Chipset:</span> <input type='text' name='chipset' value=\""+pm.getChipset()+"\" id='chipset'></label>"); 
+			out.println("<label><span>Cant Max Mem:</span> <input type='text' name='cantmaxmemmo' value=\""+pm.getCantmaxmem()+"\" id='cantmaxmemmo'></label>"); 
+			out.println("<label><span>Socket:</span> <input type='text' name='socketmo' value=\""+pm.getSocket()+"\" id='socketmo'></label>"); 
 			break;
 		case PVIDEO:
 			PVideo video=(PVideo)prod;
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Frecuencia:</td> <td><input class=\"inputTabla\" name=\"frecuenciavideo\" type=\"text\" id=\"frecuenciavideo\" value=\""+video.getFrecuencia()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Ancho del Bus:</td> <td><input class=\"inputTabla\" name=\"anchobus\" type=\"text\" id=\"anchobus\" value=\""+video.getAnchobus()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Cantidad de Memoria:</td> <td><input class=\"inputTabla\" name=\"cantmemvideo\" type=\"text\" id=\"cantmemvideo\" value=\""+video.getCantmem()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Pipelines:</td> <td><input class=\"inputTabla\" name=\"pipelines\" type=\"text\" id=\"pipelines\" value=\""+video.getPipelines()+"\" size=\"32\" /></td> </tr>");
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Shaders:</td> <td><input class=\"inputTabla\" name=\"shaders\" type=\"text\" id=\"shaders\" value=\""+video.getShaders()+"\" size=\"32\" /></td> </tr>");
+			out.println("<label><span>Frecuencia:</span> <input type='text' name='frecuenciavideo' value=\""+video.getFrecuencia()+"\" id='frecuenciavideo'></label>"); 
+			out.println("<label><span>Ancho del Bus:</span> <input type='text' name='anchobus' value=\""+video.getAnchobus()+"\" id='anchobus'></label>"); 
+			out.println("<label><span>Cantidad de Memoria:</span> <input type='text' name='cantmemvideo' value=\""+video.getCantmem()+"\" id='cantmemvideo'></label>"); 
+			out.println("<label><span>Pipelines:</span> <input type='text' name='pipelines' value=\""+video.getPipelines()+"\" id='pipelines'></label>"); 
+			out.println("<label><span>Shaders:</span> <input type='text' name='shaders' value=\""+video.getShaders()+"\" id='shaders'></label>"); 
       	  
             
 			break;
 		case PSONIDO:
 			PSonido sonido = (PSonido)prod;
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Jacks:</td> <td><input class=\"inputTabla\" name=\"jacks\" type=\"text\" id=\"jacks\" value=\""+sonido.getJacks()+"\" size=\"32\" /></td> </tr>");
+			out.println("<label><span>Jacks:</span> <input type='text' name='jacks' value=\""+sonido.getJacks()+"\" id='jacks'></label>"); 
 
             
 			break;
 		case RCABLE:
 			RCable cable=(RCable)prod;
-			out.println("<tr valign=\"baseline\"><td nowrap=\"nowrap\" class=\"etiquetaTabla\" align=\"right\">Velocidad:</td> <td><input class=\"inputTabla\" name=\"velocidadc\" type=\"text\" id=\"velocidadc\" value=\""+cable.getVelocidad()+"\" size=\"32\" /></td> </tr>");
+			out.println("<label><span>Velocidad:</span> <input type='text' name='velocidadc' value=\""+cable.getVelocidad()+"\" id='velocidadc'></label>"); 
 
 	           
 			break;
 			
-		case RED:
+		case PRED:
+			PRed red=(PRed)prod;
+		//	out.println("<label><span>Velocidad:</span> <input type='text' name='velocidadc' value=\""+cable.getVelocidad()+"\" id='velocidadc'></label>"); 
+
+	           
 			
  
 		break;

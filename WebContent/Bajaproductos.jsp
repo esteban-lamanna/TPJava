@@ -142,24 +142,31 @@
 						});
     </script>
     <script type="text/javascript">
-   function agregar(cod)
-				      {			$.ajax({
+   function eliminar(cod)
+				      {	
+	   var txt;
+	   var r = confirm("¿Está seguro que desea eliminar el producto?");	    
+	   if(r)
+		   {
+	   $.ajax({	   
+		   
 						    	type: "POST",
 						        url: "BorraProductos.jsp",
 							    data: {'cod':cod},
-							    success: function(a) {						             
+							    success: function(a) {					             
 								window.location.reload();
 							    }
 						       });
+				      }
 				      }
  </script>
 </head>
 <body>
 
 <!-- Header -->
-
+<div id="topFormularios">
 <div id="topAdmin">
-	
+		<div class="shell">
 	
 				<!-- Header -->
 				<div id="header" style="color: #ff0000">
@@ -182,19 +189,22 @@
 					
 					}%>
 					
-				     <li class="last"><a href="#">Home</a></li>
+				     <li class="last"><a href="MasterMenu.jsp">Home</a></li>
 				</ul>
 						
 			
 				<div style="clear:both"></div>
 			</div>
 			    </div>
-			    	
+			    	</div>
 </div>
+</div>
+
+
 
 <% session.setAttribute("modificarProducto","eliminar"); %>
          <div id="main">
-        <div class="shell" style="width: 90%">
+        <div class="shell" style="width: 90%"><br/>
         <div id="content" class="dark-matter grande">
  		
 
@@ -234,14 +244,16 @@
       
       <% if(session.getAttribute("confirm")=="mal")
 {session.setAttribute("confirm",null);
-	%><p><FONT FACE="arial" SIZE=9 COLOR=red>!!ERROR!! EL PRODUCTO NO SE HA PODIDO BORRAR YA QUE HAY CLIENTES QUE POSEEN ESE ARTICULO EN UNA COMPRA, CUANDO LA COMPRA SEA DESPACHADA Y REGISTRADA ELIMINARLA NUEVAMENTE</FONT></p><%
+	%><script>alert("El producto no se ha eliminado, probablemente porque hay compras o carritos que contienen al mismo");</script><%
 }
 else
 {	if(session.getAttribute("confirm")=="bien")
 	{
 	session.setAttribute("modificarProducto",null);
 	session.setAttribute("confirm",null);
-	%><div><FONT FACE="arial" SIZE=9 COLOR=red>PRODUCTO BORRADO CORRECTAMENTE</FONT></div><%
+	%>
+	<script>alert("El producto se ha eliminado exitosamente");</script>
+	<%
 	}
  }%>
    <!--  </form>-->

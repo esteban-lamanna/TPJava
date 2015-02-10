@@ -152,13 +152,17 @@
 	   
    }
  </script>
+ <style>
+ 
+ 
+ </style>
 </head>
 <body>
 
 <!-- Header -->
 <div id="topFormularios">
 		<div id="topAdmin">
-	
+	<div class="shell">
 	
 				<!-- Header -->
 				<div id="header" style="color: #ff0000">
@@ -172,7 +176,7 @@
 				%>
 					<li><a href="EdicionUsuario.jsp"> Hola <%=session.getAttribute("username")%></a></li>
 					<li><a href="CerrarSesion.jsp">Cerrar Sesion</a></li>
-				  	<%
+				<%
 				  	} 
 				
 				if(session.getAttribute("username")== null)
@@ -180,15 +184,16 @@
 					
 					}
 				session.setAttribute("modificarProducto","editar");
+				session.setAttribute("confirm",null);
 					%>
-				     <li class="last"><a href="#">Home</a></li>
+				         <li class="last"><a href="MasterMenu.jsp">Home</a></li>
 				</ul>
 						
 			
 				<div style="clear:both"></div>
 					</div>
 			    </div>
-	
+	</div>
 </div>       
 	
 </div><!-- End top -->
@@ -196,7 +201,7 @@
 		<!-- Content -->
         <div id="main">
         <div class="shell" style="width: 90%">
-        <div id="content">
+        <div id="content" >
         
  		
 
@@ -218,30 +223,45 @@
           <option value="psonido">Placas de Sonido</option>
           <option value="rcable">Cable de Red</option>
           </select>
-          </td>
-          
+          </td>          
           <input name="codigoseleccionado" id="codigoseleccionado" value="" type="hidden" />
+          </tr>
+         
           
-        </tr>
-          <tr valign="baseline">
-          <p name="results" id="results"> </p>
-        </tr>
-         <td>
-          <!-- <input type="submit" align="middle" class="login-submit-formulario" name="modifprod" id="modifprod" value="Modificar producto" /></td> -->
-      
-      
-      <% if(session.getAttribute("confirm")=="mal")
+          	<div class="tab-content" style="display:block;">
+						 <div class="items">
+							<div class="cl">&nbsp;</div>
+													<ul id="results">
+							    					</ul>
+							<div class="cl">&nbsp;</div>
+						</div>
+					</div>
+        
+           <% if(session.getAttribute("confirm")=="mal")
 {session.setAttribute("confirm",null);
-	%><p><FONT FACE="arial" SIZE=9 COLOR=red>!!ERROR!! EL PRODUCTO NO SE HA PODIDO MODIFICAR YA QUE EXISTE OTRO PRODUCTO CON EL MISMO NOMBRE Y EL MISMO MODELO</FONT></p><%
+	%>
+	<script>alert("El producto no se pudo modificar.");location.href="MasterMenu.jsp";</script>
+	<%
 }
 else
 {	if(session.getAttribute("confirm")=="bien")
 	{
 	session.setAttribute("confirm",null);
 	session.setAttribute("modificarProducto",null);
-	%><div><FONT FACE="arial" SIZE=9 COLOR=red>PRODUCTO MODIFICADO CORRECTAMENTE</FONT></div><%
+	%>
+	<script>
+	
+	alert("PRODUCTO MODIFICADO CORRECTAMENTE");
+	location.href="MasterMenu.jsp";
+	</script>
+	<% 
 	}
  }%>
+      <!--  <td>
+           <input type="submit" align="middle" class="login-submit-formulario" name="modifprod" id="modifprod" value="Modificar producto" /></td> -->
+      
+      
+    
     </form>
 
         <!-- End Content -->

@@ -3,7 +3,8 @@
  */
 function validar()
 { 
-	   	 alert("ENTRE");
+	  
+	   	
     var bien = true;
    	var errores = "";
    	
@@ -47,9 +48,18 @@ function validar()
       	    
       	 bien =false; 
    	} 
+   		
+   		if(!ValidateImage(document.getElementById("foto").value))
+   			{
+   			errores += "\n Tiene que subir una foto del producto correcta"; 
+   		 bien =false; 
+   			}
+   		
+   		
+   		//^(?:[\w]\:|\\)(\\[a-z_\-\s0-9\.]+)+\.(txt|gif|pdf|doc|docx|xls|xlsx)$
 
-var cate=document.getElementById("categoria").value;
-alert (cate);
+var cate=document.getElementById("categ").value;
+
 switch(cate) {
     case "gabinete":
         if (document.getElementById("taman").value.length==0)
@@ -89,7 +99,7 @@ if(validaEntero(document.getElementById("watts").value))
         break;
         
         case "hd":
-        if (document.getElementById("capacidadhd").value.length==0)
+        if (document.getElementById("capacidad").value.length==0)
    	{ 
    		errores += "\n Tiene que escribir la capacidad del producto"; 
       	    
@@ -361,8 +371,8 @@ if(validaFloat(document.getElementById("jacks").value))
    	
 	if(bien) 
 		{
-		errores+="Validacion de ingreso de correcta, presione aceptar para continuar";
-		alert(errores);
+		//errores+="Validacion de ingreso de correcta, presione aceptar para continuar";
+		//alert(errores);
 		return true;
 		}
 
@@ -375,7 +385,13 @@ if(validaFloat(document.getElementById("jacks").value))
     	}
    
 }
-
+function ValidateImage(imagen) {
+		//([^\s]+(\.(?i)(jpg|png|gif|bmp))$)
+	//if (/^(?:[\w]\:|\\)(\\[a-z_\-\s0-9\.]+)+\.(gif|jpeg|jpg)$/.test(imagen)) {return true;alert("SI");}
+	if (/([^\s]+(\.(?i)(jpg|png|gif|bmp))$)/.test(imagen)) {return true;alert("SI");}
+		else return false;	
+}
+		
 function validaEntero(numero){
     if (isNaN(numero)){
         return true;

@@ -88,18 +88,35 @@ public class PlacaWireless extends Padre {
            
          
             if(sesion.getAttribute("dni")!=null && sesion.getAttribute("dni")!="")
+            	if(sesion.getAttribute("EsAdmin")!=null && sesion.getAttribute("EsAdmin").equals(0))
+            	{
             {
             if(!agregado)
             {
-            out.println("<input type=\"button\" id=\"btnAgregar\" title=\"Agregar\" value=\"Agregar\" onclick=\"agregar("+pro.getCodigo()+")\" />");
+            	 // out.println("<input type=\"button\" id=\"btnAgregar\" title=\"Agregar\" value=\"Agregar\" onclick=\"agregar("+pro.getCodigo()+")\" />");
+        out.print("<img src=\"css/images/cart_add.png\" id=\"btnAgregar\" alt=\"\" onclick=\"agregar("+pro.getCodigo()+")\" />");
+            				    
             }
             else
             {
-            out.println("<input type=\"button\" id=\"btnQuitar\" title=\"Quitar\" value=\"Quitar\" onclick=\"quitar("+pro.getCodigo()+")\" />");
-                 
+         //   out.print("<input type=\"button\" id=\"btnQuitar\" title=\"Quitar\" value=\"Quitar\" onclick=\"quitar("+pro.getCodigo()+")\" />");
+            out.print("<img src=\"css/images/cart_delete.png\" id=\"btnQuitar\" alt=\"\" onclick=\"quitar("+pro.getCodigo()+")\" />");
+            
             }
             out.println("</li>");
             }
+            }
+            	else
+            	{
+            		if(sesion.getAttribute("modificarProducto")!=null && sesion.getAttribute("modificarProducto")=="eliminar")
+            		{
+            			 out.println("<input type=\"button\" id=\"btnEliminar\" title=\"Eliminar\" value=\"Eliminar\" onclick=\"eliminar("+pro.getCodigo()+")\" />");
+                    }
+            		if(sesion.getAttribute("modificarProducto")!=null && sesion.getAttribute("modificarProducto")=="editar")
+            		{
+            			 out.println("<input type=\"button\" id=\"btnEditar\" title=\"Editar\" value=\"Editar\" onclick=\"editar("+pro.getCodigo()+")\" />");
+                    }
+            	}
             }
     	}
 

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import Controlador.Controlador_encar.Prods;
 import Modelo.LineaProducto;
 import Modelo.Producto;
 import Modelo.CarritoCompra;
@@ -34,6 +35,7 @@ public class DBProductos extends DBAdapter
 	    MEMORIA,
 	    MICRO,
 	    PLATAFORMA,
+	    PLACAMADRE,
 	    PRED,
 	    PSONIDO,
 	    PVIDEO,
@@ -44,6 +46,7 @@ public class DBProductos extends DBAdapter
 	
 	public Producto buscaProducto(String nombre,String modelo)
 	{
+		
 		Producto prod=null;
 		try
 		{
@@ -93,37 +96,68 @@ public class DBProductos extends DBAdapter
 		return prods;
 	}
 	
-	public Producto buscaProducto(int codigo,String tipo)
+	public Producto buscaProducto(int codigo,String tipo) throws SQLException
 	{
 		Producto prod=null;
-		try
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+		Prods enumval = Prods.valueOf(tipo.toUpperCase());
+		switch(enumval)
 		{
-		Statement st=conex.createStatement();
-		ResultSet rs=st.executeQuery("SELECT * FROM Productos where codigo= '"+codigo+"'");;
-		while(rs.next())
-		{
-		if(rs.getInt("codigo")==(codigo))
-			{
-			prod=new Producto();
-			prod.setCodigo(rs.getInt("codigo"));
-			prod.setFoto(rs.getString("foto"));
-			prod.setModelo(rs.getString("modelo"));
-			prod.setNombre(rs.getString("nombre"));
-			prod.setPrecio(rs.getFloat("precio"));
-			prod.setTipo(rs.getString("tipo"));
-			prod.setDescripcion(rs.getString("Descripcion"));
-			return prod;
-			}
+		case FUENTE:
+			productos=this.buscaFuentes();
+		break;
+		
+	    case GABINETE:
+	    	productos=this.buscaGabinetes();
+	    	  break;
+	    	  
+	    	  
+	      case HD:
+	    	  productos=this.buscaHds();
+	    	  break;
+	    	  
+	    	  
+	      case MEMORIA:
+	    	  productos=this.buscaMemorias();
+	    	  break;
+	    	  
+	      case MICRO:
+	    	  
+	    	  productos=this.buscaMicros();
+	    	  break;
+	    	  
+	    	   case PLACAMADRE:
+	    	  productos=this.buscaPlacasMadres();
+	    	  break;
+	    	  
+	    	  
+	      case PRED:
+	    	  productos=this.buscaPredss();
+	    	  break;
+	    	  
+	    	  
+	      case PSONIDO:
+	    	  productos=this.buscaPsonidos();
+	    	  break;
+	    	  
+	      case PVIDEO:
+	    	  productos=this.buscaPlacaVideos();
+	    	  break;
+	      case PWIRELESS:
+	    	  productos=this.buscaPWireless();
+	    	  break;
+	      	case RCABLE:
+	      		productos=this.buscaRcables();
+	    	  break;		
 		}
+	    	  for (Producto p : productos) {
+	    		  if(p.getCodigo() == codigo)
+	    		  {
+	    			prod = p;	    			
+	    		  }				
+			}
+		
 		return prod;
-		
-		
-	} catch (SQLException t) 
-	{
-		
-	t.printStackTrace();
-	return prod;
-	}
 		
 		
 	}
@@ -435,9 +469,9 @@ PreparedStatement preparedStatement = conex.prepareStatement("INSERT INTO Produc
 		{
 		
 Statement st=conex.createStatement();
-st.execute("UPDATE Productos set (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'"
+st.execute("UPDATE Productos set nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'"
 +",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"',wattsF='"+prod.getWatts()+"'" +
-",amperajeF='"+prod.getAmperaje()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
+",amperajeF='"+prod.getAmperaje()+"' where codigo='"+prod.getCodigo()+"'");
 
 	} catch (SQLException t) 
 		{
@@ -452,8 +486,8 @@ st.execute("UPDATE Productos set (nombre='"+prod.getNombre()+"',modelo='"+prod.g
 		try
 		{
 Statement st=conex.createStatement();
-st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
-		",precio="+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"',tamañoG='"+prod.getTamaño()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
+st.execute("UPDATE Productos SET nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+		",precio="+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"',tamañoG='"+prod.getTamaño()+"'where codigo='"+prod.getCodigo()+"'");
 	
 	} catch (SQLException t) 
 		{
@@ -469,10 +503,10 @@ st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.g
 		{
 		
 		Statement st=conex.createStatement();
-		st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+
+		st.execute("UPDATE Productos SET nombre='"+prod.getNombre()+
 				"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"',precio='"+prod.getPrecio()+"'" +
 ",foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"',velocidadPR='"+prod.getVelocidad()+"'" +
-		" where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
+		"'where codigo='"+prod.getCodigo()+"'");
 	
 	} catch (SQLException t) 
 		{
@@ -488,9 +522,9 @@ st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.g
 		{
 		
 Statement st=conex.createStatement();
-st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+st.execute("UPDATE Productos SET nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
 ",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"',seguridad='"+prod.getSeguridad()+"'," +
-		"velocidadPR='"+prod.getVelocidad()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
+		"velocidadPR='"+prod.getVelocidad()+"'where codigo='"+prod.getCodigo()+"'");
 	
 	} catch (SQLException t) 
 		{
@@ -506,10 +540,10 @@ st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.g
 		{
 		
 Statement st=conex.createStatement();
-st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+st.execute("UPDATE Productos SET nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
 ",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"'" +
 ",abusvga='"+prod.getAnchobus()+"',cantmemVGA='"+prod.getCantmem()+"',frecVGA='"+prod.getFrecuencia()+"'" +
-",pipelsvga='"+prod.getPipelines()+"',shadersvga='"+prod.getShaders()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
+",pipelsvga='"+prod.getPipelines()+"',shadersvga='"+prod.getShaders()+"'where codigo='"+prod.getCodigo()+"'");
 	
 	} catch (SQLException t) 
 		{
@@ -525,10 +559,9 @@ st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.g
 		{
 		
 		Statement st=conex.createStatement();
-st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+st.execute("UPDATE Productos SET nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
 ",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"'," +
-		"jacksS='"+prod.getJacks()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
-	
+		"jacksS='"+prod.getJacks()+"'where codigo='"+prod.getCodigo()+"'");
 	} catch (SQLException t) 
 		{
 		
@@ -543,9 +576,9 @@ st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.g
 		{
 		
 		Statement st=conex.createStatement();
-st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+st.execute("UPDATE Productos SET nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
 ",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"'" +
-				",velocidadPR='"+prod.getVelocidad()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
+				",velocidadPR='"+prod.getVelocidad()+"'where codigo='"+prod.getCodigo()+"'");
 	
 	} catch (SQLException t) 
 		{
@@ -561,9 +594,9 @@ st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.g
 		{
 		
 		Statement st=conex.createStatement();
-		st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+		st.execute("UPDATE Productos SET nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
 ",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"',socket='"+prod.getSocket()+"',cantusbMO='"+prod.getCantusb()+"',usb30MO='"+prod.getCantusb30()+"',cantPCIEMO='"+prod.getCantPCIE()+"',vOnboardMO='"+prod.getvOnboard()+"',sOnboardMO='"+prod.getsOnboard()+"',ChipsetMO='"+prod.getChipset()+"',cantmaxmemMO='"+prod.getCantmaxmem()+"'   " +
-		" where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
+		"'where codigo='"+prod.getCodigo()+"'");
 	
 	} catch (SQLException t) 
 		{
@@ -579,9 +612,9 @@ st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.g
 		{
 		
 		Statement st=conex.createStatement();
-st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+st.execute("UPDATE Productos SET nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
 ",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"'" +
-		",cacheM='"+prod.getCaché()+"',frecM='"+prod.getFrecuencia()+"',socket='"+prod.getSocket()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
+		",cacheM='"+prod.getCaché()+"',frecM='"+prod.getFrecuencia()+"',socket='"+prod.getSocket()+"'where codigo='"+prod.getCodigo()+"'");
 	
 	} catch (SQLException t) 
 		{
@@ -598,10 +631,9 @@ st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.g
 		{
 		
 Statement st=conex.createStatement();
-st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+st.execute("UPDATE Productos SET nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
 ",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"'" +
-"cantmemMEM='"+prod.getCantmen()+"',frecMEM='"+prod.getFrecuencia()+"',latenciaMEM='"+prod.getLatencia()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
-	
+",cantmemMEM='"+prod.getCantmen()+"',frecMEM='"+prod.getFrecuencia()+"',latenciaMEM='"+prod.getLatencia()+"'where codigo='"+prod.getCodigo()+"'");
 	} catch (SQLException t) 
 		{
 		
@@ -616,9 +648,9 @@ st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.g
 		{
 		
 		Statement st=conex.createStatement();
-st.execute("UPDATE Productos SET (nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
+st.execute("UPDATE Productos SET nombre='"+prod.getNombre()+"',modelo='"+prod.getModelo()+"',descripcion='"+prod.getDescripcion()+"'" +
 ",precio='"+prod.getPrecio()+"',foto='"+prod.getFoto()+"',tipo='"+prod.getTipo()+"'" +
-"buffeHD='"+prod.getBuffer()+"',capHD='"+prod.getCapacidad()+"',interfazHD='"+prod.getInterfaz()+"',rpmHD='"+prod.getRpm()+"' where nombre='"+prod.getNombre()+"' AND modelo='"+prod.getModelo()+"')");
+"buffeHD='"+prod.getBuffer()+"',capHD='"+prod.getCapacidad()+"',interfazHD='"+prod.getInterfaz()+"',rpmHD='"+prod.getRpm()+"'where codigo='"+prod.getCodigo()+"'");
 	
 	} catch (SQLException t) 
 		{

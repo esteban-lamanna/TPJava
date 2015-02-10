@@ -18,7 +18,10 @@
 
 <script type="text/javascript">
 
-
+$(document).ready(function()
+{
+	$("#dni").focus();
+});
 //Funcion para validar Enteros
 function validarEntero(valor)
 { 
