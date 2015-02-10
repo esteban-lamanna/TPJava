@@ -68,6 +68,54 @@ public class DBCompras extends DBAdapter
 		
 	}
 	
+	public ArrayList<Compra> getCompras()
+	{
+		ArrayList<Compra> compras=new ArrayList<Compra>();
+		Compra comp;
+		try
+		{
+		Statement st=conex.createStatement();
+		ResultSet rs=st.executeQuery("SELECT * FROM Compras");
+		
+		while(rs.next())
+		{
+		comp=new Compra();
+		comp.setCodcompra(rs.getInt("codcompra"));
+		comp.setDni(rs.getInt("dni"));
+		comp.setFecha(rs.getTimestamp("fecha"));
+		comp.setTotalcompra(rs.getFloat("total"));
+		comp.setEstado(rs.getString("estado"));
+		compras.add(comp);
+		}
+		return compras;
+	} catch (SQLException t) 
+	{
+		
+	t.printStackTrace();
+	return compras;
+	}
+	}
+		
+	
+	public void GuardarEstadoCompra(ArrayList<Compra> comp)
+	{
+		try
+		{
+		for(Compra com : comp)
+		{
+			Statement st=conex.createStatement();
+			st.execute("UPDATE compras SET estado='"+com.getEstado()+"' where codcompra='"+com.getCodcompra()+"'");
+		}
+	
+	} catch (SQLException t) 
+		{
+		
+		t.printStackTrace();
+	
+		}
+		
+	}
+	
 	
 	/*public ArrayList<LineaProducto> buscaLineas(String codCarrito)
 	{

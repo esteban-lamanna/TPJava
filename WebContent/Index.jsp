@@ -55,7 +55,7 @@
 					 <li><a href="Login.jsp">Ingresar</a></li>
 				   	 <li><a href="Registro.jsp">Registrarme</a></li>
 				   <%}%>
-				     <li class="last"><a href="#">Home</a></li>
+				     <li class="last"><a href="Index.jsp">Home</a></li>
 				</ul>
 						
 			
@@ -322,7 +322,7 @@
 					$(document).ready(function() {
 						   $('#tab8').click(function(){
 							   deselecionar();
-								var nodo = document.getElementById("tab7");
+								var nodo = document.getElementById("tab8");
 								nodo.className = "active";
 						      $.ajax({
 							    type: "POST",
@@ -488,9 +488,9 @@
 					<h3>Brands</h3>
 					<div class="logos">
 						<a href="#"><img src="css/images/nvidia.jpg" alt="" /></a>
-						<a href="#"><img src="css/images/intel.jpg" alt="" /></a>
+						<a href="#"><img src="css/images/nvidiaGrande2.jpg" alt="" /></a>
 						<a href="#"><img src="css/images/amdnvidia.jpg" alt="" /></a>
-						<a href="#"><img src="css/images/windows.jpg" alt="" /></a>
+						<a href="#"><img src="css/images/windows.jpg" alt=""/></a>
 					</div>
 				</div>
 				<!-- End Brands -->

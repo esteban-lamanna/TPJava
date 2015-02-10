@@ -40,8 +40,7 @@ public class RedCable extends Padre {
         ArrayList<Producto>prodsCarroActual = new ArrayList<Producto>();
         if(contr.getCarroCompleto()!=null){
         if(contr.getCarroCompleto().getProductosCarro()!=null)
-        {
-        	
+        {	
         
         prodsCarroActual = contr.getCarroCompleto().getProductosCarro();
         }

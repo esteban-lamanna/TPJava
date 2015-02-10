@@ -103,6 +103,27 @@ public void LevantaCarroOld(String dni)
 	
 }
 
+
+public ArrayList<Compra> getCompras()
+{
+	return ComprasDB.getCompras();
+}
+
+
+public void saveEstadoCompras(String codigos[],String estados[])
+{
+	ArrayList<Compra> compras = new ArrayList<Compra>();
+	for(int i=0;i<codigos.length;i++){
+		Compra com = new Compra();
+		com.setEstado(estados[i]);
+		com.setCodcompra(Integer.valueOf(codigos[i]));
+
+		compras.add(com);
+	}
+	ComprasDB.GuardarEstadoCompra(compras);
+	}
+
+
 public void modificaUsuario(String dni,String pass,String valpass,String apellido,String direccion,String localidad,String direnvio,String nombre,String mail, String edad)
 {
 	UsuariosDB=new DBUsuarios();
