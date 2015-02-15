@@ -7,6 +7,7 @@
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>CompuCom.com</title>
+	<link rel="stylesheet" href="css/jquery.bxslider.css" />
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 	<!--[if lte IE 6]>
 		<style type="text/css" media="screen">
@@ -15,13 +16,13 @@
 	<![endif]-->
 	<link rel="stylesheet" href="css/jquery.bxslider.css" type="text/css" media="all" />
 	<script src="js/jquery-1.4.1.min.js" type="text/javascript"></script>
-	<script src="js/jquery.jcarousel.pack.js" type="text/javascript"></script>
-	<script src="js/jquery.slide.js" type="text/javascript"></script>
-	<script src="js/jquery-func.js" type="text/javascript"></script>
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<!--<script src="js/jquery.jcarousel.pack.js" type="text/javascript"></script>-->
+	<!--<script src="js/jquery.slide.js" type="text/javascript"></script> -->
+	<!--<script src="js/jquery-func.js" type="text/javascript"></script>-->
+	<!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-    <script src="js/jquery/bxslider.js" type="text/javascript"></script>
+    <script src="js/jquery.bxslider.js" type="text/javascript"></script>
     
 	
 </head>
@@ -63,25 +64,7 @@
 			</div>
 		</div>
 		<!-- End Header -->
-		
-		<!-- Slider -->
-		
-		<div id="slider">
-		<div id="slider-holder">
-		<ul class="bxslider">
-		<li><img src="css/images/nvidiaGrande.jpg" /></li>
-  <li><img src="css/images/intelGrande.jpg" /></li>
-  
-   <li><img src="css/images/nvidiaGrande2.jpg" /></li>
- 
-</ul>
-</div>
-<div id="slider-nav">
-				<a href="#" class="prev">Previous</a>
-				<a href="#" class="next">Next</a>
-			</div>
-		</div>
-		<!--
+	
 		<div id="slider">
 			<div id="slider-holder">
 				<ul>
@@ -160,11 +143,10 @@
 			</div>
 			
 <script type="text/javascript">
-
 				
 		$(document).ready(function() {
 			debugger;
-			// $('.bxslider').bxSlider();
+			 //$(".bxslider").bxSlider();
 					$('#submit').click(function(event) {
 						deselecionar();
 						var buscarVar = $('#buscar').val();
@@ -487,8 +469,8 @@
 				<div class="brands">
 					<h3>Brands</h3>
 					<div class="logos">
-						<a href="#"><img src="css/images/nvidia.jpg" alt="" /></a>
-						<a href="#"><img src="css/images/nvidiaGrande2.jpg" alt="" /></a>
+						<a href="#"><img src="css/images/apple.jpg" alt="" /></a>
+						<a href="#"><img src="css/images/intel.jpg" alt="" /></a>
 						<a href="#"><img src="css/images/amdnvidia.jpg" alt="" /></a>
 						<a href="#"><img src="css/images/windows.jpg" alt=""/></a>
 					</div>

@@ -11,7 +11,7 @@ $( document ).ready( function(){
 			}
 		});
 		
-	$('#slider-holder ul').jcarousel({
+	/*$('#slider-holder ul').jcarousel({
 		scroll: 1,
 		wrap: 'both',
 		initCallback: _init_carousel,
@@ -21,9 +21,9 @@ $( document ).ready( function(){
 	
 	$('.tabs a').slide({
 		'slide_selector' : '.tab-content'
-	})
+	})*/
 });
-function _init_carousel(carousel) {
+/*function _init_carousel(carousel) {
 	$('#slider-nav .next').bind('click', function() {
 		carousel.next();
 		return false;
@@ -33,4 +33,4 @@ function _init_carousel(carousel) {
 		carousel.prev();
 		return false;
 	});
-};
+};*/
