@@ -55,9 +55,7 @@ public class Usuarios extends Padre {
         String direnvios = request.getParameter("direnvios");
         String edad = request.getParameter("edad");
         String emailUsuario = request.getParameter("email");
-        Controlador_encar contr = getControlador();
-       
-        
+        Controlador_encar contr = getControlador();             
         
         Pattern p = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
@@ -102,26 +100,43 @@ public class Usuarios extends Padre {
 						}
 							else
 							{
+								HttpSession session = request.getSession(true);
 								if(contr.buscaUsuario(dni)==null)
 								{
 									//El usuario no existe, por lo tanto lo Inserto a la DB
 								    contr.nuevoUsuario(dni,password , confirm_password, nombre, apellido, direccion, direnvios, edad, emailUsuario,localidad);
-								    HttpSession session = request.getSession(true);
+								   	if(session.getAttribute("EsAdmin").equals(0))
+								    {
 								    session.setAttribute("dni",dni);
 								    session.setAttribute("username", nombre);
-						            session.setAttribute("EsAdmin",0);
-								    response.sendRedirect("Index.jsp");
-								}
+						            session.setAttribute("EsAdmin",0);								    
+								    response.sendRedirect("Index.jsp");}
+								    else
+								    {
+								    	response.sendRedirect("MasterMenu.jsp");
+								    }
+								    }
+							
+								
 								else
 								{
 									//El usuario existe, por lo tanto actualizo la DB
 									contr.modificaUsuario(dni,password, confirm_password, apellido, direccion, localidad, direnvios, nombre, emailUsuario, edad);
-									 HttpSession session = request.getSession(true);
-									   
+									if(session.getAttribute("EsAdmin").equals(0))
+								    {	
 									    session.setAttribute("username", nombre);
 							            session.setAttribute("EsAdmin",0);
+								    
 									response.sendRedirect("Index.jsp");
-								}
+								    }
+									 else
+									    {
+									    	response.sendRedirect("MasterMenu.jsp");
+									    	
+									    }
+									    }
+									    
+								
 					            
 							}
 				    }

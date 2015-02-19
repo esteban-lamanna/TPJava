@@ -305,8 +305,7 @@ public class RegistroConUpload extends Padre {
 	        			sesion.setAttribute("confirm","bien");
 	        		}
 
-	        		response.sendRedirect("Altaproductos.jsp");
-	        	 
+	        		response.sendRedirect("Altaproductos.jsp");    	 
 	        	 
 	              
 	                // String fieldName = fi.getFieldName();                

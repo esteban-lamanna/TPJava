@@ -1028,6 +1028,7 @@ st.execute("UPDATE Productos SET nombre='"+prod.getNombre()+"',modelo='"+prod.ge
 			
 			productos.add(prod);
 		}
+		System.out.println("cantidad = " + productos.size());
 
 		return productos;
 	} catch (SQLException t) 

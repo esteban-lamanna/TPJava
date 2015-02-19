@@ -358,7 +358,7 @@ if(validaFloat(document.getElementById("jacks").value))
 	if(bien) 
 		{
 		errores+="Validacion de ingreso de correcta, presione aceptar para continuar";
-		alert(errores);
+		//alert(errores);
 		return true;
 		}
 

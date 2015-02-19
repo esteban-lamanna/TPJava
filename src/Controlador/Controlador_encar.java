@@ -76,8 +76,17 @@ public enum Prods {
 public boolean Login(String dni,String pass)
 {
 	boolean band = false;
+	try
+	{	
 	UsuariosDB=new DBUsuarios();
 	usuarioActual=UsuariosDB.validaUsuario(dni,pass);
+	}
+	catch(Exception e)
+	{
+		throw e;
+	}
+	finally
+	{
 	if(usuarioActual!=null)
 	{
 		band = true;
@@ -85,6 +94,7 @@ public boolean Login(String dni,String pass)
 		carroNew=new CarritoCompra();
 	}
 	return band;
+	}
 }
 
 public void SetCarroComprasAUsuario(CarritoCompra carro)

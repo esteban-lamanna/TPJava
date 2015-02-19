@@ -37,6 +37,7 @@
 
 </head>
 <body>
+
   <!-- Top -->
 		<div id="topAdmin">
 	
@@ -46,22 +47,43 @@
 					<h1 id="logo"><a href="#"></a></h1>
 					<div id="navigation">
 				<ul id="sddm">
-				<%if(session.getAttribute("username")!= null)
+				<%
+			    HttpSession sesion = request.getSession(false);
+				if(sesion==null)
+				{
+					sesion = request.getSession(true);
+				}		
+				if(sesion.getAttribute("confirm")=="bien" && sesion.getAttribute("confirm")!=null )
+				 {
+				 	  sesion.setAttribute("confirm",null);
+				 	 response.sendRedirect("MasterMenu.jsp");
+				 }
+				else
+				{
+					if(sesion.getAttribute("confirm")!="bien" && sesion.getAttribute("confirm")!=null )
 					{
-					if(session.getAttribute("EsAdmin").equals(0))
+						%>
+						<p><FONT FACE="arial" SIZE=9 COLOR=red>!!ERROR!! EL PRODUCTO INGRESADO YA EXISTE CON ESE NOMBRE Y ESE MODELO</FONT></p>
+					<%}
+				}
+				 
+				
+				if(sesion.getAttribute("username")!= null)
+					{
+					if(sesion.getAttribute("EsAdmin").equals(0))
 					{response.sendRedirect("Index.jsp");}
 				%>
-					<li><a href="EdicionUsuario.jsp"> Hola <%=session.getAttribute("username")%></a></li>
+					<li><a href="EdicionUsuario.jsp"> Hola <%=sesion.getAttribute("username")%></a></li>
 					<li><a href="CerrarSesion.jsp">Cerrar Sesion</a></li>
 				  	<%
 				  	} 
 				
-				if(session.getAttribute("username")== null)
+				if(sesion.getAttribute("username")== null)
 					{response.sendRedirect("Login.jsp");
 					
 					}
 					%>
-				     <li class="last"><a href="#">Home</a></li>
+				     <li class="last"><a href="MasterMenu.jsp">Home</a></li>
 				</ul>
 						
 			
@@ -117,17 +139,22 @@
 	 <p type="text" id="resultinput" name="resultinput" ></p>
 		             
      
-      <% if(session.getAttribute("confirm")!="bien" && session.getAttribute("confirm")!=null )
-{session.setAttribute("confirm",null);
+     <%-- <% if(sesion.getAttribute("confirm")!="bien" && sesion.getAttribute("confirm")!=null )
+{sesion.setAttribute("confirm",null);
 	%><p><FONT FACE="arial" SIZE=9 COLOR=red>!!ERROR!! EL PRODUCTO INGRESADO YA EXISTE CON ESE NOMBRE Y ESE MODELO</FONT></p><%
 }
 else
-{	if(session.getAttribute("confirm")=="bien")
+{	if(sesion.getAttribute("confirm")=="bien")
 	{
-	session.setAttribute("confirm",null);
+	sesion.setAttribute("confirm",null);
 	%><div><FONT FACE="arial" SIZE=9 COLOR=red>PRODUCTO REGISTRADO CORRECTAMENTE</FONT></div><%
 	}
- }%>
+ }%> --%>
+ 
+ 
+ 
+ 
+ 
      <label>
 				        	<span>&nbsp</span>
 				        	<input type="button" value="Volver" onclick="location.href = 'Index.jsp' "> 

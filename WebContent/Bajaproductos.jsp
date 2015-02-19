@@ -154,7 +154,11 @@
 						        url: "BorraProductos.jsp",
 							    data: {'cod':cod},
 							    success: function(a) {					             
-								window.location.reload();
+								location.href="MasterMenu.jsp";
+							    },
+							    error:function(a)
+							    {
+							    	alert("Ha habido un error");
 							    }
 						       });
 				      }
@@ -251,8 +255,13 @@ else
 	{
 	session.setAttribute("modificarProducto",null);
 	session.setAttribute("confirm",null);
+	//response.sendRedirect("MasterMenu.jsp");
 	%>
-	<script>alert("El producto se ha eliminado exitosamente");</script>
+	<script>
+	
+	alert("PRODUCTO ELIMINADO CORRECTAMENTE");
+	location.href="MasterMenu.jsp";
+	</script>
 	<%
 	}
  }%>

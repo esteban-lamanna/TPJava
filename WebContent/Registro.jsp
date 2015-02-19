@@ -245,11 +245,41 @@ function validarEnvio(){
 </head>
     <body>
     <!-- Top -->
-		
+		<div id="topFormularios">
+<div id="topAdmin">
+		<div class="shell">
+	
 				<!-- Header -->
 				<div id="header" style="color: #ff0000">
 					<h1 id="logo"><a href="#"></a></h1>
+					<div id="navigation">
+				<ul id="sddm">
+				<%if(session.getAttribute("username")!= null)
+					{
+					if(session.getAttribute("EsAdmin").equals(0))
+					{response.sendRedirect("Index.jsp");}
+				%>
+					<li><a href="EdicionUsuario.jsp"> Hola <%=session.getAttribute("username")%></a></li>
+					<li><a href="CerrarSesion.jsp">Cerrar Sesion</a></li>
+					
+					
+				  	<%} 
+				
+				if(session.getAttribute("username")== null)
+					{response.sendRedirect("Login.jsp");
+					
+					}%>
+					
+				     <li class="last"><a href="MasterMenu.jsp">Home</a></li>
+				</ul>
+						
+			
+				<div style="clear:both"></div>
+			</div>
 			    </div>
+			    	</div>
+</div>
+</div>
        <div id="main" >
        <div class="shell">
        <div class="options"></div>

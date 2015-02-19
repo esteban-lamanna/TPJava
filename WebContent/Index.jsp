@@ -68,7 +68,7 @@
 		<div id="slider">
 			<div id="slider-holder">
 				<ul>
-				    <li><a href="#"><img src="css/images/slide1.jpg" alt="" /></a></li>
+				    <li><a href="#"><img src="css/images/nvidiaGrande.jpg" alt="" /></a></li>
 				    <li><a href="#"><img src="css/images/slide2.jpg" alt="" /></a></li>
 				    <li><a href="#"><img src="css/images/tab.gif" alt="" /></a></li>
 				</ul>
@@ -100,7 +100,8 @@
 			
 			<div class="right">
 			<%if (session.getAttribute("dni")!=null &&session.getAttribute("dni")!=""){ 
-		
+				
+				if (session.getAttribute("EsAdmin")!=null &&session.getAttribute("EsAdmin").equals(0)){ 
 			session.setAttribute("modificarProducto",null);
 			%>
 				<span class="cart">
@@ -117,7 +118,8 @@
 			
 				</script>
 			
-				<%} %>
+				<%}
+				}%>
 			</div>
 		</div>
 		<!-- End Search, etc -->
@@ -158,7 +160,11 @@
 							    data: {'nombre':buscarVar},
 							    success: function(a) {
 						                $('#results').html(a);
-							    }
+							    },
+							    error:function(e)
+							    	{
+							    	alert("Ha habido un error");
+							    	}
 						       });
 					});
 				});			
@@ -207,7 +213,11 @@
 							    url: "Fuentes",
 							    success: function(a) {
 						                $('#results').html(a);
-							    }
+							    },
+							    error:function(e)
+						    	{
+						    	alert("Ha habido un error");
+						    	}					       
 						       });
 						   });
 						});	
@@ -222,7 +232,13 @@
 						    url: "Gabinetes",
 						    success: function(a) {
 					                $('#results').html(a);
-						    }
+						    },
+						    error:function(e)
+					    	{
+						    	debugger;
+					    	alert("Ha habido un error: "+e.statusText);
+					    	}					       
+					      
 					       });
 					   });
 					});		
@@ -472,7 +488,6 @@
 						<a href="#"><img src="css/images/apple.jpg" alt="" /></a>
 						<a href="#"><img src="css/images/intel.jpg" alt="" /></a>
 						<a href="#"><img src="css/images/amdnvidia.jpg" alt="" /></a>
-						<a href="#"><img src="css/images/windows.jpg" alt=""/></a>
 					</div>
 				</div>
 				<!-- End Brands -->

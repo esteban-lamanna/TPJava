@@ -1,4 +1,5 @@
 package DB;
+import java.net.UnknownHostException;
 import java.sql.*;
 
 import Modelo.Compra;
@@ -12,17 +13,21 @@ public class DBAdapter
 		{   
 			try {  Class.forName("com.mysql.jdbc.Driver");
 		             
-		            // conex=DriverManager.getConnection("jdbc:mysql://localhost/tpf", "root", "");
+		           //  conex=DriverManager.getConnection("jdbc:mysql://localhost/tpf", "root", "");
 		            //en el server: pass: mVQ5t0w0Ov 
-			conex=DriverManager.getConnection("jdbc:mysql://mysql13631-basedatos.jelastic.hostdime.com/tpf", "root", "mVQ5t0w0Ov");
+		    conex=DriverManager.getConnection("jdbc:mysql://mysql13631-basedatos.jelastic.hostdime.com/tpf", "esteban", "HtxX5wRLPJeQTrWE");
+
+		//	conex=DriverManager.getConnection("jdbc:mysql://mysql13631-basedatos.jelastic.hostdime.com/tpf", "root", "mVQ5t0w0Ov");
 		//	https://mysql13631-basedatos.jelastic.hostdime.com/
-				} catch (ClassNotFoundException ex) 
+				} 
+			
+			
+			catch (ClassNotFoundException ex) 
 					{
 					System.out.println("No se pudo conectar a la BD");
 					ex.printStackTrace();
 						
-					} 
-				
+					} 			
 				
 				
 				catch (SQLException e) 

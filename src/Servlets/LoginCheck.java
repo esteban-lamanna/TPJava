@@ -1,7 +1,9 @@
 package Servlets;
 
+import java.io.Console;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.UnknownHostException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.mysql.jdbc.CommunicationsException;
 
 import Controlador.Controlador_encar;
 import DB.DBCarros;
@@ -39,8 +43,7 @@ public class LoginCheck extends Padre {
         String dni=request.getParameter("dni");
         String pass=request.getParameter("password");
         boolean respuesta = false;
-        PrintWriter out=response.getWriter();
-        
+        PrintWriter out=response.getWriter();        
         
     	if(cont.Login(dni,pass))
         {
@@ -57,7 +60,8 @@ public class LoginCheck extends Padre {
 		// TODO Auto-generated method stub
 		Controlador_encar cont= getControlador();
         String dni=request.getParameter("dni");
-        String pass=request.getParameter("password");       
+        String pass=request.getParameter("password");  
+        try{
         	if(cont.Login(dni,pass))
             {
         	HttpSession sesion = request.getSession(false);
@@ -78,6 +82,21 @@ public class LoginCheck extends Padre {
             sesion.setAttribute("bandera", 1);
             response.sendRedirect("Index.jsp");
             }
+        }        
+	
+        catch(java.rmi.UnknownHostException a)
+        {
+        	response.sendRedirect("HostDesconocido.jsp");
+        }
+        catch(UnknownHostException u)
+        {
+        	response.sendRedirect("HostDesconocido.jsp");
+        }
+        catch(Exception e)
+        {        	
+        	System.out.println(e.getMessage());
+        	response.sendRedirect("Excepcion.jsp");
+        }
 	}
 
 }
